@@ -4,7 +4,7 @@
     if (invalidClick(selected)) return false;
     var pathToSelected = selectSame(selected);
     //$(pathToSelected).toggleClass('selected');
-    scrapeResults.scrapes.push(scrapeDetails(pathToSelected));
+    scrapeDetails(pathToSelected);
     console.log(scrapeResults);
   });
 
@@ -15,6 +15,13 @@
   }
 
   function scrapeDetails(path){
+    var duplicate = false;
+    scrapeResults.scrapes.forEach(function(scrape){
+      if (scrape.path === path) {duplicate = true};
+    });
+
+    if (duplicate) return false
+
     var details = {
       'path': path,
       'elemContents': []
@@ -22,7 +29,7 @@
     $(path).each(function(i, ele){
       details.elemContents.push($(ele).text());
     });
-    return details
+    scrapeResults.scrapes.push(details);
   }
 
   function selectSame(elem){
@@ -65,9 +72,9 @@ chrome.runtime.onMessage.addListener(
 );
 
 var scrapeResults = {
-    'url': window.location.href,
-    'protocol': getProtocol(),
-    'scrapes': []
+  'url': window.location.href,
+  'protocol': getProtocol(),
+  'scrapes': []
 }
 
 
