@@ -1,44 +1,87 @@
-function createCORSRequest(method, url){
-  var xhr = new XMLHttpRequest();
-  xhr.open(method, url, true);
-  return xhr;
-}
+(function(){
+  $(document).on('click', function(event){
+    var selected = $(event.target);
+    if (invalidClick(selected)){
+      console.log('in')
+      return false;
+    }
+    var pathToSelected = selectSame(selected);
+    //$(pathToSelected).toggleClass('selected');
+    scrapeResults.scrapes.push(scrapeDetails(pathToSelected));
+    console.log(scrapeResults);
+  });
+
+  function invalidClick(target){
+    return false;
+  }
+
+  function scrapeDetails(path){
+    var details = {
+      'path': path,
+      'elemContents': []
+    }
+    $(path).each(function(i, ele){
+      details.elemContents.push($(ele).text());
+    });
+    return details
+  }
+
+  function selectSame(elem){
+    var parentsEles = [];
+    elemPath = filterEles(elem.parents());
+    $(elemPath).addBack().each(function() {
+      var entry = this.tagName.toLowerCase();
+      if (this.className) {
+        entry += "." + this.className.replace(/ /g, '.');
+      }
+      parentsEles.push(entry);
+    });
+    return parentsEles.join(" ") + ' ' + elem.prop("tagName").toLowerCase();
+  }
+
+  function filterEles(elemArray){
+    return elemArray.not('body').not('html');
+  } 
+
+})();
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if ( request.message === "clicked_browser_action" ) {
-      console.log(window.location.href);
       var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
+      console.log(getProtocol());
       //var token = 'token';
       //xhr.setRequestHeader('X-CSRF-Token', token);
       //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.send(JSON.stringify({test: 'kitten'}));
+      xhr.send(JSON.stringify(scrapeResults));
 
       xhr.onreadystatechange = function(){
         if (xhr.readyState == 4 && xhr.status == 200){
           console.log('did it work?', xhr.responseText);
         }
       }
-      
-      // //xhr.send('message');
-      // $.ajax({
-      //   type: "POST",
-      //   url: "http://localhost:3000/testing",
-      //   contentType: 'application/json',
-      //   dataType: 'jsonp',
-      //   data: {test: "Did it work?"},
-      //   success: function(data) {
-      //     console.log('it worked');
-      //   }
-      // });
-      // var firstHref = $("a[href^='http']").eq(0).attr("href");
-      // console.log(firstHref);
-      // chrome.runtime.sendMessage({"message": "open_new_tab", "url": firstHref})
     }
   }
 );
 
+var scrapeResults = {
+    'url': window.location.href,
+    'protocol': getProtocol(),
+    'scrapes': []
+}
+
+
+function createCORSRequest(method, url){
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  return xhr;
+}
+
+function getProtocol(){
+  var tab_path = window.location.href;
+  return tab_path.split(':')[0]
+}
 
 
 
