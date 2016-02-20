@@ -7,12 +7,20 @@ function createCORSRequest(method, url){
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if ( request.message === "clicked_browser_action" ) {
+      console.log(window.location.href);
       var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
       //var token = 'token';
       //xhr.setRequestHeader('X-CSRF-Token', token);
       //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify({test: 'kitten'}));
+
+      xhr.onreadystatechange = function(){
+        if (xhr.readyState == 4 && xhr.status == 200){
+          console.log('did it work?', xhr.responseText);
+        }
+      }
+      
       // //xhr.send('message');
       // $.ajax({
       //   type: "POST",
