@@ -1,10 +1,7 @@
 (function(){
   $(document).on('click', function(event){
     var selected = $(event.target);
-    if (invalidClick(selected)){
-      console.log('in')
-      return false;
-    }
+    if (invalidClick(selected)) return false;
     var pathToSelected = selectSame(selected);
     //$(pathToSelected).toggleClass('selected');
     scrapeResults.scrapes.push(scrapeDetails(pathToSelected));
@@ -12,7 +9,9 @@
   });
 
   function invalidClick(target){
-    return false;
+    var invalidTargets = ['body', 'div', 'section', 'article', 'header', 'html'];
+    var targetTag = target.prop("tagName").toLowerCase();
+    return $.inArray(targetTag, invalidTargets) >= 0;
   }
 
   function scrapeDetails(path){
