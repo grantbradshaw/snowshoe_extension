@@ -1,15 +1,24 @@
 (function(){
-  const invalidTargets = ['body', 'div', 'section', 'article', 'header', 'html'];
+  const invalidTargets = ['body', 'div', 'section', 'article', 'header', 'html', 'ol', 'ul'];
 
   $(document).on('click', function(event){
     var targeted = $(event.target);
-    var pathToSelected = selectSame(targeted);
+    if (invalidClick(targeted)) return false;
+
     if (targeted.hasClass('selected')){
+      // Need to define a pathToSelected that accounts for specificity and generalizability
       $(pathToSelected).removeClass('selected');
       removeDetails(pathToSelected);
       console.log(scrapeResults);
     } else {
-      if (invalidClick(targeted)) return false;
+      var generalize = prompt("Should we select all elements like this one?");
+      
+      if (generalize === 'yes'){
+        var pathToSelected = selectSame(targeted);
+      } else {
+        var pathToSelected = targeted.getPath();
+      }
+
       $(pathToSelected).addClass('selected');
       scrapeDetails(pathToSelected);
       console.log(scrapeResults);
@@ -56,6 +65,28 @@
   function filterEles(elemArray){
     return elemArray.not('body').not('html');
   } 
+
+  jQuery.fn.getPath = function () {
+    if (this.length != 1) throw 'Requires one element.';
+
+    var path, node = this;
+    while (node.length) {
+        var realNode = node[0], name = realNode.localName;
+        if (!name) break;
+        name = name.toLowerCase();
+
+        var parent = node.parent();
+
+        var siblings = parent.children(name);
+        if (siblings.length > 1) { 
+            name += ':eq(' + siblings.index(realNode) + ')';
+        }
+
+        path = name + (path ? '>' + path : '');
+        node = parent;
+    }
+    return path;
+  };
 
 })();
 
