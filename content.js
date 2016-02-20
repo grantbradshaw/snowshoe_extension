@@ -1,27 +1,27 @@
 (function(){
+  const invalidTargets = ['body', 'div', 'section', 'article', 'header', 'html'];
+
   $(document).on('click', function(event){
-    var selected = $(event.target);
-    if (invalidClick(selected)) return false;
-    var pathToSelected = selectSame(selected);
-    //$(pathToSelected).toggleClass('selected');
-    scrapeDetails(pathToSelected);
-    console.log(scrapeResults);
+    var targeted = $(event.target);
+    var pathToSelected = selectSame(targeted);
+    if (targeted.hasClass('selected')){
+      $(pathToSelected).removeClass('selected');
+      removeDetails(pathToSelected);
+      console.log(scrapeResults);
+    } else {
+      if (invalidClick(targeted)) return false;
+      $(pathToSelected).addClass('selected');
+      scrapeDetails(pathToSelected);
+      console.log(scrapeResults);
+    }
   });
 
   function invalidClick(target){
-    var invalidTargets = ['body', 'div', 'section', 'article', 'header', 'html'];
     var targetTag = target.prop("tagName").toLowerCase();
     return $.inArray(targetTag, invalidTargets) >= 0;
   }
 
   function scrapeDetails(path){
-    var duplicate = false;
-    scrapeResults.scrapes.forEach(function(scrape){
-      if (scrape.path === path) {duplicate = true};
-    });
-
-    if (duplicate) return false
-
     var details = {
       'path': path,
       'elemContents': []
@@ -30,6 +30,14 @@
       details.elemContents.push($(ele).text());
     });
     scrapeResults.scrapes.push(details);
+  }
+
+  function removeDetails(path){
+    scrapeResults.scrapes.forEach(function(scrape, i){
+      if (scrape.path === path) {
+        scrapeResults.scrapes.splice(i, 1);
+      }
+    });
   }
 
   function selectSame(elem){
@@ -88,8 +96,3 @@ function getProtocol(){
   var tab_path = window.location.href;
   return tab_path.split(':')[0]
 }
-
-
-
-
-
