@@ -6,7 +6,8 @@
     {
       "matches": ["<all_urls>"],
       "js": ["jquery-2.2.0.min.js", "content.js"],
-      "css": ["content.css"]
+      "css": ["content.css"],
+      "all-frames": true
     }
   ], 
   "browser_action": {
@@ -17,5 +18,8 @@
   }, 
   "permissions": [
     "http://localhost/*"
+  ],
+  "web_accessible_resources": [
+    "frame.html"
   ]
 }

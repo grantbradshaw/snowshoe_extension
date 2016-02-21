@@ -106,9 +106,28 @@ chrome.runtime.onMessage.addListener(
           console.log('did it work?', xhr.responseText);
         }
       }
+
+      // Avoid recursive frame insertion...
+      var extensionOrigin = 'chrome-extension://' + chrome.runtime.id;
+      if (!location.ancestorOrigins.contains(extensionOrigin)) {
+        if ($('#sidebar').length > 0){
+          $('iframe').remove();
+        } else {
+          var iframe = document.createElement('iframe');
+          // Must be declared at web_accessible_resources in manifest.json
+          iframe.src = chrome.runtime.getURL('frame.html');
+          iframe.id = 'sidebar'
+          // Some styles for a fancy sidebar
+          iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;' +
+                                 'width:300px;height:100%;z-index:1000;';
+          document.body.appendChild(iframe);
+        }
+      }
     }
   }
 );
+
+
 
 var scrapeResults = {
   'url': window.location.href,
