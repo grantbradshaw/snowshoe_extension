@@ -101,23 +101,6 @@ chrome.runtime.onMessage.addListener(
       }
       var button_export = $('<button type="button" class="export snowshoe">Export</button>');
       frame.append(button_export)
-      $(document).on('click', '.export', function(){
-        scrapeResults.track_name = prompt('What is the name of this track?');
-
-        var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
-        console.log(getProtocol());
-        //var token = 'token';
-        //xhr.setRequestHeader('X-CSRF-Token', token);
-        //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify(scrapeResults));
-
-        xhr.onreadystatechange = function(){
-          if (xhr.readyState == 4 && xhr.status == 200){
-            console.log('did it work?', xhr.responseText);
-          }
-        }
-      });
     }
   }
 );
@@ -131,6 +114,25 @@ var scrapeResults = {
   'scrapes': []
 }
 
+$(document).on('click', '.export', function(){
+  scrapeResults.track_name = prompt('What is the name of this track?');
+
+  var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
+  console.log(getProtocol());
+  //var token = 'token';
+  //xhr.setRequestHeader('X-CSRF-Token', token);
+  //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send(JSON.stringify(scrapeResults));
+
+  xhr.onreadystatechange = function(){
+    if (xhr.readyState == 4 && xhr.status == 200){
+      $('.toolbar').remove();
+      scrapeResults.track_name = '';
+      scrapeResults.scrapes = [];
+    }
+  }
+});
 
 function createCORSRequest(method, url){
   var xhr = new XMLHttpRequest();
