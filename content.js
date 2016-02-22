@@ -107,7 +107,7 @@ function selectSame(elem){
     }
     parentsEles.push(entry);
   });
-  return parentsEles.join(" ") + ' ' + elem.prop("tagName").toLowerCase();
+  return parentsEles.join(" ") + ' ' + elem.prop("tagName").toLowerCase() //+ '.' + $(elem).attr('class');;
 }
 
 function filterEles(elemArray){
