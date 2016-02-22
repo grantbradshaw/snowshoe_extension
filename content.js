@@ -56,6 +56,8 @@ $(document).on('click', '.save', function(){
   console.log(scrapeResults);
   $('.save').remove();
   $('.generalize').remove();
+  $('.selected').removeClass('selected');
+  $('.general').removeClass('general');
 });
 
 
