@@ -2,16 +2,20 @@
   background: yellow;
 }
 
-.toolbar {
+#snowshoe-toolbar-wrapper {
   background: #d3d3d3;
   width: 100%;
   height: 50px;
   top: 0px;
-  position: relative;
+  position: fixed;
 }
-.export {
+#snowshoe-toolbar-wrapper .export {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   margin-left: 93%;
+}
+.snowshoe-active-body {
+  position: relative !important;
+  top: 50px !important;
 }
