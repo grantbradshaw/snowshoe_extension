@@ -4,6 +4,9 @@
 .selected {
   background: yellow; }
 
+.saved {
+  background: green; }
+
 #snowshoe-toolbar-wrapper {
   animation: none;
   animation-delay: 0;

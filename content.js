@@ -42,7 +42,12 @@ $(document).on('click', '.export', function(){
 });
 
 $(document).on('click', '.generalize', function(){
-  $('.general').removeClass('general').addClass('selected');
+  if ($('.selected').length > 1){
+    $('.selected').removeClass('selected').addClass('general');
+    $('.root').addClass('selected');
+  } else {
+    $('.general').removeClass('general').addClass('selected');
+  }
 });
 
 $(document).on('click', '.save', function(){
@@ -56,16 +61,16 @@ $(document).on('click', '.save', function(){
   console.log(scrapeResults);
   $('.save').remove();
   $('.generalize').remove();
-  $('.selected').removeClass('selected');
+  $('.selected').removeClass('selected').addClass('saved');
   $('.general').removeClass('general');
+  $('.root').removeClass('root');
 });
-
-
 
 function removeToolbar(){
   $('#snowshoe-toolbar-wrapper').remove();
   $('.selected').removeClass('selected');
   $('.general').removeClass('general');
+  $('.saved').removeClass('saved');
   $(document).off('click', select_handler);
   $('body').removeClass('snowshoe-active-body');
 }
@@ -78,15 +83,12 @@ function select_handler(event){
 
   if ($('#snowshoe-toolbar-wrapper .generalize').length > 0 && !targeted.hasClass('generalize')){
     return false
-  } else if (targeted.hasClass('selected')){
-    // Need to define a pathToSelected that accounts for specificity and generalizability
-    $(pathToSelected).removeClass('selected');
-    removeDetails(pathToSelected);
-    console.log(scrapeResults);
+  } else if (targeted.hasClass('saved')) {
+    return false
   } else {
     var pathToSimilar = selectSame(targeted);
     $(pathToSimilar).addClass('general');
-    targeted.addClass('selected');
+    targeted.addClass('selected').addClass('root');
     var button_generalize = $('<button type="button" class="generalize snowshoe">Generalize</button>');
     $(button_generalize).appendTo('#snowshoe-toolbar-wrapper');
     var button_save = $('<button type="button" class="save snowshoe">Save</button>');
