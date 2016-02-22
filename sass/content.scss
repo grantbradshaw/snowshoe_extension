@@ -159,8 +159,16 @@
   color: #ffffff;
 }
 
+.general {
+  background: orange;
+} 
+
 .selected {
   background: yellow;
+}
+
+.saved {
+  background: green;
 }
 
 #snowshoe-toolbar-wrapper {
@@ -179,6 +187,25 @@
   transform: translateY(-50%);
   margin-left: 90%;
 }
+
+#snowshoe-toolbar-wrapper .generalize {
+  @include reset;
+  @include btn;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 40%;
+}
+
+#snowshoe-toolbar-wrapper .save {
+  @include reset;
+  @include btn;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 70%;
+}
+
 .snowshoe-active-body {
   position: relative !important;
   top: 50px !important;
