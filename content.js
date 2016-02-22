@@ -2,10 +2,7 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if ( request.message === "clicked_browser_action" ) {
       if ($('#snowshoe-toolbar-wrapper').length > 0){
-          $('#snowshoe-toolbar-wrapper').remove();
-          $('body').removeClass('snowshoe-active-body');
-          $('.selected').removeClass('selected');
-          $(document).off('click', select_handler);
+        removeToolbar();
       } else {
         var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper');
         $('body').addClass('snowshoe-active-body').prepend(frame);
@@ -37,15 +34,19 @@ $(document).on('click', '.export', function(){
 
   xhr.onreadystatechange = function(){
     if (xhr.readyState == 4 && xhr.status == 200){
-      $('.toolbar').remove();
+      removeToolbar();
       scrapeResults.track_name = '';
       scrapeResults.scrapes = [];
-      $('.selected').removeClass('selected');
-      $(document).off('click', select_handler);
-      $('body').removeClass('snowshoe-active-body');
     }
   }
 });
+
+function removeToolbar(){
+  $('#snowshoe-toolbar-wrapper').remove();
+  $('.selected').removeClass('selected');
+  $(document).off('click', select_handler);
+  $('body').removeClass('snowshoe-active-body');
+}
 
 const invalidTargets = ['body', 'div', 'section', 'article', 'header', 'html', 'ol', 'ul'];
 
