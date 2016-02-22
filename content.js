@@ -27,7 +27,7 @@
 
   function invalidClick(target){
     var targetTag = target.prop("tagName").toLowerCase();
-    return $.inArray(targetTag, invalidTargets) >= 0;
+    return $.inArray(targetTag, invalidTargets) >= 0 || target.hasClass('snowshoe');
   }
 
   function scrapeDetails(path){
@@ -93,36 +93,31 @@
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if ( request.message === "clicked_browser_action" ) {
-      var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
-      console.log(getProtocol());
-      //var token = 'token';
-      //xhr.setRequestHeader('X-CSRF-Token', token);
-      //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.send(JSON.stringify(scrapeResults));
-
-      xhr.onreadystatechange = function(){
-        if (xhr.readyState == 4 && xhr.status == 200){
-          console.log('did it work?', xhr.responseText);
-        }
+      if ($('.toolbar').length > 0){
+          $('.toolbar').remove();
+      } else {
+        var frame = $('<div>').addClass('toolbar');
+        $('body').prepend(frame);
       }
+      var button_export = $('<button type="button" class="export snowshoe">Export</button>');
+      frame.append(button_export)
+      $(document).on('click', '.export', function(){
+        scrapeResults.track_name = prompt('What is the name of this track?');
 
-      // Avoid recursive frame insertion...
-      var extensionOrigin = 'chrome-extension://' + chrome.runtime.id;
-      if (!location.ancestorOrigins.contains(extensionOrigin)) {
-        if ($('#sidebar').length > 0){
-          $('iframe').remove();
-        } else {
-          var iframe = document.createElement('iframe');
-          // Must be declared at web_accessible_resources in manifest.json
-          iframe.src = chrome.runtime.getURL('frame.html');
-          iframe.id = 'sidebar'
-          // Some styles for a fancy sidebar
-          iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;' +
-                                 'width:300px;height:100%;z-index:1000;';
-          document.body.appendChild(iframe);
+        var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
+        console.log(getProtocol());
+        //var token = 'token';
+        //xhr.setRequestHeader('X-CSRF-Token', token);
+        //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(scrapeResults));
+
+        xhr.onreadystatechange = function(){
+          if (xhr.readyState == 4 && xhr.status == 200){
+            console.log('did it work?', xhr.responseText);
+          }
         }
-      }
+      });
     }
   }
 );
@@ -132,6 +127,7 @@ chrome.runtime.onMessage.addListener(
 var scrapeResults = {
   'url': window.location.href,
   'protocol': getProtocol(),
+  'track_name': '',
   'scrapes': []
 }
 
