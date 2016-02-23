@@ -1,28 +1,27 @@
 // Main container for scraping results, to be exported to server later
 var scrapeResults = {
   'url': window.location.href,
-  'protocol': getProtocol(),
-  'track_name': '',
-  'scrapes': []
+  // 'protocol': getProtocol(),
+  'selector': ''
 }
 
 // Returns whether extension is on http or https site (or other?)
-function getProtocol(){
-  var tab_path = window.location.href;
-  return tab_path.split(':')[0]
-}
+// function getProtocol(){
+//   var tab_path = window.location.href;
+//   return tab_path.split(':')[0]
+// }
 
 // Actual scraping function, takes html selector and scrapes all content in those selectors
-function scrapeDetails(path){
-  var details = {
-    'path': path,
-    'elemContents': []
-  }
-  $(path).each(function(i, ele){
-    details.elemContents.push($(ele).text());
-  });
-  scrapeResults.scrapes.push(details);
-}
+// function scrapeDetails(path){
+//   var details = {
+//     'path': path,
+//     'elemContents': []
+//   }
+//   $(path).each(function(i, ele){
+//     details.elemContents.push($(ele).text());
+//   });
+//   scrapeResults.scrapes.push(details);
+// }
 
 // Returns selector for all similar elements 
 function selectSame(elem){
