@@ -7,6 +7,7 @@
         } else {
           var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper');
           $('body').addClass('snowshoe-active-body').prepend(frame);
+          $('header').addClass('snowshoe-active-header');
           $(document).on('click', select_handler);
         }
         var button_export = $('<button type="button" class="export snowshoe">Export</button>');

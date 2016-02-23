@@ -36,7 +36,8 @@ function stringifyElement(elem){
     entry += "." + className.replace(/ /g, '.');
   }
   if ($(elem).attr('id')){
-    // Should we retain references to id?
+    var idName = $(elem).attr('id').replace(/ +/g, ' ');
+    entry += "#" + idName.replace(/ /g, '#')
   }
   entry = entry.replace(/\.selected/g, '');
   entry = entry.replace(/\.root/g, '');
