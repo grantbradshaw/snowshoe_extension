@@ -1,0 +1,1 @@
+!function(){function e(){$("#snowshoe-toolbar-wrapper").remove(),$(".selected").removeClass("selected"),$(".general").removeClass("general"),$(".saved").removeClass("saved"),$(document).off("click",select_handler),$("body").removeClass("snowshoe-active-body")}function s(e){scrapeResults.scrapes.forEach(function(s,o){s.path===e&&scrapeResults.scrapes.splice(o,1)})}}();
