@@ -1,5 +1,5 @@
 var tracks = {'track_name': '',
-              'pages': []}
+              'pages': {}}
 
 var extension_active = false;
 
@@ -39,14 +39,19 @@ chrome.runtime.onMessage.addListener(
     xhr.onreadystatechange = function(){
       if (xhr.readyState == 4 && xhr.status == 200){
         alert('success');
-        // removeToolbar();
-        // scrapeResults.track_name = '';
-        // scrapeResults.scrapes = [];
+        removeToolbar();
+        scrapeResults.track_name = '';
+        scrapeResults.scrapes = [];
+        extension_active = false;
       }
     }
     }
     if (request.message === "data_save") {
-      tracks.pages.push(message.data);
+      if (Object.keys(tracks.pages).includes(request.data.url)){
+        tracks.pages[request.data.url].push(request.data.selector)
+      } else {
+        tracks.pages[request.data.url] = [request.data.selector]
+      }
     }
   }
 );
@@ -58,7 +63,7 @@ function getProtocol(){
 }
 
 function createCORSRequest(method, url){
-    var xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    return xhr;
-  }
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  return xhr;
+}
