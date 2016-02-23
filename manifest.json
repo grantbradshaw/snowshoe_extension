@@ -5,21 +5,18 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["jquery-2.2.0.min.js", "base_module.js", "helpers.js", "main.js"],
+      "js": ["public/jquery-2.2.0.min.js", "js/base_module.js", "js/helpers.js", "js/main.js"],
       "css": ["css/content.css"],
       "all-frames": true
     }
   ], 
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "config/icon.png"
   },
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["js/background.js"]
   }, 
   "permissions": [
     "http://localhost/*"
-  ],
-  "web_accessible_resources": [
-    "frame.html"
   ]
 }
