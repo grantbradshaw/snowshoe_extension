@@ -178,6 +178,7 @@
   height: 50px;
   top: 0px;
   position: fixed;
+  z-index: 99;
 }
 #snowshoe-toolbar-wrapper .export {
   @include reset;
