@@ -23,23 +23,21 @@
   // }
 
   $(document).on('click', '.export', function(){
-    scrapeResults.track_name = prompt('What is the name of this track?');
+    // scrapeResults.track_name = prompt('What is the name of this track?');
 
-    var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
-    console.log(getProtocol());
-    //var token = 'token';
-    //xhr.setRequestHeader('X-CSRF-Token', token);
-    //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify(scrapeResults));
+    // var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
+    // console.log(getProtocol());
+    // xhr.setRequestHeader("Content-Type", "application/json");
+    // xhr.send(JSON.stringify(scrapeResults));
 
-    xhr.onreadystatechange = function(){
-      if (xhr.readyState == 4 && xhr.status == 200){
-        removeToolbar();
-        scrapeResults.track_name = '';
-        scrapeResults.scrapes = [];
-      }
-    }
+    // xhr.onreadystatechange = function(){
+    //   if (xhr.readyState == 4 && xhr.status == 200){
+    //     removeToolbar();
+    //     scrapeResults.track_name = '';
+    //     scrapeResults.scrapes = [];
+    //   }
+    // }
+    chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults});
   });
 
   // $(document).on('click', '.generalize', function(){
@@ -168,10 +166,4 @@
   //   }
   //   return path;
   // };
-
-  function createCORSRequest(method, url){
-    var xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    return xhr;
-  }
 })();
