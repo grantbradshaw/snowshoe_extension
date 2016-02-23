@@ -161,7 +161,7 @@
   height: 50px;
   top: 0px;
   position: fixed;
-  z-index: 99; }
+  z-index: 9999; }
 
 #snowshoe-toolbar-wrapper .export {
   animation: none;
@@ -648,7 +648,4 @@
 
 .snowshoe-active-body {
   position: relative !important;
-  top: 50px !important; }
-
-.snowshoe-active-header {
-  top: 50px !important; }
+  top: 50px; }

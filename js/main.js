@@ -6,8 +6,8 @@
           removeToolbar();
         } else {
           var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper');
+          $("[position=fixed]").css("top", "50px");
           $('body').addClass('snowshoe-active-body').prepend(frame);
-          $('header').addClass('snowshoe-active-header');
           $(document).on('click', select_handler);
         }
         var button_export = $('<button type="button" class="export snowshoe">Export</button>');
