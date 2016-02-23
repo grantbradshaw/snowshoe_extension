@@ -38,11 +38,12 @@ $(document).on('click', '.save', function(){
     var pathToSelected = rootSelect.getPath();
   }
   scrapeDetails(pathToSelected);
+  console.log(scrapeResults);
   $('.save').remove();
   $('.generalize').remove();
+  $('.root').removeClass('root');
   $('.selected').removeClass('selected').addClass('saved');
   $('.general').removeClass('general');
-  $('.root').removeClass('root');
 });
 
 function select_handler(event){

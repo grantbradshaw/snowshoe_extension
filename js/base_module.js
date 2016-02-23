@@ -40,8 +40,14 @@ function selectSame(elem){
 function stringifyElement(elem){
   var entry = elem.tagName.toLowerCase();
   if (elem.className) {
-    entry += "." + elem.className.replace(/ /g, '.');
+    var className = elem.className.replace(/ +/g, ' ');
+    entry += "." + className.replace(/ /g, '.');
   }
+  if ($(elem).attr('id')){
+    // Should we retain references to id?
+  }
+  entry = entry.replace(/\.selected/g, '');
+  entry = entry.replace(/\.root/g, '');
   return entry
 }
 
