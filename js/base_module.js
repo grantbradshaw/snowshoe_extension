@@ -2,7 +2,7 @@
 var scrapeResults = {
   'url': window.location.href,
   // 'protocol': getProtocol(),
-  'selectors': []
+  'selector': ''
 }
 
 // Returns whether extension is on http or https site (or other?)

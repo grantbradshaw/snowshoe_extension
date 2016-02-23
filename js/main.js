@@ -38,6 +38,7 @@
     //   }
     // }
     chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults});
+    removeToolbar();
   });
 
   // $(document).on('click', '.generalize', function(){

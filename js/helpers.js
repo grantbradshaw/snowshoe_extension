@@ -37,7 +37,8 @@ $(document).on('click', '.save', function(){
   } else {
     var pathToSelected = rootSelect.getPath();
   }
-  scrapeResults.selectors.push(pathToSelected);
+  scrapeResults.selector = pathToSelected;
+  chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
   $('.save').remove();
   $('.generalize').remove();
   $('.root').removeClass('root');

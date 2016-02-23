@@ -46,7 +46,7 @@ chrome.runtime.onMessage.addListener(
     }
     }
     if (request.message === "data_save") {
-      
+      tracks.pages.push(message.data);
     }
   }
 );
