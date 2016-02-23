@@ -61,16 +61,6 @@ function select_handler(event){
     $(button_generalize).appendTo('#snowshoe-toolbar-wrapper');
     var button_save = $('<button type="button" class="save snowshoe">Save</button>');
     $(button_save).appendTo('#snowshoe-toolbar-wrapper');
-
-    // var generalize = prompt("Should we select all elements like this one?");
-    
-    // if (generalize === 'yes'){
-    //   var pathToSelected = selectSame(targeted);
-    // } else {
-    //   var pathToSelected = targeted.getPath();
-    // }
-    // scrapeDetails(pathToSelected);
-    // console.log(scrapeResults);
   }
 }
 
