@@ -1,4 +1,4 @@
-var tracks = {'track_name': '',
+var tracks = {'trackName': '',
               'pages': {}}
 
 var extension_active = false;
@@ -30,7 +30,7 @@ chrome.browserAction.onClicked.addListener(function(tab){
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.message === "data_export" ) {
-    tracks.track_name = prompt('What is the name of this track?');
+    tracks.trackName = prompt('What is the name of this track?');
 
     var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
     xhr.setRequestHeader("Content-Type", "application/json");
