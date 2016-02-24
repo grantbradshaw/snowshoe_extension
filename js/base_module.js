@@ -62,7 +62,6 @@ jQuery.fn.getPath = function () {
     first_element = false;
   });
   parentsEles.push(stringifyDirectElement(this[0]));
-  console.log(parentsEles[0]);
   return parentsEles.join(' ');
 };
 
