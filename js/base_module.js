@@ -1,7 +1,8 @@
 // Main container for scraping results, to be exported to server later
 var scrapeResults = {
   'url': window.location.href,
-  'selector': ''
+  'selector': {'name': '',
+               'path': ''}
 }
 
 // Actual scraping function, takes html selector and scrapes all content in those selectors

@@ -18,7 +18,6 @@ chrome.browserAction.onClicked.addListener(function(tab){
       var activeTab = tabs[0];
       chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
       extension_active = false;
-      tracks.pages = [];
     } else {
       var activeTab = tabs[0];
       chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
@@ -39,9 +38,8 @@ chrome.runtime.onMessage.addListener(
     xhr.onreadystatechange = function(){
       if (xhr.readyState == 4 && xhr.status == 200){
         alert('success');
-        removeToolbar();
-        scrapeResults.track_name = '';
-        scrapeResults.scrapes = [];
+        tracks.trackName = '';
+        tracks.pages = {};
         extension_active = false;
       }
     }
