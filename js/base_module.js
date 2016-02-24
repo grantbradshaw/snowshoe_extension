@@ -42,6 +42,7 @@ function stringifyElement(elem){
   }
   entry = entry.replace(/\.selected/g, '');
   entry = entry.replace(/\.root/g, '');
+  entry = entry.replace(/\.general/g, '');
   return entry
 }
 
@@ -55,19 +56,26 @@ jQuery.fn.getPath = function () {
   if (this.length != 1) throw 'Requires one element.';
   var parentsEles = [];
   var elemPath = filterEles(this.parents());
+  var first_element = true;
   $(elemPath).addBack().each(function(){
-    parentsEles.push(stringifyDirectElement(this));
+    parentsEles.push(stringifyDirectElement(this, first_element));
+    first_element = false;
   });
   parentsEles.push(stringifyDirectElement(this[0]));
-  return parentsEles.join('>');
+  console.log(parentsEles[0]);
+  return parentsEles.join(' ');
 };
 
 // Provides direct placement of element in DOM
-function stringifyDirectElement(elem){
-  var position = $(elem).index();
+function stringifyDirectElement(elem, first_element){
+  var element_tag = elem.tagName.toLowerCase();
+  var siblings = $(elem).parent().children();
+  var position = $(siblings).index(elem) + 1;
+  if (first_element) position -= 1;
+  //var position = $(elem).index() + 1;
   if ($(elem).siblings().length > 1){
-    return stringifyElement(elem) + ':eq(' + position + ')' 
+    return element_tag + ':nth-child(' + position + ')' 
   } else {
-    return stringifyElement(elem);
+    return element_tag;
   }
 }
