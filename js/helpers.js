@@ -1,4 +1,4 @@
-const invalidTargets = ['body', 'div', 'section', 'article', 'header', 'html', 'ol', 'ul'];
+const invalidTargets = ['body', 'ol', 'ul'];
 
 function invalidClick(target){
   var targetTag = target.prop("tagName").toLowerCase();
