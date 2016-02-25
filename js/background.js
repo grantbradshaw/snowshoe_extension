@@ -27,6 +27,16 @@ chrome.browserAction.onClicked.addListener(function(tab){
 });
 
 chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+      if (request.message === "data_index"){
+        var activeTab = tabs[0];
+        chrome.tabs.sendMessage(activeTab.id, {"message": "display_index", "tracks": tracks});
+      }
+    })
+  })
+
+chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.message === "data_export" ) {
     tracks.trackName = prompt('What is the name of this track?');

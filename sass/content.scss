@@ -207,6 +207,23 @@
   margin-left: 70%;
 }
 
+#snowshoe-toolbar-wrapper .display {
+  @include reset;
+  @include btn;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 5px;
+}
+
+.display_table {
+  position: absolute;
+  table {
+    @include reset;
+  }
+}
+
+
 .snowshoe-active-body {
   position: relative !important;
   top: 50px;

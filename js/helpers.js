@@ -37,6 +37,11 @@ $(document).on('click', '.generalize', function(){
   }
 });
 
+$(document).on('click', '.display', function(){
+  chrome.runtime.sendMessage({"message": "data_index"});
+  // output is handled in main.js with listener
+})
+
 $(document).on('click', '.save', function(){
   var rootSelect = $('.root:first');
   if ($('.selected').length > 1) {
