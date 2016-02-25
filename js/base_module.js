@@ -54,6 +54,7 @@ function filterEles(elemArray){
 // Return direct selector for element (using direct descendent specification)
 jQuery.fn.getPath = function () {
   if (this.length != 1) throw 'Requires one element.';
+  if (stringifyElement(this).indexOf('#') >= 0) return stringifyElement(this);
   var parentsEles = [];
   var elemPath = filterEles(this.parents());
   var last_element = false;
