@@ -56,13 +56,18 @@ function select_handler(event){
   } else if (targeted.hasClass('saved')) {
     return false
   } else {
-    var pathToSimilar = selectSame(targeted);
-    $(pathToSimilar).addClass('general');
-    targeted.addClass('selected').addClass('root');
-    var button_generalize = $('<button type="button" class="generalize snowshoe">Generalize</button>');
-    $(button_generalize).appendTo('#snowshoe-toolbar-wrapper');
-    var button_save = $('<button type="button" class="save snowshoe">Save</button>');
-    $(button_save).appendTo('#snowshoe-toolbar-wrapper');
+    var pathToSelected = targeted.getPath();
+    $(targeted).addClass('saved');
+    scrapeResults.selector.path = pathToSelected;
+    scrapeResults.selector.name = prompt('What is the name of this selector?');
+    chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
+    scrapeResults.selector.name = '';
+    scrapeResults.selector.path = '';
+    // targeted.addClass('selected').addClass('root');
+    // var button_generalize = $('<button type="button" class="generalize snowshoe">Generalize</button>');
+    //$(button_generalize).appendTo('#snowshoe-toolbar-wrapper');
+    // var button_save = $('<button type="button" class="save snowshoe">Save</button>');
+    //$(button_save).appendTo('#snowshoe-toolbar-wrapper');
   }
 }
 
