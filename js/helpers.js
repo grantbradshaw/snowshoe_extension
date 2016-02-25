@@ -13,6 +13,13 @@ function removeToolbar(){
   $(document).off('click', select_handler);
   $('body').removeClass('snowshoe-active-body');
 }
+
+function addToolbar(){
+  var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper');
+  $('body').addClass('snowshoe-active-body').prepend(frame);
+  $(document).on('click', select_handler);
+}
+
 function removeDetails(path){
   scrapeResults.scrapes.forEach(function(scrape, i){
     if (scrape.path === path) {
@@ -54,9 +61,13 @@ function select_handler(event){
   if ($('#snowshoe-toolbar-wrapper .generalize').length > 0 && !targeted.hasClass('generalize')){
     return false
   } else if (targeted.hasClass('saved')) {
-    return false
+    var pathToSelected = targeted.getPath();
+    $(targeted).removeClass('saved');
+    scrapeResults.selector.path = pathToSelected;
+    chrome.runtime.sendMessage({"message": "data_delete", "data": scrapeResults});
+    scrapeResults.selector.name = '';
+    scrapeResults.selector.path = '';
   } else {
-    console.log(targeted)
     var pathToSelected = targeted.getPath();
     $(targeted).addClass('saved');
     scrapeResults.selector.path = pathToSelected;

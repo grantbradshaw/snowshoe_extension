@@ -7,7 +7,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab){
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
     if (extension_active){
       var activeTab = tabs[0];
-      chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
+      chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks});
     }
   });
 });
@@ -16,11 +16,11 @@ chrome.browserAction.onClicked.addListener(function(tab){
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
     if (extension_active){
       var activeTab = tabs[0];
-      chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
+      chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks});
       extension_active = false;
     } else {
       var activeTab = tabs[0];
-      chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
+      chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks});
       extension_active = true;
     }
   });
@@ -50,6 +50,13 @@ chrome.runtime.onMessage.addListener(
       } else {
         tracks.pages[request.data.url] = [request.data.selector]
       }
+    }
+    if (request.message === "data_delete"){
+      tracks.pages[request.data.url].forEach(function(scrape, index){
+        if (scrape.path === request.data.selector.path) {
+          tracks.pages[request.data.url].splice(index, 1);
+        }
+      })
     }
   }
 );

@@ -5,8 +5,15 @@
         if ($('#snowshoe-toolbar-wrapper').length > 0){
           removeToolbar();
         } else {
+          var current_url = window.location.href;
+          var tracks = request.tracks
+          if (tracks.pages[current_url]){
+            tracks.pages[current_url].forEach(function(scrape, index) {
+              console.log(scrape.path)
+              $(scrape.path).addClass('saved');
+            });
+          }
           var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper');
-          $("[position=fixed]").css("top", "50px");
           $('body').addClass('snowshoe-active-body').prepend(frame);
           $(document).on('click', select_handler);
         }
