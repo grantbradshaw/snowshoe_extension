@@ -56,6 +56,7 @@ function select_handler(event){
   } else if (targeted.hasClass('saved')) {
     return false
   } else {
+    console.log(targeted)
     var pathToSelected = targeted.getPath();
     $(targeted).addClass('saved');
     scrapeResults.selector.path = pathToSelected;
