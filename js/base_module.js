@@ -56,23 +56,31 @@ jQuery.fn.getPath = function () {
   if (this.length != 1) throw 'Requires one element.';
   var parentsEles = [];
   var elemPath = filterEles(this.parents());
-  var first_element = true;
-  $(elemPath).addBack().each(function(){
-    parentsEles.push(stringifyDirectElement(this, first_element));
-    first_element = false;
+  var last_element = false;
+  var parents_length = elemPath.length;
+  $(elemPath).each(function(index){
+    if (index + 1 === parents_length) {last_element = true};
+    var element_tag = stringifyDirectElement(this, last_element);
+    parentsEles.push(element_tag);
+    if (element_tag.indexOf('#') >= 0) return false;
   });
+  parentsEles = parentsEles.reverse();
   parentsEles.push(stringifyDirectElement(this[0]));
-  return parentsEles.join(' ');
+  return parentsEles.join('>');
 };
 
 // Provides direct placement of element in DOM
-function stringifyDirectElement(elem, first_element){
+function stringifyDirectElement(elem, last_element){
+  var element_tag = stringifyElement(elem)
+  if (element_tag.indexOf('#') >= 0){
+    return element_tag
+  }
   var element_tag = elem.tagName.toLowerCase();
   var siblings = $(elem).parent().children();
   var position = $(siblings).index(elem) + 1;
-  if (first_element) position -= 1;
+  if (last_element) position -= 1;
   //var position = $(elem).index() + 1;
-  if ($(elem).siblings().length > 1){
+  if (siblings.length > 1){
     return element_tag + ':nth-child(' + position + ')' 
   } else {
     return element_tag;
