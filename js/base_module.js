@@ -29,20 +29,28 @@ function selectSame(elem){
   return parentsEles.join(" ");
 }
 
-// Converts jQuery representation of element to stringified version 
+// // Converts jQuery representation of element to stringified version 
+// function stringifyElement(elem){
+//   var entry = elem.tagName.toLowerCase();
+//   if (elem.className) {
+//     var className = elem.className.replace(/ +/g, ' ');
+//     entry += "." + className.replace(/ /g, '.');
+//   }
+//   if ($(elem).attr('id')){
+//     var idName = $(elem).attr('id').replace(/ +/g, ' ');
+//     entry += "#" + idName.replace(/ /g, '#')
+//   }
+//   entry = entry.replace(/\.selected/g, '');
+//   entry = entry.replace(/\.root/g, '');
+//   entry = entry.replace(/\.general/g, '');
+//   return entry
+// }
 function stringifyElement(elem){
   var entry = elem.tagName.toLowerCase();
-  if (elem.className) {
-    var className = elem.className.replace(/ +/g, ' ');
-    entry += "." + className.replace(/ /g, '.');
-  }
   if ($(elem).attr('id')){
     var idName = $(elem).attr('id').replace(/ +/g, ' ');
-    entry += "#" + idName.replace(/ /g, '#')
+    return "#" + idName.replace(/ /g, '#')
   }
-  entry = entry.replace(/\.selected/g, '');
-  entry = entry.replace(/\.root/g, '');
-  entry = entry.replace(/\.general/g, '');
   return entry
 }
 
@@ -72,9 +80,9 @@ jQuery.fn.getPath = function () {
 
 // Provides direct placement of element in DOM
 function stringifyDirectElement(elem, last_element){
-  var element_tag = stringifyElement(elem)
-  if (element_tag.indexOf('#') >= 0){
-    return element_tag
+  var id_ele = stringifyElement(elem)
+  if (id_ele.indexOf('#') >= 0){
+    return id_ele
   }
   var element_tag = elem.tagName.toLowerCase();
   var siblings = $(elem).parent().children();
