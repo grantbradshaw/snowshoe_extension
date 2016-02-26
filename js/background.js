@@ -39,20 +39,25 @@ chrome.runtime.onMessage.addListener(
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.message === "data_export" ) {
-    tracks.trackName = prompt('What is the name of this track?');
-
-    var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify(tracks));
-
-    xhr.onreadystatechange = function(){
-      if (xhr.readyState == 4 && xhr.status == 200){
-        alert('success');
-        tracks.trackName = '';
-        tracks.pages = {};
-        extension_active = false;
+      if (Object.keys(tracks.pages).length == 0){
+        alert('You have tracks, please add one to export!')
+        return false
       }
-    }
+
+      tracks.trackName = prompt('What is the name of this track?');
+
+      var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(JSON.stringify(tracks));
+
+      xhr.onreadystatechange = function(){
+        if (xhr.readyState == 4 && xhr.status == 200){
+          alert('success');
+          tracks.trackName = '';
+          tracks.pages = {};
+          extension_active = false;
+        }
+      }
     }
     if (request.message === "data_save") {
       if (Object.keys(tracks.pages).includes(request.data.url)){
