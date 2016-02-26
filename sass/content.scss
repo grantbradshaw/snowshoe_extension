@@ -218,8 +218,13 @@
 
 .display_table {
   position: absolute;
+  background: orange;
+  z-index: 9999;
   table {
     @include reset;
+    tbody td {
+      clear: both;
+    }
   }
 }
 

@@ -4,12 +4,12 @@
       if ( request.message === "clicked_browser_action" ) {
         if ($('#snowshoe-toolbar-wrapper').length > 0){
           removeToolbar();
+          $('.display_table').remove();
         } else {
           var current_url = window.location.href;
           var tracks = request.tracks
           if (tracks.pages[current_url]){
             tracks.pages[current_url].forEach(function(scrape, index) {
-              console.log(scrape.path)
               $(scrape.path).addClass('saved');
             });
           }
@@ -26,8 +26,20 @@
       if ($('.display_table').length > 0){
         $('.display_table').remove();
       } else {
-        var table_container = $('<div class="display_table"><table><thead><tr><th>Site</th></tr></thead><tbody></tbody></table></div>')
-        $('#snowshoe-toolbar-wrapper').after(table_container)
+        var table_container = $('<div class="display_table"><tbody></tbody></table></div>');
+        var table = $('<table></table>');
+        $(table_container).append(table);
+        $(table).append('<thead><tr><th>Site</th></tr></thead>');
+        var tbody = $('<tbody></tbody>');
+        $(table).append(tbody);
+
+        $.each(request.tracks.pages, function(key, value){ 
+          $.each(value, function(index, value){
+            $(tbody).append('<tr><td><a href="'+key+'">'+key+'</td></tr>');
+          })
+        });
+
+        $('#snowshoe-toolbar-wrapper').after(table_container);
       }
     }
   }

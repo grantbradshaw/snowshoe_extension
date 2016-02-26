@@ -808,7 +808,9 @@
   margin-left: 5px; }
 
 .display_table {
-  position: absolute; }
+  position: absolute;
+  background: orange;
+  z-index: 9999; }
   .display_table table {
     animation: none;
     animation-delay: 0;
@@ -958,6 +960,8 @@
     width: auto;
     word-spacing: normal;
     z-index: auto; }
+    .display_table table tbody td {
+      clear: both; }
 
 .snowshoe-active-body {
   position: relative !important;
