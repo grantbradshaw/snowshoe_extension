@@ -16,6 +16,7 @@ function removeToolbar(){
 
 function addToolbar(){
   var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper');
+  $('body').wrapInner('<div class="container snowshoe-active-body" />');
   $('body').addClass('snowshoe-active-body').prepend(frame);
   $(document).on('click', select_handler);
 }
@@ -62,6 +63,7 @@ $(document).on('click', '.save', function(){
 function select_handler(event){
   var targeted = $(event.target);
   if (invalidClick(targeted)) return false;
+  if (targeted.prop("tagName").toLowerCase() === 'a') event.preventDefault(); 
 
   if ($('#snowshoe-toolbar-wrapper .generalize').length > 0 && !targeted.hasClass('generalize')){
     return false

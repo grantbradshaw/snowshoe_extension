@@ -15,7 +15,7 @@
           }
           var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper').addClass('snowshoe');
           $('body').addClass('snowshoe-active-body').append(frame);
-          $(document).on('click', select_handler);  
+          $(document).on('click', select_handler); 
         }
         var button_export = $('<button type="button" class="export snowshoe">Export</button>');
         $(button_export).appendTo(frame);
