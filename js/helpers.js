@@ -2,7 +2,7 @@ const invalidTargets = ['body', 'ol', 'ul', '.display_table'];
 
 function invalidClick(target){
   var targetTag = target.prop("tagName").toLowerCase();
-  return $.inArray(targetTag, invalidTargets) >= 0 || target.hasClass('snowshoe');
+  return $.inArray(targetTag, invalidTargets) >= 0 || target.hasClass('snowshoe') || target.parents('.snowshoe').length;
 }
 
 function removeToolbar(){

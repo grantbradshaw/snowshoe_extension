@@ -71,6 +71,9 @@ chrome.runtime.onMessage.addListener(
         if (scrape.path === request.data.selector.path) {
           tracks.pages[request.data.url].splice(index, 1);
         }
+        if (!!tracks.pages[request.data.url]){
+          delete tracks.pages[request.data.url]
+        }
       })
     }
   }
