@@ -29,18 +29,19 @@
         var table_container = $('<div class="display_table"><tbody></tbody></table></div>').addClass('snowshoe');
         var table = $('<table></table>');
         $(table_container).append(table);
-        $(table).append('<thead><tr><th>Name</th><th>Content</th><th>Source</th></tr></thead>');
+        $(table).append('<thead><tr><th>Name</th><th>Content</th><th>Source</th><th>Delete</tr></thead>');
         var tbody = $('<tbody></tbody>');
         $(table).append(tbody);
 
         $.each(request.tracks.pages, function(key, value){ 
           $.each(value, function(index, value){
-            var tr = $('<tr></tr>');
+            var tr = $('<tr></tr>').data({url: key, selector:{'name': '', 'path': value.path}});
             $(tbody).append(tr);
             $(tr).append('<td>'+value.name+'</td>');
             var content = $(value.path).text();
             $(tr).append('<td>'+content+'</td>');
             $(tr).append('<td><a href="'+key+'">'+key+'</td>');
+            $(tr).append('<td><button type="button" class="delete">Delete</button></td>');
           })
         });
 

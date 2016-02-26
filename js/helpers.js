@@ -2,6 +2,7 @@ const invalidTargets = ['body', 'ol', 'ul', '.display_table'];
 
 function invalidClick(target){
   var targetTag = target.prop("tagName").toLowerCase();
+  console.log(target.parents());
   return $.inArray(targetTag, invalidTargets) >= 0 || target.hasClass('snowshoe') || target.parents('.snowshoe').length;
 }
 
@@ -42,6 +43,12 @@ $(document).on('click', '.display', function(){
   chrome.runtime.sendMessage({"message": "data_index"});
   // output is handled in main.js with listener
 })
+
+$(document).on('click', '.delete', function(){
+  var tr = $(this).parent('tr');
+  chrome.runtime.sendMessage({"message": "data_delete", "data": $(tr).data()});
+  $(tr).remove();
+});
 
 $(document).on('click', '.save', function(){
   var rootSelect = $('.root:first');
