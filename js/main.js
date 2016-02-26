@@ -14,7 +14,7 @@
             });
           }
           var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper');
-          $('body').addClass('snowshoe-active-body').prepend(frame);
+          $('body').addClass('snowshoe-active-body').append(frame);
           $(document).on('click', select_handler);  
         }
         var button_export = $('<button type="button" class="export snowshoe">Export</button>');
@@ -29,17 +29,22 @@
         var table_container = $('<div class="display_table"><tbody></tbody></table></div>');
         var table = $('<table></table>');
         $(table_container).append(table);
-        $(table).append('<thead><tr><th>Site</th></tr></thead>');
+        $(table).append('<thead><tr><th>Name</th><th>Content</th><th>Source</th></tr></thead>');
         var tbody = $('<tbody></tbody>');
         $(table).append(tbody);
 
         $.each(request.tracks.pages, function(key, value){ 
           $.each(value, function(index, value){
-            $(tbody).append('<tr><td><a href="'+key+'">'+key+'</td></tr>');
+            var tr = $('<tr></tr>');
+            $(tbody).append(tr);
+            $(tr).append('<td>'+value.name+'</td>');
+            var content = $(value.path).text();
+            $(tr).append('<td>'+content+'</td>');
+            $(tr).append('<td><a href="'+key+'">'+key+'</td>');
           })
         });
 
-        $('#snowshoe-toolbar-wrapper').after(table_container);
+        $('body').prepend(table_container);
       }
     }
   }

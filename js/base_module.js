@@ -65,11 +65,9 @@ jQuery.fn.getPath = function () {
   if (stringifyElement(this[0]).indexOf('#') >= 0) return stringifyElement(this[0]);
   var parentsEles = [];
   var elemPath = filterEles(this.parents());
-  var last_element = false;
   var parents_length = elemPath.length;
   $(elemPath).each(function(index){
-    if (index + 1 === parents_length) {last_element = true};
-    var element_tag = stringifyDirectElement(this, last_element);
+    var element_tag = stringifyDirectElement(this);
     parentsEles.push(element_tag);
     if (element_tag.indexOf('#') >= 0) return false;
   });
@@ -79,7 +77,7 @@ jQuery.fn.getPath = function () {
 };
 
 // Provides direct placement of element in DOM
-function stringifyDirectElement(elem, last_element){
+function stringifyDirectElement(elem){
   var id_ele = stringifyElement(elem)
   if (id_ele.indexOf('#') >= 0){
     return id_ele
@@ -87,7 +85,6 @@ function stringifyDirectElement(elem, last_element){
   var element_tag = elem.tagName.toLowerCase();
   var siblings = $(elem).parent().children();
   var position = $(siblings).index(elem) + 1;
-  if (last_element) position -= 1;
   //var position = $(elem).index() + 1;
   if (siblings.length > 1){
     return element_tag + ':nth-child(' + position + ')' 
