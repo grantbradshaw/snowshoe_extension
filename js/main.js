@@ -4,7 +4,6 @@
       if ( request.message === "clicked_browser_action" ) {
         if ($('#snowshoe-toolbar-wrapper').length > 0){
           removeToolbar();
-          $('.display_table').remove();
         } else {
           var current_url = window.location.href;
           var tracks = request.tracks
@@ -17,10 +16,15 @@
           $('body').addClass('snowshoe-active-body').append(frame);
           $(document).on('click', select_handler); 
         }
-        var button_export = $('<button type="button" class="export snowshoe">Export</button>');
+        //var button_export = $('<button type="button" class="export snowshoe">Export</button>');
+        var button_export = $('<img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/512/export-icon.png" class="export snowshoe"/>')
         $(button_export).appendTo(frame);
-        var button_show = $('<button type="button" class="display snowshoe">Display Selections</button>')
+        // var button_show = $('<button type="button" class="display snowshoe">Display Selections</button>')
+        var button_show = $('<img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-128.png" class="display snowshoe"/>')
         $(button_show).appendTo(frame);
+        //var button_hide = $('<button type="button" class="hide snowshoe">Hide</button>');
+        var button_hide = $('<img src="http://icons.iconarchive.com/icons/icons8/windows-8/512/Programming-Minimize-Window-icon.png" class="hide snowshoe"/>')
+        $(button_hide).appendTo(frame);
       }
     if ( request.message === "display_index") {
       if ($('.display_table').length > 0){

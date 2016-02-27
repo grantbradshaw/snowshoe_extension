@@ -159,22 +159,14 @@
   color: #ffffff;
 }
 
-.general {
-  background: orange;
-} 
-
-.selected {
-  background: yellow;
-}
-
 .saved {
-  background: green;
+  background-color: rgba(97,179,41,0.5);
 }
 
 #snowshoe-toolbar-wrapper {
   @include reset;
   background: #d3d3d3;
-  width: 100%;
+  width: 200px;
   height: 50px;
   top: 0px;
   position: fixed;
@@ -182,11 +174,13 @@
 }
 #snowshoe-toolbar-wrapper .export {
   @include reset;
-  @include btn;
+  /*@include btn;*/
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: 90%;
+  margin-left: 133px;
+  height: 50px;
+  width: 50px;
 }
 
 #snowshoe-toolbar-wrapper .generalize {
@@ -209,11 +203,24 @@
 
 #snowshoe-toolbar-wrapper .display {
   @include reset;
-  @include btn;
+  /*@include btn;*/
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: 5px;
+  margin-left: 2px;
+  height: 50px;
+  width: 50px;
+}
+
+#snowshoe-toolbar-wrapper .hide {
+  @include reset;
+  /*@include btn;*/
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 66px;
+  height: 50px;
+  width: 50px;
 }
 
 .display_table {

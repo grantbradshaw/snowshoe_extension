@@ -12,6 +12,7 @@ function removeToolbar(){
   $('.saved').removeClass('saved');
   $(document).off('click', select_handler);
   $('body').removeClass('snowshoe-active-body');
+  $('.display_table').remove();
 }
 
 function addToolbar(){
@@ -52,6 +53,10 @@ $(document).on('click', '.delete', function(){
     $(path_to_deleted).removeClass('saved');
   }
   $(tr).remove();
+});
+
+$(document).on('click', '.hide', function(){
+  removeToolbar();
 });
 
 $(document).on('click', '.save', function(){
