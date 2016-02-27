@@ -47,9 +47,10 @@ $(document).on('click', '.delete', function(){
   var tr = $(this).parents('tr');
   tr = tr.first();
   chrome.runtime.sendMessage({"message": "data_delete", "data": $(tr).data()});
-  var path_to_deleted = $(tr).data().selector.path;
-  console.log(path_to_deleted)
-  $(path_to_deleted).removeClass('saved')
+  if (window.location.href == $(tr).data().url){
+    var path_to_deleted = $(tr).data().selector.path;
+    $(path_to_deleted).removeClass('saved');
+  }
   $(tr).remove();
 });
 
