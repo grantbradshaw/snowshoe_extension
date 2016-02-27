@@ -170,7 +170,7 @@
   height: 50px;
   top: 0px;
   position: fixed;
-  z-index: 9999;
+  z-index: 999999;
 }
 #snowshoe-toolbar-wrapper .export {
   @include reset;
@@ -226,7 +226,7 @@
 .display_table {
   position: fixed;
   background: orange;
-  z-index: 9999;
+  z-index: 999999;
   top: 50px;
   table {
     @include reset;
