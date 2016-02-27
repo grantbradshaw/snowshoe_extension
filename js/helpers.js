@@ -1,9 +1,8 @@
-const invalidTargets = ['body', 'ol', 'ul', '.display_table'];
+const invalidTargets = ['body', 'ol', 'ul'];
 
 function invalidClick(target){
   var targetTag = target.prop("tagName").toLowerCase();
-  console.log(target.parents());
-  return $.inArray(targetTag, invalidTargets) >= 0 || target.hasClass('snowshoe') || target.parents('.snowshoe').length;
+  return $.inArray(targetTag, invalidTargets) >= 0;
 }
 
 function removeToolbar(){
@@ -45,8 +44,12 @@ $(document).on('click', '.display', function(){
 })
 
 $(document).on('click', '.delete', function(){
-  var tr = $(this).parent('tr');
+  var tr = $(this).parents('tr');
+  tr = tr.first();
   chrome.runtime.sendMessage({"message": "data_delete", "data": $(tr).data()});
+  var path_to_deleted = $(tr).data().selector.path;
+  console.log(path_to_deleted)
+  $(path_to_deleted).removeClass('saved')
   $(tr).remove();
 });
 
@@ -69,32 +72,36 @@ $(document).on('click', '.save', function(){
 
 function select_handler(event){
   var targeted = $(event.target);
-  if (invalidClick(targeted)) return false;
-  if (targeted.prop("tagName").toLowerCase() === 'a') event.preventDefault(); 
-
-  if ($('#snowshoe-toolbar-wrapper .generalize').length > 0 && !targeted.hasClass('generalize')){
-    return false
-  } else if (targeted.hasClass('saved')) {
-    var pathToSelected = targeted.getPath();
-    $(targeted).removeClass('saved');
-    scrapeResults.selector.path = pathToSelected;
-    chrome.runtime.sendMessage({"message": "data_delete", "data": scrapeResults});
-    scrapeResults.selector.name = '';
-    scrapeResults.selector.path = '';
+  if ($(targeted).parents('.snowshoe').length || $(targeted).hasClass('snowshoe')){
+    
   } else {
-    var pathToSelected = targeted.getPath();
-    $(targeted).addClass('saved');
-    scrapeResults.selector.path = pathToSelected;
-    scrapeResults.selector.name = prompt('What is the name of this selector?');
-    chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
-    scrapeResults.selector.name = '';
-    scrapeResults.selector.path = '';
-    // targeted.addClass('selected').addClass('root');
-    // var button_generalize = $('<button type="button" class="generalize snowshoe">Generalize</button>');
-    //$(button_generalize).appendTo('#snowshoe-toolbar-wrapper');
-    // var button_save = $('<button type="button" class="save snowshoe">Save</button>');
-    //$(button_save).appendTo('#snowshoe-toolbar-wrapper');
-  }
+    if (invalidClick(targeted)) return false;
+    if (targeted.prop("tagName").toLowerCase() === 'a') event.preventDefault(); 
+
+    if ($('#snowshoe-toolbar-wrapper .generalize').length > 0 && !targeted.hasClass('generalize')){
+      return false
+    } else if (targeted.hasClass('saved')) {
+      var pathToSelected = targeted.getPath();
+      $(targeted).removeClass('saved');
+      scrapeResults.selector.path = pathToSelected;
+      chrome.runtime.sendMessage({"message": "data_delete", "data": scrapeResults});
+      scrapeResults.selector.name = '';
+      scrapeResults.selector.path = '';
+    } else {
+      var pathToSelected = targeted.getPath();
+      $(targeted).addClass('saved');
+      scrapeResults.selector.path = pathToSelected;
+      scrapeResults.selector.name = prompt('What is the name of this selector?');
+      chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
+      scrapeResults.selector.name = '';
+      scrapeResults.selector.path = '';
+      // targeted.addClass('selected').addClass('root');
+      // var button_generalize = $('<button type="button" class="generalize snowshoe">Generalize</button>');
+      //$(button_generalize).appendTo('#snowshoe-toolbar-wrapper');
+      // var button_save = $('<button type="button" class="save snowshoe">Save</button>');
+      //$(button_save).appendTo('#snowshoe-toolbar-wrapper');
+    }
+  } 
 }
 
 function removeDetails(path){

@@ -217,9 +217,10 @@
 }
 
 .display_table {
-  position: absolute;
+  position: fixed;
   background: orange;
   z-index: 9999;
+  top: 50px;
   table {
     @include reset;
     tbody td {
@@ -230,7 +231,6 @@
     }
   }
 }
-
 
 .snowshoe-active-body {
   position: relative !important;

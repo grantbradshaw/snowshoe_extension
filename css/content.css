@@ -808,9 +808,10 @@
   margin-left: 5px; }
 
 .display_table {
-  position: absolute;
+  position: fixed;
   background: orange;
-  z-index: 9999; }
+  z-index: 9999;
+  top: 50px; }
   .display_table table {
     animation: none;
     animation-delay: 0;

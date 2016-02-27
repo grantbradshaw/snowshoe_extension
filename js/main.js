@@ -41,11 +41,11 @@
             var content = $(value.path).text();
             $(tr).append('<td>'+content+'</td>');
             $(tr).append('<td><a href="'+key+'">'+key+'</td>');
-            $(tr).append('<td><button type="button" class="delete">Delete</button></td>');
+            $(tr).append('<td><button type="button" class="delete snowshoe">Delete</button></td>');
           })
         });
 
-        $('body').prepend(table_container);
+        $('body').append(table_container);
       }
     }
   }
