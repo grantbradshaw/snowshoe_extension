@@ -43,6 +43,11 @@ chrome.runtime.onMessage.addListener(
         alert('You have tracks, please add one to export!')
         return false
       }
+      Object.keys(tracks.pages).forEach(function(key){
+        tracks.pages[key].forEach(function(scrape){
+          delete scrape.content
+        });
+      });
 
       tracks.trackName = prompt('What is the name of this track?');
 
@@ -60,10 +65,11 @@ chrome.runtime.onMessage.addListener(
       }
     }
     if (request.message === "data_save") {
+      var selector = request.data.selector;
       if (Object.keys(tracks.pages).includes(request.data.url)){
-        tracks.pages[request.data.url].push(request.data.selector)
+        tracks.pages[request.data.url].push(selector)
       } else {
-        tracks.pages[request.data.url] = [request.data.selector]
+        tracks.pages[request.data.url] = [selector]
       }
     }
     if (request.message === "data_delete"){
