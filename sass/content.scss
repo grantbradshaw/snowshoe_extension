@@ -231,6 +231,7 @@
   table {
     @include reset;
     tbody td {
+      @include reset;
       clear: both;
     }
     .delete {

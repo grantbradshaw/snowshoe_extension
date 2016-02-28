@@ -2,7 +2,13 @@
 var scrapeResults = {
   'url': window.location.href,
   'selector': {'name': '',
-               'path': ''}
+               'path': '',
+               'content': ''}
+}
+
+function shorten(str, limit){
+  if (str.length > limit) {str = str.substring(0,limit) + '...'};
+  return str
 }
 
 // Actual scraping function, takes html selector and scrapes all content in those selectors

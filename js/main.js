@@ -41,10 +41,9 @@
           $.each(value, function(index, value){
             var tr = $('<tr></tr>').data({url: key, selector:{'name': '', 'path': value.path}});
             $(tbody).append(tr);
-            $(tr).append('<td>'+value.name+'</td>');
-            var content = $(value.path).text();
-            $(tr).append('<td>'+content+'</td>');
-            $(tr).append('<td><a href="'+key+'">'+key+'</td>');
+            $(tr).append('<td>'+shorten(value.name, 20)+'</td>');
+            $(tr).append('<td>'+shorten(value.content, 50)+'</td>');
+            $(tr).append('<td><a href="'+key+'">'+shorten(key, 20)+'</td>');
             $(tr).append('<td><button type="button" class="delete snowshoe">Delete</button></td>');
           })
         });

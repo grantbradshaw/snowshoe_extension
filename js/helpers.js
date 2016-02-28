@@ -1,4 +1,4 @@
-const invalidTargets = ['body', 'ol', 'ul'];
+const invalidTargets = ['body', 'ol', 'ul', 'html'];
 
 function invalidClick(target){
   var targetTag = target.prop("tagName").toLowerCase();
@@ -98,6 +98,7 @@ function select_handler(event){
       $(targeted).addClass('saved');
       scrapeResults.selector.path = pathToSelected;
       scrapeResults.selector.name = prompt('What is the name of this selector?');
+      scrapeResults.selector.content = $(targeted).text()
       chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
       scrapeResults.selector.name = '';
       scrapeResults.selector.path = '';
