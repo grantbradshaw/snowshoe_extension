@@ -150,6 +150,7 @@
 }
 
 @mixin btn {
+  @include reset;
   padding: 10px 12px;
   border: 0 none;
   font-weight: 700;
@@ -237,6 +238,10 @@
     width: 249px;
     height: 40px;
     text-align: center;
+    a {
+      @include reset;
+      color: #59ABE3
+    }
   }
   th {
     @include reset;
@@ -256,4 +261,15 @@
 .snowshoe-active-body {
   position: relative !important;
   top: 50px;
+}
+
+#snowshoe-message-box {
+  @include reset;
+  border: 1px solid black;
+  width: 400px;
+  height: 25px;
+  top: 12px;
+  margin-left: 202px;
+  position: fixed;
+  z-index: 999999;
 }

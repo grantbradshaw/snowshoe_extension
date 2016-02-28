@@ -40,7 +40,10 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.message === "data_export" ) {
       if (Object.keys(tracks.pages).length == 0){
-        alert('You have tracks, please add one to export!')
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+          var activeTab = tabs[0];
+          chrome.tabs.sendMessage(activeTab.id, {"message": "export_fail"});
+        });
         return false
       }
       Object.keys(tracks.pages).forEach(function(key){
@@ -54,6 +57,11 @@ chrome.runtime.onMessage.addListener(
       var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify(tracks));
+
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+          var activeTab = tabs[0];
+          chrome.tabs.sendMessage(activeTab.id, {"message": "export_success"});
+        });
 
       xhr.onreadystatechange = function(){
         if (xhr.readyState == 4 && xhr.status == 200){

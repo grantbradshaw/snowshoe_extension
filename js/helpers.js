@@ -7,6 +7,7 @@ function invalidClick(target){
 
 function removeToolbar(){
   $('#snowshoe-toolbar-wrapper').remove();
+  $('#snowshoe-message-box').remove();
   $('.selected').removeClass('selected');
   $('.general').removeClass('general');
   $('.saved').removeClass('saved');

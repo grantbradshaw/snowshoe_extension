@@ -14,6 +14,8 @@
           }
           var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper').addClass('snowshoe');
           $('body').addClass('snowshoe-active-body').append(frame);
+          var message_box = $('<div>').attr('id', 'snowshoe-message-box').addClass('snowshoe');
+          $('body').append(message_box);
           $(document).on('click', select_handler); 
         }
         //var button_export = $('<button type="button" class="export snowshoe">Export</button>');
@@ -51,11 +53,21 @@
         $('body').append(table);
       }
     }
+    if (request.message == "export_fail"){
+      $('#snowshoe-message-box').text('You have no tracks, please add one to export!');
+      setTimeout(function(){
+        $('#snowshoe-message-box').text('');
+      }, 4000);
+    }
+    if (request.message == "export_success"){
+      removeToolbar();
+    }
   }
 );
 
   $(document).on('click', '.export', function(){
     chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults});
-    removeToolbar();
+    // Success / Failure handling managed above
+    //removeToolbar();
   });
 })();
