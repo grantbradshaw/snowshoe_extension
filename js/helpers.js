@@ -100,6 +100,14 @@ function select_handler(event){
       scrapeResults.selector.path = pathToSelected;
       scrapeResults.selector.name = prompt('What is the name of this selector?');
       scrapeResults.selector.content = $(targeted).text()
+
+      var tr = $('<tr></tr>').data({url: scrapeResults.url, selector:{'name': '', 'path': scrapeResults.selector.path}});
+      $('.display_table tbody').append(tr);
+      $(tr).append('<td><div class="td-spacer">'+shorten(scrapeResults.selector.name, 20)+'</div></td>');
+      $(tr).append('<td><div class="td-spacer">'+shorten(scrapeResults.selector.content, 20)+'</div></td>');
+      $(tr).append('<td><div class="td-spacer"><a href="'+scrapeResults.url+'">'+shorten(scrapeResults.url, 20)+'</div></td>');
+      $(tr).append('<td><div class="td-spacer"><button type="button" class="delete snowshoe btn">Delete</button></div></td>');
+
       chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
       scrapeResults.selector.name = '';
       scrapeResults.selector.path = '';
