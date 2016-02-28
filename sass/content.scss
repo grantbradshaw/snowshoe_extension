@@ -226,11 +226,13 @@
 
 .display_table {
   @include reset;
-  position: absolute;
+  position: fixed;
   background: #d3d3d3;
   border: 1px solid black;
   z-index: 999999;
-  top: 0px;
+  top: 55px;
+  max-height: 75%;
+  overflow: auto;
   width: 1000px;
   .td-spacer {
     @include reset;

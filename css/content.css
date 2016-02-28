@@ -1395,11 +1395,13 @@
   width: auto;
   word-spacing: normal;
   z-index: auto;
-  position: absolute;
+  position: fixed;
   background: #d3d3d3;
   border: 1px solid black;
   z-index: 999999;
-  top: 0px;
+  top: 55px;
+  max-height: 75%;
+  overflow: auto;
   width: 1000px; }
   .display_table .td-spacer {
     animation: none;
