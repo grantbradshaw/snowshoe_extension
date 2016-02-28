@@ -150,7 +150,7 @@
 }
 
 @mixin btn {
-  padding: 14px 24px;
+  padding: 10px 12px;
   border: 0 none;
   font-weight: 700;
   letter-spacing: 1px;
@@ -212,7 +212,7 @@
   width: 50px;
 }
 
-#snowshoe-toolbar-wrapper .hide {
+#snowshoe-toolbar-wrapper .hide-bar {
   @include reset;
   /*@include btn;*/
   position: absolute;
@@ -224,19 +224,32 @@
 }
 
 .display_table {
-  position: fixed;
-  background: orange;
+  @include reset;
+  position: absolute;
+  background: #d3d3d3;
+  border: 1px solid black;
   z-index: 999999;
-  top: 50px;
-  table {
+  top: 0px;
+  width: 1000px;
+  .td-spacer {
     @include reset;
-    tbody td {
-      @include reset;
-      clear: both;
+    display: inline-block;
+    width: 249px;
+    height: 40px;
+    text-align: center;
+  }
+  th {
+    @include reset;
+    .td-spacer {
+      font-weight: bold;
     }
-    .delete {
-      @include btn;
-    }
+  }
+  td {
+    @include reset;
+  }
+  .delete {
+    @include btn;
+    background-color: #CF000F;
   }
 }
 

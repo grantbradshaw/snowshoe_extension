@@ -55,7 +55,7 @@ $(document).on('click', '.delete', function(){
   $(tr).remove();
 });
 
-$(document).on('click', '.hide', function(){
+$(document).on('click', '.hide-bar', function(){
   removeToolbar();
 });
 
