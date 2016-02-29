@@ -18,6 +18,7 @@ function removeToolbar(){
   $('.display_table').remove();
   $('input[name="track_name"]').remove();
   $('button.send').remove();
+  $('.selection_name').remove();
 }
 
 function addToolbar(){
@@ -114,26 +115,49 @@ function select_handler(event){
       var pathToSelected = targeted.getPath();
       $(targeted).addClass('saved');
       scrapeResults.selector.path = pathToSelected;
-      scrapeResults.selector.name = prompt('What is the name of this selector?');
       scrapeResults.selector.content = $(targeted).text()
 
-      var tr = $('<tr></tr>').data({url: scrapeResults.url, selector:{'name': '', 'path': scrapeResults.selector.path}});
-      $('.display_table tbody').append(tr);
-      $(tr).append('<td><div class="td-spacer">'+shorten(scrapeResults.selector.name, 20)+'</div></td>');
-      $(tr).append('<td><div class="td-spacer">'+shorten(scrapeResults.selector.content, 20)+'</div></td>');
-      $(tr).append('<td><div class="td-spacer"><a href="'+scrapeResults.url+'">'+shorten(scrapeResults.url, 20)+'</div></td>');
-      $(tr).append('<td><div class="td-spacer"><button type="button" class="delete snowshoe btn">Delete</button></div></td>');
-
-      chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
-      scrapeResults.selector.name = '';
-      scrapeResults.selector.path = '';
-      // targeted.addClass('selected').addClass('root');
-      // var button_generalize = $('<button type="button" class="generalize snowshoe">Generalize</button>');
-      //$(button_generalize).appendTo('#snowshoe-toolbar-wrapper');
-      // var button_save = $('<button type="button" class="save snowshoe">Save</button>');
-      //$(button_save).appendTo('#snowshoe-toolbar-wrapper');
+      var selection_name = $('<div>').addClass('snowshoe').addClass('selection_name');
+      var save_image = $('<img src="https://cdn0.iconfinder.com/data/icons/basic-ui-elements-round/700/011_yes-128.png"/>').addClass('check');
+      var selection_input = $('<input type="text" name="selection_name">');
+      $(selection_name).append(selection_input).append(save_image);
+      $(targeted).after(selection_name);
+      $(document).off('click', select_handler);
+      $(document).on('click', selection_handler);
+      $(document).on('click', '.check', check_handler);
     }
   } 
+}
+
+function selection_handler(){
+  var targeted = $(event.target);
+  if ($(targeted).parents('.snowshoe').length || $(targeted).hasClass('snowshoe')){
+    
+  } else {
+    if (invalidClick(targeted)) return false;
+    if (targeted.prop("tagName").toLowerCase() === 'a') event.preventDefault();
+    var targeted_text = $(targeted).text();
+    $('input[name="selection_name"]').val(targeted_text);
+  }
+}
+
+function check_handler(){
+  console.log($('input[name="selection_name]"'))
+  scrapeResults.selector.name = $('input[name="selection_name"]').val();
+  var tr = $('<tr></tr>').data({url: scrapeResults.url, selector:{'name': '', 'path': scrapeResults.selector.path}});
+  $('.display_table tbody').append(tr);
+  $(tr).append('<td><div class="td-spacer">'+shorten(scrapeResults.selector.name, 20)+'</div></td>');
+  $(tr).append('<td><div class="td-spacer">'+shorten(scrapeResults.selector.content, 20)+'</div></td>');
+  $(tr).append('<td><div class="td-spacer"><a href="'+scrapeResults.url+'">'+shorten(scrapeResults.url, 20)+'</div></td>');
+  $(tr).append('<td><div class="td-spacer"><button type="button" class="delete snowshoe btn">Delete</button></div></td>');
+  $('.selection_name').remove();
+
+  chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
+  scrapeResults.selector.name = '';
+  scrapeResults.selector.path = '';
+  $(document).off('click', selection_handler);
+  $(document).off('click', '.check', check_handler);
+  $(document).on('click', select_handler);
 }
 
 function removeDetails(path){

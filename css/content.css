@@ -2318,6 +2318,7 @@
   word-spacing: normal;
   z-index: auto;
   border: 1px solid black;
+  background: white;
   width: 400px;
   height: 25px;
   top: 12px;
@@ -2494,3 +2495,21 @@ button.send {
   top: 60px;
   height: 25px;
   z-index: 999999; }
+
+.selection_name {
+  height: 40px;
+  border: 1px solid black;
+  width: 240px;
+  position: absolute;
+  background: white; }
+  .selection_name .check {
+    height: 20px;
+    width: 20px;
+    margin-left: 218px;
+    margin-top: 10px;
+    position: absolute; }
+  .selection_name input[name="selection_name"] {
+    width: 200px;
+    height: 25px;
+    margin-top: 3px;
+    position: absolute; }
