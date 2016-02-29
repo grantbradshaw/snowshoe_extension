@@ -17,6 +17,8 @@
           var message_box = $('<div>').attr('id', 'snowshoe-message-box').addClass('snowshoe');
           $('body').append(message_box);
           $(document).on('click', select_handler); 
+          $(document).on('click', '.export', export_handler);
+          $(document).on('click', '.display', display_handler);
         }
         //var button_export = $('<button type="button" class="export snowshoe">Export</button>');
         var button_export = $('<img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/512/export-icon.png" class="export snowshoe"/>')
@@ -55,19 +57,17 @@
     }
     if (request.message == "export_fail"){
       $('#snowshoe-message-box').text('You have no tracks, please add one to export!');
-      setTimeout(function(){
-        $('#snowshoe-message-box').text('');
-      }, 4000);
+      $(document).on('click', select_handler);
+      //$(document).on('click', '.export', export_handler);
     }
     if (request.message == "export_success"){
-      removeToolbar();
+      $('#snowshoe-message-box').text('Success!');
+      $('input[name="track_name"]').remove();
+      $('button.send').remove();
+      setTimeout(function(){
+        removeToolbar();
+      }, 2000);
     }
   }
 );
-
-  $(document).on('click', '.export', function(){
-    chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults});
-    // Success / Failure handling managed above
-    //removeToolbar();
-  });
 })();

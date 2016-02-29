@@ -275,3 +275,19 @@
   position: fixed;
   z-index: 999999;
 }
+input[name="track_name"] {
+  position: fixed;
+  margin-left: 202px;
+  top: 60px;
+  height: 25px;
+  width: 200px;
+  z-index: 999999;
+}
+button.send {
+  @include btn;
+  position: fixed;
+  margin-left: 402px;
+  top: 60px;
+  height: 25px;
+  z-index: 999999;
+}

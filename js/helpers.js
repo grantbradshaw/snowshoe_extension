@@ -12,8 +12,11 @@ function removeToolbar(){
   $('.general').removeClass('general');
   $('.saved').removeClass('saved');
   $(document).off('click', select_handler);
+  $(document).off('click', '.export', export_handler);
   $('body').removeClass('snowshoe-active-body');
   $('.display_table').remove();
+  $('input[name="track_name"]').remove();
+  $('button.send').remove();
 }
 
 function addToolbar(){
@@ -40,10 +43,10 @@ $(document).on('click', '.generalize', function(){
   }
 });
 
-$(document).on('click', '.display', function(){
+function display_handler(){
   chrome.runtime.sendMessage({"message": "data_index"});
   // output is handled in main.js with listener
-})
+}
 
 $(document).on('click', '.delete', function(){
   var tr = $(this).parents('tr');
@@ -75,6 +78,18 @@ $(document).on('click', '.save', function(){
   $('.root').removeClass('root');
   $('.selected').removeClass('selected').addClass('saved');
   $('.general').removeClass('general');
+});
+
+$(document).on('click', '.send', function(){
+  var trackName = $('input[name="track_name"]').val();
+  if (trackName){
+    $("#snowshoe-message-box").text('');
+    $('input[name="track_name"]').remove();
+    $('button.send').remove();
+    chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
+  } else {
+    $("#snowshoe-message-box").text("You must name this track");
+  }
 });
 
 function select_handler(event){
@@ -128,6 +143,23 @@ function removeDetails(path){
   });
 }
 
+function export_handler(){
+  if ($('button.send').length){
+    $('input[name="track_name"]').remove();
+    $('button.send').remove();
+    $('#snowshoe-message-box').text('');
+    $(document).on('click', select_handler);
+    $(document).on('click', '.display', display_handler);
+  } else {
+    $('.display_table').remove();
+    var track_name = $('<input type="text" name="track_name">').addClass('snowshoe');
+    var send_button = $('<button type="button" class="send snowshoe">Export</button>');
+    $('body').append(track_name).append(send_button);
+    $('#snowshoe-message-box').text('Please name this track!');
+    $(document).off('click', select_handler);
+    $(document).off('click', '.display', display_handler);
+  }
+}
 
 
   

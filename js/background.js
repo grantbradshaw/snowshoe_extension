@@ -52,7 +52,7 @@ chrome.runtime.onMessage.addListener(
         });
       });
 
-      tracks.trackName = prompt('What is the name of this track?');
+      tracks.trackName = request.trackName;
 
       var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
       xhr.setRequestHeader("Content-Type", "application/json");
@@ -65,7 +65,6 @@ chrome.runtime.onMessage.addListener(
 
       xhr.onreadystatechange = function(){
         if (xhr.readyState == 4 && xhr.status == 200){
-          alert('success');
           tracks.trackName = '';
           tracks.pages = {};
           extension_active = false;
