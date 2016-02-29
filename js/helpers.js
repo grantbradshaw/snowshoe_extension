@@ -178,10 +178,13 @@ function export_handler(){
     $(document).on('click', '.display', display_handler);
   } else {
     $('.display_table').remove();
+    $('.selection_name').remove();
+    $(scrapeResults.selector.path).removeClass('saved');
     var track_name = $('<input type="text" name="track_name">').addClass('snowshoe');
     var send_button = $('<button type="button" class="send snowshoe">Export</button>');
     $('body').append(track_name).append(send_button);
     $('#snowshoe-message-box').text('Please name this track!');
+    $(document).off('click', selection_handler);
     $(document).off('click', select_handler);
     $(document).off('click', '.display', display_handler);
   }

@@ -58,6 +58,7 @@
     if (request.message == "export_fail"){
       $('#snowshoe-message-box').text('You have no tracks, please add one to export!');
       $(document).on('click', select_handler);
+      $(document).on('click', '.display', display_handler);
       //$(document).on('click', '.export', export_handler);
     }
     if (request.message == "export_success"){
