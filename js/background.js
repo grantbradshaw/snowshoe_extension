@@ -1,40 +1,18 @@
 var tracks = {'trackName': '',
               'pages': {}}
 
-var extension_active = false;
-
 chrome.browserAction.onClicked.addListener(function(tab){
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-    if (extension_active){
-      var activeTab = tabs[0];
-      chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks});
-      extension_active = false;
-    } else {
-      var activeTab = tabs[0];
-      chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks});
-      extension_active = true;
-    }
+    var activeTab = tabs[0];
+    chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks});
   });
 });
-
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse){
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-      if (request.message === "data_index"){
-        var activeTab = tabs[0];
-        chrome.tabs.sendMessage(activeTab.id, {"message": "display_index", "tracks": tracks});
-      }
-    })
-  })
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.message === "data_export" ) {
       if (Object.keys(tracks.pages).length == 0){
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
-          var activeTab = tabs[0];
-          chrome.tabs.sendMessage(activeTab.id, {"message": "export_fail"});
-        });
+        sendMessage("export_fail");
         return false
       }
       Object.keys(tracks.pages).forEach(function(key){
@@ -42,23 +20,18 @@ chrome.runtime.onMessage.addListener(
           delete scrape.content
         });
       });
-
       tracks.trackName = request.trackName;
 
       var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify(tracks));
 
-      chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
-          var activeTab = tabs[0];
-          chrome.tabs.sendMessage(activeTab.id, {"message": "export_success"});
-        });
-
       xhr.onreadystatechange = function(){
         if (xhr.readyState == 4 && xhr.status == 200){
+          sendMessage("export_success");
+          
           tracks.trackName = '';
           tracks.pages = {};
-          extension_active = false;
         }
       }
     }
@@ -80,6 +53,12 @@ chrome.runtime.onMessage.addListener(
         }
       });
     }
+    if (request.message == "data_index"){
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        var activeTab = tabs[0];
+        chrome.tabs.sendMessage(activeTab.id, {"message": "display_index", "tracks": tracks});
+      });
+    }
   }
 );
 
@@ -93,4 +72,11 @@ function createCORSRequest(method, url){
   var xhr = new XMLHttpRequest();
   xhr.open(method, url, true);
   return xhr;
+}
+
+function sendMessage(message){
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+    var activeTab = tabs[0];
+    chrome.tabs.sendMessage(activeTab.id, {"message": message});
+  });
 }
