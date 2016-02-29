@@ -13,6 +13,7 @@ function removeToolbar(){
   $('.saved').removeClass('saved');
   $(document).off('click', select_handler);
   $(document).off('click', '.export', export_handler);
+  $(document).off('click', '.display', display_handler);
   $('body').removeClass('snowshoe-active-body');
   $('.display_table').remove();
   $('input[name="track_name"]').remove();
