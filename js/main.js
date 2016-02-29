@@ -20,13 +20,10 @@
           $(document).on('click', '.export', export_handler);
           $(document).on('click', '.display', display_handler);
         }
-        //var button_export = $('<button type="button" class="export snowshoe">Export</button>');
         var button_export = $('<img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/512/export-icon.png" class="export snowshoe"/>')
         $(button_export).appendTo(frame);
-        // var button_show = $('<button type="button" class="display snowshoe">Display Selections</button>')
         var button_show = $('<img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-128.png" class="display snowshoe"/>')
         $(button_show).appendTo(frame);
-        //var button_hide = $('<button type="button" class="hide snowshoe">Hide</button>');
         var button_hide = $('<img src="http://icons.iconarchive.com/icons/icons8/windows-8/512/Programming-Minimize-Window-icon.png" class="hide-bar snowshoe"/>')
         $(button_hide).appendTo(frame);
       }
@@ -34,9 +31,7 @@
       if ($('.display_table').length > 0){
         $('.display_table').remove();
       } else {
-        //var table_container = $('<div class="display_table"><tbody></tbody></table></div>').addClass('snowshoe');
         var table = $('<table></table>').addClass('snowshoe').addClass('display_table');
-        //$(table_container).append(table);
         $(table).append('<thead><tr><th><div class="td-spacer">Name</div></th><th><div class="td-spacer">Content</div></th><th><div class="td-spacer">Source</div></th><th><div class="td-spacer">Delete</div></tr></thead>');
         var tbody = $('<tbody></tbody>');
         $(table).append(tbody);
@@ -59,7 +54,6 @@
       $('#snowshoe-message-box').text('You have no tracks, please add one to export!');
       $(document).on('click', select_handler);
       $(document).on('click', '.display', display_handler);
-      //$(document).on('click', '.export', export_handler);
     }
     if (request.message == "export_success"){
       $('#snowshoe-message-box').text('Success!');

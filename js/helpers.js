@@ -22,30 +22,6 @@ function removeToolbar(){
   $('.selection_name').remove();
 }
 
-function addToolbar(){
-  var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper');
-  $('body').wrapInner('<div class="container snowshoe-active-body" />');
-  $('body').addClass('snowshoe-active-body').prepend(frame);
-  $(document).on('click', select_handler);
-}
-
-function removeDetails(path){
-  scrapeResults.scrapes.forEach(function(scrape, i){
-    if (scrape.path === path) {
-      scrapeResults.scrapes.splice(i, 1);
-    }
-  });
-}
-
-$(document).on('click', '.generalize', function(){
-  if ($('.selected').length > 1){
-    $('.selected').removeClass('selected').addClass('general');
-    $('.root').addClass('selected');
-  } else {
-    $('.general').removeClass('general').addClass('selected');
-  }
-});
-
 function display_handler(){
   chrome.runtime.sendMessage({"message": "data_index"});
   // output is handled in main.js with listener
@@ -64,23 +40,6 @@ $(document).on('click', '.delete', function(){
 
 $(document).on('click', '.hide-bar', function(){
   removeToolbar();
-});
-
-$(document).on('click', '.save', function(){
-  var rootSelect = $('.root:first');
-  if ($('.selected').length > 1) {
-    var pathToSelected = selectSame(rootSelect);
-  } else {
-    var pathToSelected = rootSelect.getPath();
-  }
-  scrapeResults.selector.path = pathToSelected;
-  scrapeResults.selector.name = prompt("What is the name of this selection?")
-  chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
-  $('.save').remove();
-  $('.generalize').remove();
-  $('.root').removeClass('root');
-  $('.selected').removeClass('selected').addClass('saved');
-  $('.general').removeClass('general');
 });
 
 $(document).on('click', '.send', function(){
@@ -103,9 +62,7 @@ function select_handler(event){
     if (invalidClick(targeted)) return false;
     if (targeted.prop("tagName").toLowerCase() === 'a') event.preventDefault(); 
 
-    if ($('#snowshoe-toolbar-wrapper .generalize').length > 0 && !targeted.hasClass('generalize')){
-      return false
-    } else if (targeted.hasClass('saved')) {
+    if (targeted.hasClass('saved')) {
       var pathToSelected = targeted.getPath();
       $(targeted).removeClass('saved');
       scrapeResults.selector.path = pathToSelected;
@@ -159,14 +116,6 @@ function check_handler(){
   $(document).off('click', selection_handler);
   $(document).off('click', '.check', check_handler);
   $(document).on('click', select_handler);
-}
-
-function removeDetails(path){
-  scrapeResults.scrapes.forEach(function(scrape, i){
-    if (scrape.path === path) {
-      scrapeResults.scrapes.splice(i, 1);
-    }
-  });
 }
 
 function export_handler(){

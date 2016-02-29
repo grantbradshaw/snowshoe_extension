@@ -3,15 +3,6 @@ var tracks = {'trackName': '',
 
 var extension_active = false;
 
-// chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab){
-//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-//     if (extension_active){
-//       var activeTab = tabs[0];
-//       chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks});
-//     }
-//   });
-// });
-
 chrome.browserAction.onClicked.addListener(function(tab){
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
     if (extension_active){
