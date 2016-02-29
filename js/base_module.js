@@ -11,13 +11,8 @@ function shorten(str, limit){
   return str
 }
 
-function stringifyElement(elem){
-  var entry = elem.tagName.toLowerCase();
-  if ($(elem).attr('id')){
-    var idName = $(elem).attr('id').replace(/ +/g, ' ');
-    return "#" + idName.replace(/ /g, '#')
-  }
-  return entry
+function elemId(elem){
+  if ($(elem).attr('id')) return '#' + $(elem).attr('id').replace(/ +/g, ' ').replace(/ /g, '#');
 }
 
 // Removes html and body from elements in jQuery object
@@ -28,32 +23,34 @@ function filterEles(elemArray){
 // Return direct selector for element (using direct descendent specification)
 jQuery.fn.getPath = function () {
   if (this.length != 1) throw 'Requires one element.';
-  if (stringifyElement(this[0]).indexOf('#') >= 0) return stringifyElement(this[0]);
+
+  // if targeted element has id, returns id
+  var root_id = elemId(this[0]);
+  if (root_id) return root_id;
+
   var parentsEles = [];
   var elemPath = filterEles(this.parents());
-  var parents_length = elemPath.length;
+
   $(elemPath).each(function(index){
-    var element_tag = stringifyDirectElement(this);
+    var element_tag = stringifyElement(this);
     parentsEles.push(element_tag);
     if (element_tag.indexOf('#') >= 0) return false;
   });
+  
   parentsEles = parentsEles.reverse();
-  parentsEles.push(stringifyDirectElement(this[0]));
+  parentsEles.push(stringifyElement(this[0]));
   return parentsEles.join('>');
 };
 
 // Provides direct placement of element in DOM
-function stringifyDirectElement(elem){
-  var id_ele = stringifyElement(elem)
-  if (id_ele.indexOf('#') >= 0){
-    return id_ele
-  }
+function stringifyElement(elem){
+  var root_id = elemId(elem);
+  if (root_id) return root_id;
+
   var element_tag = elem.tagName.toLowerCase();
-  var siblings = $(elem).parent().children();
-  var position = $(siblings).index(elem) + 1;
-  if (siblings.length > 1){
-    return element_tag + ':nth-child(' + position + ')' 
-  } else {
-    return element_tag;
-  }
+  var all_children = $(elem).parent().children();
+  var position = $(all_children).index(elem) + 1;
+
+  if (all_children.length > 1) {element_tag += ':nth-child(' + position + ')'}
+  return element_tag;
 }
