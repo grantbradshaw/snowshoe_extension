@@ -11,6 +11,7 @@ function removeToolbar(){
   $('.selected').removeClass('selected');
   $('.general').removeClass('general');
   $('.saved').removeClass('saved');
+  $(document).off('click', selection_handler);
   $(document).off('click', select_handler);
   $(document).off('click', '.export', export_handler);
   $(document).off('click', '.display', display_handler);

@@ -154,6 +154,7 @@
   width: 200px;
   height: 50px;
   top: 0px;
+  left: 0px;
   position: fixed;
   z-index: 999999; }
 
@@ -310,7 +311,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: 133px;
+  left: 133px;
   height: 50px;
   width: 50px; }
 
@@ -1085,7 +1086,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: 2px;
+  left: 2px;
   height: 50px;
   width: 50px; }
 
@@ -1242,7 +1243,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: 66px;
+  left: 66px;
   height: 50px;
   width: 50px; }
 
@@ -2322,7 +2323,7 @@
   width: 400px;
   height: 25px;
   top: 12px;
-  margin-left: 202px;
+  left: 202px;
   position: fixed;
   z-index: 999999; }
 
@@ -2505,11 +2506,12 @@ button.send {
   .selection_name .check {
     height: 20px;
     width: 20px;
-    margin-left: 218px;
+    left: 218px;
     margin-top: 10px;
     position: absolute; }
   .selection_name input[name="selection_name"] {
     width: 200px;
     height: 25px;
+    left: 0px;
     margin-top: 3px;
     position: absolute; }
