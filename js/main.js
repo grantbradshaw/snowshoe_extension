@@ -29,8 +29,8 @@
               $(tbody).append(tr);
               $(tr).append('<td>'+shorten(value.name, 20)+'</td>');
               $(tr).append('<td>'+shorten(value.content, 20)+'</td>');
-              $(tr).append('<td><a href="'+key+'">'+shorten(key, 30)+'</td>');
-              $(tr).append('<td><button type="button" class="delete snowshoe btn">Delete</button></td>');
+              $(tr).append('<td><a href="'+key+'">'+shorten(key, 30)+'</a></td>');
+              $(tr).append('<td><p class="delete snowshoe">X</p></td>');
             })
           });
           var table_container = $('<div>').addClass('snowshoe-table-container').append(table);
@@ -40,30 +40,13 @@
           $(lightbox_window).append(table_container);
           $(lightbox_window).append(lightbox_footer);
           $('body').append(show_button).append(lightbox);
-
-          // var frame = $('<div>').attr('id', 'snowshoe-toolbar-wrapper').addClass('snowshoe');
-          // $('body').addClass('snowshoe-active-body').append(frame);
-          //var message_box = $('<div>').attr('id', 'snowshoe-message-box').addClass('snowshoe');
           $(document).on('click', select_handler); 
           $(document).on('click', '.export', export_handler);
-          $(document).on('click', '.display', display_handler);
         }
-        // var button_export = $('<img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/512/export-icon.png" class="export snowshoe"/>')
-        // $(button_export).appendTo(frame);
-        // var button_show = $('<img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-128.png" class="display snowshoe"/>')
-        // $(button_show).appendTo(frame);
       }
-    if ( request.message === "display_index") {
-      if ($('.display_table').length > 0){
-        $('.display_table').remove();
-      } else {
-        
-
-        $('body').append(table);
-      }
-    }
     if (request.message == "export_fail"){
-      $('#snowshoe-message-box').text('You have no tracks, please add one to export!');
+      //$('#snowshoe-message-box').text('You have no tracks, please add one to export!');
+      alert("You have no tracks, please add one to export!");
       $(document).on('click', select_handler);
       $(document).on('click', '.display', display_handler);
     }
