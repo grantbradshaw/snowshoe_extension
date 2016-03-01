@@ -30,13 +30,22 @@ $(document).on('click', '.minimize', function(){
   $('.snowshoe-lightbox').css('display', 'none');
   $('#snowshoe-show-button').css('display', 'block');
   $('input[name="track_name"]').val('');
+  $(document).off('mousewheel', stopBodyScroll);
 });
 
 
 $(document).on('click', '#snowshoe-show-button', function(){
   $('#snowshoe-show-button').css('display', 'none');
   $('.snowshoe-lightbox').css('display', 'block');
+  $(document).on('mousewheel', stopBodyScroll);
 });
+
+function stopBodyScroll(event) {
+  if (!($(event.target).hasClass('snowshoe-table-container'))) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+}
 
 function select_handler(event){
   var targeted = $(event.target);
