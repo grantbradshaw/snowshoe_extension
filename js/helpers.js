@@ -80,6 +80,7 @@ function select_handler(event){
       var selection_input = $('<input type="text" name="selection_name">');
       $(selection_name).append(selection_input).append(save_image);
       $(targeted).after(selection_name);
+      $('input[name="selection_name"]').focus();
       $(document).off('click', select_handler);
       $(document).on('click', selection_handler);
       $(document).on('click', '.check', check_handler);
@@ -87,10 +88,15 @@ function select_handler(event){
   } 
 }
 
+$(document).on('keypress', function(e){
+  if (e.keyCode == 13 && $('.check').length){
+    check_handler(e);
+  }
+});
+
 function selection_handler(){
   var targeted = $(event.target);
-  if ($(targeted).parents('.snowshoe').length || $(targeted).hasClass('snowshoe')){
-    
+  if ($(targeted).parents('.snowshoe').length || $(targeted).hasClass('snowshoe')){    
   } else {
     if (invalidClick(targeted)) return false;
     if (targeted.prop("tagName").toLowerCase() === 'a') event.preventDefault();
@@ -127,7 +133,7 @@ function export_handler(){
     $('#snowshoe-message-box').css('display', 'block');
     setTimeout(function(){
       $('#snowshoe-message-box').css('display', 'none');
-    }, 2000)
+    }, 2000);
   }
 }
 
