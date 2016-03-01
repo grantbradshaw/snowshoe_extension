@@ -55,6 +55,14 @@ function select_handler(event){
       $(targeted).removeClass('saved');
       scrapeResults.selector.path = pathToSelected;
       chrome.runtime.sendMessage({"message": "data_delete", "data": scrapeResults});
+
+      var trs = $('.display_table tbody tr');
+      $.each(trs, function(index, tr){
+        if (scrapeResults.selector.path == $(tr).data().selector.path){
+          $(tr).remove();
+        }
+      });
+
       scrapeResults.selector.name = '';
       scrapeResults.selector.path = '';
     } else {
