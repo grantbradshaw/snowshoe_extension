@@ -6,8 +6,8 @@ function invalidClick(target){
 }
 
 function removeToolbar(){
-  $('#snowshoe-toolbar-wrapper').remove();
-  $('#snowshoe-message-box').remove();
+  //$('#snowshoe-toolbar-wrapper').remove();
+  //$('#snowshoe-message-box').remove();
   $('.selected').removeClass('selected');
   $('.general').removeClass('general');
   $('.saved').removeClass('saved');
@@ -15,11 +15,13 @@ function removeToolbar(){
   $(document).off('click', select_handler);
   $(document).off('click', '.export', export_handler);
   $(document).off('click', '.display', display_handler);
-  $('body').removeClass('snowshoe-active-body');
+  //$('body').removeClass('snowshoe-active-body');
   $('.display_table').remove();
   $('input[name="track_name"]').remove();
   $('button.send').remove();
   $('.selection_name').remove();
+  $('#snowshoe-show-button').remove();
+  $('.snowshoe-lightbox').remove();
 }
 
 function display_handler(){
@@ -38,9 +40,11 @@ $(document).on('click', '.delete', function(){
   $(tr).remove();
 });
 
-$(document).on('click', '.hide-bar', function(){
-  removeToolbar();
+$(document).on('click', '.minimize', function(){
+  $('.snowshoe-lightbox').css('display', 'none');
+  $('#snowshoe-show-button').css('display', 'block');
 });
+
 
 $(document).on('click', '.send', function(){
   var trackName = $('input[name="track_name"]').val();
@@ -52,6 +56,11 @@ $(document).on('click', '.send', function(){
   } else {
     $("#snowshoe-message-box").text("You must name this track");
   }
+});
+
+$(document).on('click', '#snowshoe-show-button', function(){
+  $('#snowshoe-show-button').css('display', 'none');
+  $('.snowshoe-lightbox').css('display', 'block');
 });
 
 function select_handler(event){
@@ -104,9 +113,9 @@ function check_handler(){
   scrapeResults.selector.name = $('input[name="selection_name"]').val();
   var tr = $('<tr></tr>').data({url: scrapeResults.url, selector:{'name': '', 'path': scrapeResults.selector.path}});
   $('.display_table tbody').append(tr);
-  $(tr).append('<td><div class="td-spacer">'+shorten(scrapeResults.selector.name, 20)+'</div></td>');
+  $(tr).append('<td><div class="td-spacer">'+shorten(scrapeResults.selector.name, 30)+'</div></td>');
   $(tr).append('<td><div class="td-spacer">'+shorten(scrapeResults.selector.content, 20)+'</div></td>');
-  $(tr).append('<td><div class="td-spacer"><a href="'+scrapeResults.url+'">'+shorten(scrapeResults.url, 20)+'</div></td>');
+  $(tr).append('<td><div class="td-spacer"><a href="'+scrapeResults.url+'">'+shorten(scrapeResults.url, 30)+'</div></td>');
   $(tr).append('<td><div class="td-spacer"><button type="button" class="delete snowshoe btn">Delete</button></div></td>');
   $('.selection_name').remove();
 

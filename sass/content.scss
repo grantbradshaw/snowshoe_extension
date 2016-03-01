@@ -214,53 +214,6 @@
   width: 50px;
 }
 
-#snowshoe-toolbar-wrapper .hide-bar {
-  @include reset;
-  /*@include btn;*/
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 66px;
-  height: 50px;
-  width: 50px;
-}
-
-.display_table {
-  @include reset;
-  position: fixed;
-  background: #d3d3d3;
-  border: 1px solid black;
-  z-index: 999999;
-  top: 55px;
-  max-height: 75%;
-  overflow: auto;
-  width: 1000px;
-  .td-spacer {
-    @include reset;
-    display: inline-block;
-    width: 249px;
-    height: 40px;
-    text-align: center;
-    a {
-      @include reset;
-      color: #59ABE3
-    }
-  }
-  th {
-    @include reset;
-    .td-spacer {
-      font-weight: bold;
-    }
-  }
-  td {
-    @include reset;
-  }
-  .delete {
-    @include btn;
-    background-color: #CF000F;
-  }
-}
-
 .snowshoe-active-body {
   position: relative !important;
   top: 50px;
@@ -277,14 +230,7 @@
   position: fixed;
   z-index: 999999;
 }
-input[name="track_name"] {
-  position: fixed;
-  margin-left: 202px;
-  top: 60px;
-  height: 25px;
-  width: 200px;
-  z-index: 999999;
-}
+
 button.send {
   @include btn;
   position: fixed;
@@ -314,5 +260,111 @@ button.send {
     left: 0px;
     margin-top: 3px;
     position: absolute;
+  }
+}
+#snowshoe-show-button {
+  @include reset;
+  background: #2C3E50;
+  top: 7px;
+  left: 7px;
+  border-radius: 50%;
+  position: fixed;
+  z-index: 999998;
+  img {
+    width: 50px;
+    height: 50px;
+    margin-left: 5px;
+    top: 5px;
+  }
+}
+
+.snowshoe-lightbox {
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+  position: fixed;
+  display: none;
+  z-index: 999999;
+  top: 0px;
+  left: 0px;
+  padding: 1px;
+  .snowshoe-window {
+    margin-left: 5%;
+    margin-top: 2.5%;
+    height: 90%;
+    width: 90%;
+    background: #d3d3d3;
+    .snowshoe-lightbox-header {
+      width: 100%;
+      height: 10%;
+      position: relative;
+      padding: 1px;
+      h3 {
+        margin-top: 2%;
+        margin-left: 5%;
+        display: inline-block;
+      }
+      button.minimize {
+        @include btn;
+        position: absolute;
+        top: 20%;
+        left: 85%;
+        display: inline-block;
+      }
+    }
+    .snowshoe-table-container {
+      height: 80%;
+      width: 100%;
+      overflow: auto;
+      .display_table {
+        background: #d3d3d3;
+        /*max-height: 100%;*/
+        /*overflow: auto;*/
+        width: 100%;
+        a {
+          @include reset;
+          color: #59ABE3
+        }
+        th:nth-child(1) {
+          width: 25%;
+        }
+        th:nth-child(2) {
+          width: 25%;
+        }
+        th:nth-child(3) {
+          width: 35%;
+        }
+        th:nth-child(4) {
+          width: 15%;
+        }
+        td {
+          text-align: center;
+        }
+        .delete {
+          @include btn;
+          background-color: #CF000F;
+        }
+      }
+    }
+    .snowshoe-lightbox-footer {
+      width: 100%;
+      height: 10%;
+      position: relative;
+      button.export {
+        @include btn;
+        display: block;
+        position: absolute;
+        margin-left: 87%;
+        top: 15%;
+      }
+      input[name="track_name"] {
+        margin-left: 65%;
+        top: 15%;
+        position: absolute;
+        height: 25px;
+        width: 200px;
+        display: inline-block;
+      }
+    }
   }
 }
