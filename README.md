@@ -1,4 +1,4 @@
-GScrape Extension 
+Snowshoe
 =========
 
 This is a Readme. 
