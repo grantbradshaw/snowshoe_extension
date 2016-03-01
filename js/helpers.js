@@ -77,7 +77,10 @@ function select_handler(event){
       scrapeResults.selector.content = $(targeted).text()
 
       var selection_name = $('<div>').addClass('snowshoe').addClass('selection_name');
-      var save_image = $('<img src="https://cdn0.iconfinder.com/data/icons/basic-ui-elements-round/700/011_yes-128.png"/>').addClass('check');
+
+      var check_icon = chrome.extension.getURL('../config/check.png');
+      var save_image = $('<img src="'+check_icon+'"/>').addClass('check');
+      
       var selection_input = $('<input type="text" name="selection_name">');
       $(selection_name).append(selection_input).append(save_image);
       $(targeted).after(selection_name);

@@ -13,7 +13,8 @@
             });
           }
           var show_button = $('<button>').attr('id', 'snowshoe-show-button').addClass('snowshoe');
-          var show_img = $('<img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-right-b-128.png"/>');
+          var arrow_img = chrome.extension.getURL('../config/arrow.png')
+          var show_img = $('<img src="'+arrow_img+'"/>');
           var lightbox = $('<div>').addClass('snowshoe-lightbox snowshoe');
           var lightbox_window = $('<div>').addClass('snowshoe-window showshoe');
           $(lightbox).append(lightbox_window);
