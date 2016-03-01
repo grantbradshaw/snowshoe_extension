@@ -53,7 +53,8 @@ function select_handler(event){
     
   } else {
     if (invalidClick(targeted)) return false;
-    if (targeted.prop("tagName").toLowerCase() === 'a') event.preventDefault(); 
+    var href = targeted.attr('href');
+    if (href && href[0] != '#') return; 
 
     if (targeted.hasClass('saved')) {
       var pathToSelected = targeted.getPath();
@@ -96,17 +97,16 @@ $(document).on('keypress', function(e){
 
 function selection_handler(){
   var targeted = $(event.target);
-  if ($(targeted).parents('.snowshoe').length || $(targeted).hasClass('snowshoe')){    
-  } else {
+  if ((!$(targeted).parents('.snowshoe').length || $(targeted).hasClass('snowshoe'))){   
     if (invalidClick(targeted)) return false;
-    if (targeted.prop("tagName").toLowerCase() === 'a') event.preventDefault();
+    var href = targeted.attr('href');
+    if (href && href[0] != '#') event.preventDefault();
     var targeted_text = $(targeted).text();
     $('input[name="selection_name"]').val(targeted_text);
-  }
+  } 
 }
 
 function check_handler(){
-  console.log($('input[name="selection_name]"'))
   scrapeResults.selector.name = $('input[name="selection_name"]').val();
   var tr = $('<tr></tr>').data({url: scrapeResults.url, selector:{'name': '', 'path': scrapeResults.selector.path}});
   $('.display_table tbody').append(tr);
