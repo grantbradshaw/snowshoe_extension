@@ -300,6 +300,7 @@ button.send {
   width: 240px;
   position: absolute;
   background: white;
+  z-index: 999999;
   .check {
     height: 20px;
     width: 20px;

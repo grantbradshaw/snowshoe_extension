@@ -18,5 +18,8 @@
   }, 
   "permissions": [
     "http://localhost/*"
+  ],
+  "web_accessible_resources": [
+    "config/*"
   ]
 }
