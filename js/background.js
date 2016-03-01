@@ -21,15 +21,13 @@ chrome.runtime.onMessage.addListener(
         });
       });
       tracks.trackName = request.trackName;
-
+      sendMessage("export_success");
       var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify(tracks));
 
       xhr.onreadystatechange = function(){
         if (xhr.readyState == 4 && xhr.status == 200){
-          sendMessage("export_success");
-          
           tracks.trackName = '';
           tracks.pages = {};
         }

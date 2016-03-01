@@ -219,18 +219,6 @@
   top: 50px;
 }
 
-#snowshoe-message-box {
-  @include reset;
-  border: 1px solid black;
-  background: white;
-  width: 400px;
-  height: 25px;
-  top: 12px;
-  left: 202px;
-  position: fixed;
-  z-index: 999999;
-}
-
 button.send {
   @include btn;
   position: fixed;
@@ -366,6 +354,17 @@ button.send {
         height: 25px;
         width: 200px;
         display: inline-block;
+      }
+      #snowshoe-message-box {
+        @include reset;
+        border: 1px solid black;
+        background: white;
+        position: fixed;
+        width: 400px;
+        height: 25px;
+        left: 60%;
+        bottom: 15%;
+        display: none;
       }
     }
   }

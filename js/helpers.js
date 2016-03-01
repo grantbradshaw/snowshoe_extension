@@ -15,11 +15,6 @@ function removeToolbar(){
   $('.snowshoe-lightbox').remove();
 }
 
-function display_handler(){
-  chrome.runtime.sendMessage({"message": "data_index"});
-  // output is handled in main.js with listener
-}
-
 $(document).on('click', '.delete', function(){
   var tr = $(this).parents('tr');
   tr = tr.first();
@@ -34,6 +29,7 @@ $(document).on('click', '.delete', function(){
 $(document).on('click', '.minimize', function(){
   $('.snowshoe-lightbox').css('display', 'none');
   $('#snowshoe-show-button').css('display', 'block');
+  $('input[name="track_name"]').val('');
 });
 
 
@@ -62,7 +58,6 @@ function select_handler(event){
           $(tr).remove();
         }
       });
-
       scrapeResults.selector.name = '';
       scrapeResults.selector.path = '';
     } else {
@@ -114,45 +109,16 @@ function check_handler(){
   $(document).on('click', select_handler);
 }
 
-// function export_handler(){
-//   if ($('button.send').length){
-//     $('input[name="track_name"]').remove();
-//     $('button.send').remove();
-//     $('#snowshoe-message-box').text('');
-//     $(document).on('click', select_handler);
-//     $(document).on('click', '.display', display_handler);
-//   } else {
-//     $('.display_table').remove();
-//     $('.selection_name').remove();
-//     $(scrapeResults.selector.path).removeClass('saved');
-//     var track_name = $('<input type="text" name="track_name">').addClass('snowshoe');
-//     var send_button = $('<button type="button" class="send snowshoe">Export</button>');
-//     $('body').append(track_name).append(send_button);
-//     $('#snowshoe-message-box').text('Please name this track!');
-//     $(document).off('click', selection_handler);
-//     $(document).off('click', select_handler);
-//     $(document).off('click', '.display', display_handler);
-//   }
-// }
-
-// $(document).on('click', '.send', function(){
-//   var trackName = $('input[name="track_name"]').val();
-//   if (trackName){
-//     $("#snowshoe-message-box").text('');
-//     $('input[name="track_name"]').remove();
-//     $('button.send').remove();
-//     chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
-//   } else {
-//     $("#snowshoe-message-box").text("You must name this track");
-//   }
-// });
-
 function export_handler(){
   var trackName = $('input[name="track_name"]').val();
   if (trackName){
     chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
   } else {
-    alert("You must name this track");
+    $('#snowshoe-message-box').text('You must name this track');
+    $('#snowshoe-message-box').css('display', 'block');
+    setTimeout(function(){
+      $('#snowshoe-message-box').css('display', 'none');
+    }, 2000)
   }
 }
 
