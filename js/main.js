@@ -13,9 +13,10 @@
             });
           }
           var show_button = $('<button>').attr('id', 'snowshoe-show-button').addClass('snowshoe');
-          var arrow_img = chrome.extension.getURL('../config/arrow.png')
+          var arrow_img = chrome.extension.getURL('../config/rarrow.png')
           var show_img = $('<img src="'+arrow_img+'"/>');
           var trash_img = chrome.extension.getURL('../config/trash.png');
+          var w_trash_img = chrome.extension.getURL('../config/wtrash.png');
           var lightbox = $('<div>').addClass('snowshoe-lightbox snowshoe');
           var lightbox_window = $('<div>').addClass('snowshoe-window showshoe');
           $(lightbox).append(lightbox_window);
@@ -32,7 +33,7 @@
               $(tr).append('<td>'+shorten(value.name, 20)+'</td>');
               $(tr).append('<td>'+shorten(value.content, 20)+'</td>');
               $(tr).append('<td><a href="'+key+'">'+shorten(key, 30)+'</a></td>');
-              $(tr).append('<td><a><img class="snowshoe delete" src="'+trash_img+'"/></a></td>');
+              $(tr).append('<td><a class="snowshoe delete"><img src="'+trash_img+'"/></a></td>');
             })
           });
           var table_container = $('<div>').addClass('snowshoe-table-container').append(table);
