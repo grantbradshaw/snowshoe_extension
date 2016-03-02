@@ -299,11 +299,33 @@ button.send {
         font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
       button.minimize {
-        @include btn;
+        /*@include btn;*/
         position: absolute;
         top: 20%;
         left: 85%;
         display: inline-block;
+        border-width: 2px;
+        color: #fff;
+        background-color: #18BC9C;
+        border-color: #18BC9C;
+        margin-bottom: 0;
+        font-weight: normal;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        padding: 10px 15px;
+        font-size: 15px;
+        line-height: 1.42857;
+        border-radius: 4px;
+        font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+      button.minimize:hover {
+        color: #fff;
+        background-color: #128f76;
+        border-color: #11866f;
       }
     }
     .snowshoe-table-container {
@@ -329,6 +351,9 @@ button.send {
           border-bottom: 1px solid #DDD;
           display: table-header-group;
           vertical-align: middle;
+        }
+        tbody tr:hover {
+          background-color: #ffffff;
         }
         th, td {
           height: auto;
@@ -399,11 +424,32 @@ button.send {
       height: 10%;
       position: relative;
       button.export {
-        @include btn;
         display: block;
         position: absolute;
         margin-left: 87%;
         top: 15%;
+        border-width: 2px;
+        color: #fff;
+        background-color: #18BC9C;
+        border-color: #18BC9C;
+        margin-bottom: 0;
+        font-weight: normal;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        padding: 10px 15px;
+        font-size: 15px;
+        line-height: 1.42857;
+        border-radius: 4px;
+        font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+      button.export:hover {
+        color: #fff;
+        background-color: #128f76;
+        border-color: #11866f;
       }
       input[name="track_name"] {
         margin-left: 65%;

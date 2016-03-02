@@ -145,7 +145,6 @@ function check_handler(){
   scrapeResults.selector.name = $('input[name="selection_name"]').val();
   var tr = $('<tr></tr>').data({url: scrapeResults.url, selector:{'name': '', 'path': scrapeResults.selector.path}});
   var trash_img = chrome.extension.getURL('../config/trash.png');
-  var w_trash_img = chrome.extension.getURL('../config/wtrash.png');
   $('.display_table tbody').append(tr);
   $(tr).append('<td>'+shorten(scrapeResults.selector.name, 30)+'</td>');
   $(tr).append('<td>'+shorten(scrapeResults.selector.content, 20)+'</td>');
@@ -161,10 +160,15 @@ function check_handler(){
   $(document).on('click', select_handler);
 }
 
-$('a.delete').hover(function(){
-  var img_src = $(this).find('img').attr('src');
-  alert(img_src)
-})
+$(document).on('mouseenter', 'a.delete', function(){
+  var w_trash_img = chrome.extension.getURL('../config/wtrash.png');
+  $(this).find('img').attr('src', w_trash_img);
+});
+
+$(document).on('mouseleave', 'a.delete', function(){
+  var trash_img = chrome.extension.getURL('../config/trash.png');
+  $(this).find('img').attr('src', trash_img);
+});
 
 function export_handler(){
   var trackName = $('input[name="track_name"]').val();

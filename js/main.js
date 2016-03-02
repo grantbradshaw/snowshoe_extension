@@ -16,7 +16,6 @@
           var arrow_img = chrome.extension.getURL('../config/rarrow.png')
           var show_img = $('<img src="'+arrow_img+'"/>');
           var trash_img = chrome.extension.getURL('../config/trash.png');
-          var w_trash_img = chrome.extension.getURL('../config/wtrash.png');
           var lightbox = $('<div>').addClass('snowshoe-lightbox snowshoe');
           var lightbox_window = $('<div>').addClass('snowshoe-window showshoe');
           $(lightbox).append(lightbox_window);
