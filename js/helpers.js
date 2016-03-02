@@ -35,14 +35,14 @@ $(document).on('click', '.minimize', function(){
   $('.snowshoe-lightbox').css('display', 'none');
   $('#snowshoe-show-button').css('display', 'block');
   $('input[name="track_name"]').val('');
-  $(document).off('mousewheel', stopBodyScroll);
+  //$(document).off('mousewheel', stopBodyScroll);
 });
 
 
 $(document).on('click', '#snowshoe-show-button', function(){
   $('#snowshoe-show-button').css('display', 'none');
   $('.snowshoe-lightbox').css('display', 'block');
-  $(document).on('mousewheel', stopBodyScroll);
+  //$(document).on('mousewheel', stopBodyScroll);
   if (!($('.display_table tbody tr')).length){
     var empty_table_message = $('<div>').addClass('empty-table-message-container');
     var message = $('<h2>You have no selections!</h2>');
@@ -57,7 +57,7 @@ $(document).on('click', '#snowshoe-show-button', function(){
     $('.snowshoe-title').css('display', 'block');
     $('input[name="track_name"]').prop('disabled', false).css('cursor', '')
     $('.export').css('background-color', '');
-    //$(document).on('click', '.export', export_handler);
+    $(document).on('click', '.export', export_handler);
   }
 });
 
