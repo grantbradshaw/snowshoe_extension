@@ -1,4 +1,4 @@
-const invalidTargets = ['body', 'ol', 'ul', 'html'];
+const invalidTargets = ['body', 'ol', 'ul', 'html', 'img', 'input'];
 
 function invalidClick(target){
   var targetTag = target.prop("tagName").toLowerCase();
@@ -27,6 +27,7 @@ $(document).on('click', '.delete', function(){
   if (!($('.display_table tbody tr').length)){
     $(document).off('click', '.export', export_handler);
     $('.export').css('background-color', '#dddddd');
+    $('input[name="track_name"]').css('display', 'none');
   }
 });
 
@@ -46,6 +47,7 @@ $(document).on('click', '#snowshoe-show-button', function(){
     var empty_table_message = $('<div>').addClass('empty-table-message-container');
     var message = $('<h2>You have no selections!</h2>');
     $('.snowshoe-title').css('display', 'none');
+    $('input[name="track_name"]').css('display', 'none');
     $(empty_table_message).append(message);
     $('.snowshoe-table-container').append(empty_table_message);
     $(document).off('click', '.export', export_handler);
@@ -53,6 +55,7 @@ $(document).on('click', '#snowshoe-show-button', function(){
   } else {
     $('.empty-table-message-container').remove();
     $('.snowshoe-title').css('display', 'block');
+    $('input[name="track_name"]').css('display', 'block');
     $('.export').css('background-color', '');
     $(document).on('click', '.export', export_handler);
   }
@@ -70,7 +73,7 @@ function select_handler(event){
   if ($(targeted).parents('.snowshoe').length || $(targeted).hasClass('snowshoe')){
     
   } else {
-    if (invalidClick(targeted)) return false;
+    if (invalidClick(targeted)) return;
     var href = targeted.attr('href');
     if (href && href[0] != '#') return; 
 
