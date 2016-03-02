@@ -93,7 +93,7 @@ function select_handler(event){
       scrapeResults.selector.path = '';
     } else {
       var pathToSelected = targeted.getPath();
-      $(targeted).addClass('saved');
+      $(targeted).addClass('saved').addClass('snowshoe-active');
       scrapeResults.selector.path = pathToSelected;
       scrapeResults.selector.content = $(targeted).text()
 
@@ -122,11 +122,22 @@ $(document).on('keypress', function(e){
 function selection_handler(){
   var targeted = $(event.target);
   if ((!$(targeted).parents('.snowshoe').length || $(targeted).hasClass('snowshoe'))){   
-    if (invalidClick(targeted)) return false;
-    var href = targeted.attr('href');
-    if (href && href[0] != '#') event.preventDefault();
-    var targeted_text = $(targeted).text();
-    $('input[name="selection_name"]').val(targeted_text);
+    if (targeted.hasClass('snowshoe-active')){
+      scrapeResults.selector.name = '';
+      scrapeResults.selector.path = '';
+      $(document).off('click', selection_handler);
+      $(document).off('click', '.check', check_handler);
+      $(document).on('click', select_handler);
+      targeted.removeClass('snowshoe-active').removeClass('saved')
+      $('.selection_name').remove();
+    }
+    else {
+      if (invalidClick(targeted)) return false;
+      var href = targeted.attr('href');
+      if (href && href[0] != '#') event.preventDefault();
+      var targeted_text = $(targeted).text();
+      $('input[name="selection_name"]').val(targeted_text);
+    }
   } 
 }
 
@@ -139,7 +150,7 @@ function check_handler(){
   $(tr).append('<td><a href="'+scrapeResults.url+'">'+shorten(scrapeResults.url, 30)+'</a></td>');
   $(tr).append('<td><span class="delete snowshoe">X</span></td>');
   $('.selection_name').remove();
-
+  $('.snowshoe-active').removeClass('snowshoe-active');
   chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
   scrapeResults.selector.name = '';
   scrapeResults.selector.path = '';
