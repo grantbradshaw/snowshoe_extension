@@ -24,6 +24,10 @@ $(document).on('click', '.delete', function(){
     $(path_to_deleted).removeClass('saved');
   }
   $(tr).remove();
+  if (!($('.display_table tbody tr').length)){
+    $(document).off('click', '.export', export_handler);
+    $('.export').css('background-color', '#dddddd');
+  }
 });
 
 $(document).on('click', '.minimize', function(){
@@ -38,6 +42,20 @@ $(document).on('click', '#snowshoe-show-button', function(){
   $('#snowshoe-show-button').css('display', 'none');
   $('.snowshoe-lightbox').css('display', 'block');
   $(document).on('mousewheel', stopBodyScroll);
+  if (!($('.display_table tbody tr')).length){
+    var empty_table_message = $('<div>').addClass('empty-table-message-container');
+    var message = $('<h2>You have no selections!</h2>');
+    $('.snowshoe-title').css('display', 'none');
+    $(empty_table_message).append(message);
+    $('.snowshoe-table-container').append(empty_table_message);
+    $(document).off('click', '.export', export_handler);
+    $('.export').css('background-color', '#dddddd');
+  } else {
+    $('.empty-table-message-container').remove();
+    $('.snowshoe-title').css('display', 'block');
+    $('.export').css('background-color', '');
+    $(document).on('click', '.export', export_handler);
+  }
 });
 
 function stopBodyScroll(event) {

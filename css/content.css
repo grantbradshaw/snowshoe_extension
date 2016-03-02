@@ -1625,7 +1625,8 @@ button.send {
     .snowshoe-lightbox .snowshoe-window .snowshoe-table-container {
       height: 80%;
       width: 100%;
-      overflow: auto; }
+      overflow: auto;
+      position: relative; }
       .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table {
         background: #d3d3d3;
         /*max-height: 100%;*/
@@ -1796,6 +1797,15 @@ button.send {
           font-size: 16px;
           color: #CF000F;
           cursor: pointer; }
+      .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .empty-table-message-container {
+        position: absolute;
+        background: #d3d3d3;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        text-align: center; }
+        .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .empty-table-message-container h2 {
+          margin-top: 150px; }
     .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-footer {
       width: 100%;
       height: 10%;
