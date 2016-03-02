@@ -31,7 +31,7 @@
               $(tr).append('<td>'+shorten(value.name, 20)+'</td>');
               $(tr).append('<td>'+shorten(value.content, 20)+'</td>');
               $(tr).append('<td><a href="'+key+'">'+shorten(key, 30)+'</a></td>');
-              $(tr).append('<td><p class="delete snowshoe">X</p></td>');
+              $(tr).append('<td><a><img class="snowshoe delete" src="'+trash_img+'"/></a></td>');
             })
           });
           var table_container = $('<div>').addClass('snowshoe-table-container').append(table);

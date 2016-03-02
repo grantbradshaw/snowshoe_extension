@@ -57,7 +57,7 @@ $(document).on('click', '#snowshoe-show-button', function(){
     $('.snowshoe-title').css('display', 'block');
     $('input[name="track_name"]').prop('disabled', false).css('cursor', '')
     $('.export').css('background-color', '');
-    $(document).on('click', '.export', export_handler);
+    //$(document).on('click', '.export', export_handler);
   }
 });
 
@@ -144,11 +144,12 @@ function selection_handler(){
 function check_handler(){
   scrapeResults.selector.name = $('input[name="selection_name"]').val();
   var tr = $('<tr></tr>').data({url: scrapeResults.url, selector:{'name': '', 'path': scrapeResults.selector.path}});
+  var trash_img = chrome.extension.getURL('../config/trash.png')
   $('.display_table tbody').append(tr);
   $(tr).append('<td>'+shorten(scrapeResults.selector.name, 30)+'</td>');
   $(tr).append('<td>'+shorten(scrapeResults.selector.content, 20)+'</td>');
   $(tr).append('<td><a href="'+scrapeResults.url+'">'+shorten(scrapeResults.url, 30)+'</a></td>');
-  $(tr).append('<td><span class="delete snowshoe">X</span></td>');
+  $(tr).append('<td><img class="snowshoe delete" src="'+trash_img+'"/></td>');
   $('.selection_name').remove();
   $('.snowshoe-active').removeClass('snowshoe-active');
   chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});

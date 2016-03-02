@@ -291,6 +291,8 @@ button.send {
         margin-top: 2%;
         margin-left: 5%;
         display: inline-block;
+        font-size: 16px;
+        font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
       button.minimize {
         @include btn;
@@ -307,12 +309,39 @@ button.send {
       position: relative;
       .display_table {
         background: #d3d3d3;
-        /*max-height: 100%;*/
-        /*overflow: auto;*/
+        margin: 1.6em;
+        border-collapse: collapse;
+        border-top: 1px solid #DDD;
         width: 100%;
+        background-color: transparent;
         a {
           @include reset;
-          color: #59ABE3
+          text-decoration: underline;
+          color: #18BC9C;
+          background-color: transparent;
+        }
+        thead {
+          border-bottom: 1px solid #DDD;
+          display: table-header-group;
+          vertical-align: middle;
+        }
+        th, td {
+          height: auto;
+          font-size: 15px;
+          font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+          text-align: left;
+          padding: 8px;
+          vertical-align: top;
+          display: table-cell;
+        }
+        th {
+          font-weight: bold;
+          border-top: 0;
+          border: none;
+          vertical-align: bottom;
+        }
+        td {
+          vertical-align: top;
         }
         th:nth-child(1) {
           width: 25%;
@@ -325,9 +354,6 @@ button.send {
         }
         th:nth-child(4) {
           width: 15%;
-        }
-        td {
-          text-align: center;
         }
         .delete {
           font-weight: bold;

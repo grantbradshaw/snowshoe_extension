@@ -1461,7 +1461,9 @@ button.send {
       .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-header h3 {
         margin-top: 2%;
         margin-left: 5%;
-        display: inline-block; }
+        display: inline-block;
+        font-size: 16px;
+        font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
       .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-header button.minimize {
         animation: none;
         animation-delay: 0;
@@ -1629,9 +1631,11 @@ button.send {
       position: relative; }
       .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table {
         background: #d3d3d3;
-        /*max-height: 100%;*/
-        /*overflow: auto;*/
-        width: 100%; }
+        margin: 1.6em;
+        border-collapse: collapse;
+        border-top: 1px solid #DDD;
+        width: 100%;
+        background-color: transparent; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table a {
           animation: none;
           animation-delay: 0;
@@ -1781,7 +1785,28 @@ button.send {
           width: auto;
           word-spacing: normal;
           z-index: auto;
-          color: #59ABE3; }
+          text-decoration: underline;
+          color: #18BC9C;
+          background-color: transparent; }
+        .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table thead {
+          border-bottom: 1px solid #DDD;
+          display: table-header-group;
+          vertical-align: middle; }
+        .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table th, .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table td {
+          height: auto;
+          font-size: 15px;
+          font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+          text-align: left;
+          padding: 8px;
+          vertical-align: top;
+          display: table-cell; }
+        .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table th {
+          font-weight: bold;
+          border-top: 0;
+          border: none;
+          vertical-align: bottom; }
+        .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table td {
+          vertical-align: top; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table th:nth-child(1) {
           width: 25%; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table th:nth-child(2) {
@@ -1790,8 +1815,6 @@ button.send {
           width: 35%; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table th:nth-child(4) {
           width: 15%; }
-        .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table td {
-          text-align: center; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table .delete {
           font-weight: bold;
           font-size: 16px;

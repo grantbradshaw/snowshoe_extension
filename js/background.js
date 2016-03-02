@@ -34,7 +34,7 @@ chrome.runtime.onMessage.addListener(
       });
       tracks.trackName = request.trackName;
       sendMessage("export_success");
-      var xhr = createCORSRequest('POST', 'http://localhost:3000/testing');
+      var xhr = createCORSRequest('POST', 'http://localhost:3000/tracks');
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify(tracks));
 
