@@ -144,7 +144,7 @@ function selection_handler(){
 function check_handler(){
   scrapeResults.selector.name = $('input[name="selection_name"]').val();
   var tr = $('<tr></tr>').data({url: scrapeResults.url, selector:{'name': '', 'path': scrapeResults.selector.path}});
-  var trash_img = chrome.extension.getURL('../config/trash.png')
+  var trash_img = chrome.extension.getURL('../config/trash.png');
   $('.display_table tbody').append(tr);
   $(tr).append('<td>'+shorten(scrapeResults.selector.name, 30)+'</td>');
   $(tr).append('<td>'+shorten(scrapeResults.selector.content, 20)+'</td>');
