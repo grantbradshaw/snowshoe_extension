@@ -188,15 +188,15 @@ $(document).on('mouseleave', 'a.delete', function(){
 });
 
 function export_handler(){
-  // $(document).off('click', '.export', export_handler);
   var trackName = $('input[name="track_name"]').val();
   if (trackName){
+    $(document).off('click', '.export', export_handler);
     chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
   } else {
     $('#snowshoe-message-box').text('You must name this track');
     $('#snowshoe-message-box').css('display', 'block');
     setTimeout(function(){
-      if ('#snowshoe-message-box'.text() == 'You must name this track'){
+      if ($('#snowshoe-message-box').text() == 'You must name this track'){
         $('#snowshoe-message-box').css('display', 'none');
       }
     }, 2000);

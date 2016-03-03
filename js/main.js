@@ -50,7 +50,7 @@
     if (request.message == "export_fail"){
       $('#snowshoe-message-box').text('You have no tracks, please add one to export!');
       $('#snowshoe-message-box').css('display', 'block');
-      // $(document).on('click', '.export', export_handler);
+      $(document).on('click', '.export', export_handler);
         setTimeout(function(){
           $('#snowshoe-message-box').css('display', 'none');
         }, 2000);
