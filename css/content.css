@@ -1270,6 +1270,8 @@ button.send {
     margin-top: 10px;
     position: absolute; }
   .selection_name .remove {
+    height: 20px;
+    width: 20px;
     left: 218px;
     margin-top: 10px;
     position: absolute; }
@@ -1278,7 +1280,15 @@ button.send {
     height: 25px;
     left: 0px;
     margin-top: 3px;
-    position: absolute; }
+    position: absolute;
+    font-size: 12px;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: left;
+    vertical-align: top;
+    display: table-cell;
+    background-color: transparent;
+    color: #3A4145;
+    line-height: 1.6em; }
 
 #snowshoe-show-button {
   animation: none;
@@ -1434,7 +1444,7 @@ button.send {
   left: 7px;
   height: 50px;
   width: 50px;
-  border-radius: 50%;
+  border-radius: 50% !important;
   position: fixed;
   z-index: 999999;
   cursor: pointer; }
@@ -1498,7 +1508,7 @@ button.send {
         padding: 10px 15px;
         font-size: 15px;
         line-height: 1.42857;
-        border-radius: 4px;
+        border-radius: 4px !important;
         font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
       .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-header button.minimize:hover {
         color: #fff;
@@ -1673,6 +1683,8 @@ button.send {
           border-bottom: 1px solid #DDD;
           display: table-header-group;
           vertical-align: middle; }
+          .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table thead tr {
+            height: 44px; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table tbody tr:hover {
           background-color: #ffffff; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table th, .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table td {
@@ -1683,7 +1695,9 @@ button.send {
           padding: 8px;
           vertical-align: top;
           display: table-cell;
-          background-color: transparent; }
+          background-color: transparent;
+          color: #3A4145;
+          line-height: 1.6em; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .display_table th {
           font-weight: bold;
           border-top: 0;
@@ -1727,7 +1741,8 @@ button.send {
         top: 0px;
         text-align: center; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .empty-table-message-container h2 {
-          margin-top: 150px; }
+          margin-top: 150px;
+          font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
     .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-footer {
       width: 100%;
       height: 10%;
@@ -1750,7 +1765,7 @@ button.send {
         padding: 10px 15px;
         font-size: 15px;
         line-height: 1.42857;
-        border-radius: 4px;
+        border-radius: 4px !important;
         font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
       .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-footer button.export:hover {
         color: #fff;

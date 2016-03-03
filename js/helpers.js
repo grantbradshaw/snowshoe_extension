@@ -188,6 +188,7 @@ $(document).on('mouseleave', 'a.delete', function(){
 });
 
 function export_handler(){
+  // $(document).off('click', '.export', export_handler);
   var trackName = $('input[name="track_name"]').val();
   if (trackName){
     chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
