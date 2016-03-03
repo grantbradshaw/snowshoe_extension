@@ -15,7 +15,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab){
    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
      if (extension_active){
        var activeTab = tabs[0];
-       chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks});
+       chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks, "force": true});
      }
    });
  });

@@ -2,7 +2,7 @@
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       if ( request.message === "clicked_browser_action" ) {
-        if ($('#snowshoe-show-button').length || $('.snowshoe-lightbox').length){
+        if (($('#snowshoe-show-button').length || $('.snowshoe-lightbox').length) && !request.force){
           removeToolbar();
         } else {
           var current_url = window.location.href;
