@@ -2075,3 +2075,6 @@ button.send {
           text-decoration: underline;
           color: #18BC9C;
           background-color: transparent; }
+        .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-footer #snowshoe-message-box a.end-session {
+          color: #CF000F;
+          cursor: pointer; }

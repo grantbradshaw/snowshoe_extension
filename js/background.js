@@ -40,6 +40,7 @@ chrome.runtime.onMessage.addListener(
           });
           tracks.trackName = '';
           tracks.pages = {};
+          extension_active = false;
         }
       }
     }

@@ -55,11 +55,13 @@
         }, 2000);
     }
     if (request.message == "export_success"){
+      $(document).off('click', '.minimize', minimizeHandler);
+      $(document).off('click', '.export', export_handler);
+      $(document).off('click', '.delete', deleteHandler)
+      $('#snowshoe-message-box').text('');
       $('#snowshoe-message-box').append('<a href="'+request.trackURL+'">See your selections!</a>');
+      $('#snowshoe-message-box').append('<a class="end-session">Close extension</a>');
       $('#snowshoe-message-box').css('display', 'block');
-      setTimeout(function(){
-        removeToolbar();
-      }, 5000);
     }
   }
 );

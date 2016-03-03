@@ -15,7 +15,11 @@ function removeToolbar(){
   $('.snowshoe-lightbox').remove();
 }
 
-$(document).on('click', '.delete', function(){
+$(document).on('click', '.end-session', function(){
+  removeToolbar();
+});
+
+function deleteHandler(){
   var tr = $(this).parents('tr');
   tr = tr.first();
   chrome.runtime.sendMessage({"message": "data_delete", "data": $(tr).data()});
@@ -29,20 +33,20 @@ $(document).on('click', '.delete', function(){
     $('.export').css('background-color', '#dddddd');
     $('input[name="track_name"]').val('').prop('disabled', true).css('cursor', 'not-allowed');
   }
-});
+}
 
-$(document).on('click', '.minimize', function(){
+function minimizeHandler(){
   $('.snowshoe-lightbox').css('display', 'none');
   $('#snowshoe-show-button').css('display', 'block');
   $('input[name="track_name"]').val('');
-  //$(document).off('mousewheel', stopBodyScroll);
-});
+}
 
 
 $(document).on('click', '#snowshoe-show-button', function(){
   $('#snowshoe-show-button').css('display', 'none');
   $('.snowshoe-lightbox').css('display', 'block');
-  //$(document).on('mousewheel', stopBodyScroll);
+  $(document).on('click', '.minimize', minimizeHandler);
+  $(document).on('click', '.delete', deleteHandler);
   if (!($('.display_table tbody tr')).length){
     var empty_table_message = $('<div>').addClass('empty-table-message-container');
     var message = $('<h2>You have no selections!</h2>');
@@ -191,7 +195,9 @@ function export_handler(){
     $('#snowshoe-message-box').text('You must name this track');
     $('#snowshoe-message-box').css('display', 'block');
     setTimeout(function(){
-      $('#snowshoe-message-box').css('display', 'none');
+      if ('#snowshoe-message-box'.text() == 'You must name this track'){
+        $('#snowshoe-message-box').css('display', 'none');
+      }
     }, 2000);
   }
 }
