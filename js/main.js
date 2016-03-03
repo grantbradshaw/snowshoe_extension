@@ -55,11 +55,11 @@
         }, 2000);
     }
     if (request.message == "export_success"){
-      $('#snowshoe-message-box').text('Success!');
+      $('#snowshoe-message-box').append('<a href="'+request.trackURL+'">See your selections!</a>');
       $('#snowshoe-message-box').css('display', 'block');
       setTimeout(function(){
         removeToolbar();
-      }, 2000);
+      }, 5000);
     }
   }
 );

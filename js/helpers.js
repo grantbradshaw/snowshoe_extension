@@ -136,6 +136,7 @@ function selection_handler(){
       var href = targeted.attr('href');
       if (href && href[0] != '#') event.preventDefault();
       var targeted_text = $(targeted).text();
+      if (targeted_text.match(/ {5,}/)) targeted_text = '';
       $('input[name="selection_name"]').val(targeted_text);
     }
   } 
