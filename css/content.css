@@ -1259,13 +1259,17 @@ button.send {
 .selection_name {
   height: 40px;
   border: 1px solid black;
-  width: 240px;
+  width: 265px;
   position: absolute;
   background: white;
   z-index: 999999; }
   .selection_name .check {
     height: 20px;
     width: 20px;
+    left: 243px;
+    margin-top: 10px;
+    position: absolute; }
+  .selection_name .remove {
     left: 218px;
     margin-top: 10px;
     position: absolute; }
@@ -1730,9 +1734,7 @@ button.send {
       position: relative; }
       .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-footer button.export {
         display: block;
-        position: absolute;
         margin-left: 87%;
-        top: 15%;
         border-width: 2px;
         color: #fff;
         background-color: #18BC9C;
@@ -1756,8 +1758,9 @@ button.send {
         border-color: #11866f; }
       .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-footer input[name="track_name"] {
         margin-left: 65%;
-        top: 15%;
-        position: absolute;
+        margin-bottom: 0;
+        border: 1px solid transparent;
+        float: left;
         height: 25px;
         width: 200px;
         display: inline-block;

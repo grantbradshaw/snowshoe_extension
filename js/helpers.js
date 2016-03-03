@@ -101,9 +101,11 @@ function select_handler(event){
 
       var check_icon = chrome.extension.getURL('../config/check.png');
       var save_image = $('<img src="'+check_icon+'"/>').addClass('check');
+      var x_icon = chrome.extension.getURL('../config/x.png');
+      var x_icon = $('<img src="'+x_icon+'"/>').addClass('remove');
       
       var selection_input = $('<input type="text" name="selection_name">');
-      $(selection_name).append(selection_input).append(save_image);
+      $(selection_name).append(selection_input).append(x_icon).append(save_image);
       $(targeted).after(selection_name);
       $('input[name="selection_name"]').focus();
       $(document).off('click', select_handler);
@@ -112,6 +114,16 @@ function select_handler(event){
     }
   } 
 }
+
+$(document).on('click', '.remove', function(){
+  scrapeResults.selector.name = '';
+  scrapeResults.selector.path = '';
+  $(document).off('click', selection_handler);
+  $(document).off('click', '.check', check_handler);
+  $(document).on('click', select_handler);
+  $('.snowshoe-active').removeClass('snowshoe-active').removeClass('saved')
+  $('.selection_name').remove();
+})
 
 $(document).on('keypress', function(e){
   if (e.keyCode == 13 && $('.check').length){

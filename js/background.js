@@ -27,11 +27,6 @@ chrome.runtime.onMessage.addListener(
         sendMessage("export_fail");
         return false
       }
-      Object.keys(tracks.pages).forEach(function(key){
-        tracks.pages[key].forEach(function(scrape){
-          delete scrape.content
-        });
-      });
       tracks.trackName = request.trackName;
       var xhr = createCORSRequest('POST', 'http://localhost:3000/tracks');
       xhr.setRequestHeader("Content-Type", "application/json");
@@ -39,12 +34,10 @@ chrome.runtime.onMessage.addListener(
 
       xhr.onreadystatechange = function(){
         if (xhr.readyState == 4 && xhr.status == 200){
-          alert('here');
           chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
             var activeTab = tabs[0];
             chrome.tabs.sendMessage(activeTab.id, {"message": "export_success", trackURL: JSON.parse(xhr.responseText).trackURL});
           });
-          alert('there')
           tracks.trackName = '';
           tracks.pages = {};
         }
