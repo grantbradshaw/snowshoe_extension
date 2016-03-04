@@ -37,12 +37,10 @@
           });
           var table_container = $('<div>').addClass('snowshoe-table-container').append(table);
           var lightbox_header = $('<div><button class="minimize">Minimize</button><h3 class="snowshoe-title">My Selections</h3></div>').addClass('snowshoe-lightbox-header');
-          var lightbox_footer = $('<div><div class="grouping"><input type="text" name="track_name" placeholder="Please name this track"><button class="export snowshoe">Export</button></div></div>').addClass('snowshoe-lightbox-footer');
-          var lightbox_message_box = $('<div>').attr('id', 'snowshoe-message-box');
+          var lightbox_footer = $('<div><div id="snowshoe-message-box"></div><div class="grouping"><input type="text" name="track_name" placeholder="Please name this track"><button class="export snowshoe">Export</button></div></div>').addClass('snowshoe-lightbox-footer');
           $(lightbox_window).append(lightbox_header);
           $(lightbox_window).append(table_container);
           $(lightbox_window).append(lightbox_footer);
-          $(lightbox_footer).append(lightbox_message_box);
           $('body').append(show_button).append(lightbox);
           $(document).on('click', select_handler); 
         }
@@ -58,9 +56,10 @@
     if (request.message == "export_success"){
       $(document).off('click', '.minimize', minimizeHandler);
       $(document).off('click', '.delete', deleteHandler)
+      $('.grouping').css('display', 'none');
       $('#snowshoe-message-box').text('');
+      $('#snowshoe-message-box').append('<a class="end-session">Close</a>');
       $('#snowshoe-message-box').append('<a href="'+request.trackURL+'">See your selections!</a>');
-      $('#snowshoe-message-box').append('<a class="end-session">Close extension</a>');
       $('#snowshoe-message-box').css('display', 'block');
     }
   }

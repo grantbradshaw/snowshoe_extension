@@ -346,6 +346,7 @@ button.send {
     box-sizing: border-box;
     padding: 18px;
     border-radius: 4px;
+    position: relative;
     .snowshoe-lightbox-header {
       width: 100%;
       padding-bottom: 8px;
@@ -493,6 +494,10 @@ button.send {
     .snowshoe-lightbox-footer {
       width: 100%;
       padding-top: 24px;
+      padding-bottom: 12px;
+      position: absolute;
+      bottom: 0;
+      right: 18px;
       .grouping{
         float: right;
         height: 54px;
@@ -524,8 +529,6 @@ button.send {
         input[name="track_name"] {
           margin: 0;
           border: none;
-          position: relative;
-          top: -2px;
           height: 45px !important;
           width: 200px;
           box-sizing: border-box;
@@ -545,22 +548,33 @@ button.send {
       
       #snowshoe-message-box {
         @include reset;
-        border: 1px solid black;
-        background: white;
-        position: fixed;
-        width: 400px;
-        height: 25px;
-        left: 60%;
+        height: 45px;
         bottom: 15%;
         display: none;
+        text-align: right;
         a {
           @include reset;
-          text-decoration: underline;
-          color: #18BC9C;
-          background-color: transparent;
+          display: inline-block;
+          margin-left: 6px;
+          height: 25px;
+          border-width: 2px;
+          color: #fff;
+          background-color: #18BC9C;
+          border-color: #18BC9C;
+          margin-bottom: 0;
+          font-weight: normal;
+          cursor: pointer;
+          background-image: none;
+          border: 1px solid transparent;
+          white-space: nowrap;
+          padding: 10px 15px;
+          font-size: 15px;
+          line-height: 1.42857;
+          border-radius: 4px !important;
+          font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
         a.end-session {
-          color: #CF000F;
+          background-color: #CF000F;
           cursor: pointer;
         }
       }
