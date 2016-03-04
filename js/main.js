@@ -2,6 +2,7 @@
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       if ( request.message === "clicked_browser_action" ) {
+        $('#snowshoe-show-button').remove();
         if (($('#snowshoe-show-button').length || $('.snowshoe-lightbox').length) && !request.force){
           removeToolbar();
         } else {
@@ -59,7 +60,7 @@
       $('.grouping').css('display', 'none');
       $('#snowshoe-message-box').text('');
       $('#snowshoe-message-box').append('<a class="end-session">Close</a>');
-      $('#snowshoe-message-box').append('<a href="'+request.trackURL+'">See your selections!</a>');
+      $('#snowshoe-message-box').append('<a class="see-selections" href="'+request.trackURL+'">See your selections!</a>');
       $('#snowshoe-message-box').css('display', 'block');
     }
   }

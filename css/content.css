@@ -1925,6 +1925,8 @@ button.send {
         text-align: center; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-table-container .empty-table-message-container h2 {
           margin-top: 150px;
+          font-size: 1.5em;
+          font-weight: bold;
           font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
     .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-footer {
       width: 100%;
@@ -2296,6 +2298,10 @@ button.send {
           line-height: 1.42857;
           border-radius: 4px !important;
           font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+        .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-footer #snowshoe-message-box .see-selections:hover {
+          color: #fff;
+          background-color: #128f76;
+          border-color: #11866f; }
         .snowshoe-lightbox .snowshoe-window .snowshoe-lightbox-footer #snowshoe-message-box a.end-session {
           background-color: #CF000F;
           cursor: pointer; }
