@@ -1,3 +1,8 @@
+@keyframes rotate {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
 .saved {
   background-color: rgba(97, 179, 41, 0.5); }
 
@@ -1609,6 +1614,28 @@ button.send {
     display: block;
     margin: 0;
     margin-left: 10px; }
+  #snowshoe-show-button:before, #snowshoe-show-button:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #2C3E50;
+    z-index: -1; }
+  #snowshoe-show-button:before {
+    z-index: -2;
+    top: -2px;
+    left: -2px;
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.5) 0%, rgba(61, 155, 226, 0.5) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(61, 155, 226, 0.5) 100%);
+    width: 54px;
+    height: 54px;
+    animation-name: rotate;
+    animation-duration: 3s;
+    animation-iteration-count: infinite; }
 
 .snowshoe-lightbox {
   height: 100%;
