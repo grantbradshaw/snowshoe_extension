@@ -240,7 +240,7 @@ button.send {
 .selection_name {
   height: 54px;
   border: 1px solid #202f3d;
-  width: 281px;
+  width: 284px;
   position: absolute;
   background: #2C3E50;
   z-index: 999999;
@@ -343,14 +343,13 @@ button.send {
     height: 90%;
     width: 90%;
     background: #d3d3d3;
+    box-sizing: border-box;
+    padding: 18px;
+    border-radius: 4px;
     .snowshoe-lightbox-header {
       width: 100%;
-      height: 10%;
-      position: relative;
-      padding: 1px;
+      padding-bottom: 8px;
       h3 {
-        margin-top: 2%;
-        margin-left: 5%;
         display: inline-block;
         font-size: 20px;
         font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -362,9 +361,7 @@ button.send {
       }
       button.minimize {
         /*@include btn;*/
-        position: absolute;
-        top: 20%;
-        left: 85%;
+        float: right;
         display: inline-block;
         border-width: 2px;
         color: #fff;
@@ -389,6 +386,11 @@ button.send {
         background-color: #128f76;
         border-color: #11866f;
       }
+      &:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
     }
     .snowshoe-table-container {
       height: 80%;
@@ -397,12 +399,11 @@ button.send {
       position: relative;
       .display_table {
         background: #d3d3d3;
-        margin: 1.6em;
         border-collapse: collapse;
         border-top: 1px solid #DDD;
         border-bottom: 1px solid #DDD;
-        width: 100%;
         background-color: transparent;
+        margin-top: 1em;
         a {
           @include reset;
           text-decoration: underline;
@@ -452,7 +453,7 @@ button.send {
           width: 35%;
         }
         th:nth-child(4) {
-          width: 15%;
+          width: 5%;
         }
         .delete {
           color: #CF000F;
@@ -491,16 +492,13 @@ button.send {
     }
     .snowshoe-lightbox-footer {
       width: 100%;
-      height: 10%;
-      position: relative;
+      padding-top: 24px;
       .grouping{
-        position: relative;
+        float: right;
         height: 54px;
-        left: 65%;
         button.export {
-          display: block;
-          margin-left: 206px;
-          margin-top: 4px;
+          display: inline-block;
+          margin-left: 6px;
           height: 45px;
           border-width: 2px;
           color: #fff;
@@ -508,8 +506,6 @@ button.send {
           border-color: #18BC9C;
           margin-bottom: 0;
           font-weight: normal;
-          text-align: center;
-          vertical-align: middle;
           cursor: pointer;
           background-image: none;
           border: 1px solid transparent;
@@ -526,10 +522,10 @@ button.send {
           border-color: #11866f;
         }
         input[name="track_name"] {
-          margin-top: 4px;
-          margin-bottom: 0;
-          border: 1px solid transparent;
-          float: left;
+          margin: 0;
+          border: none;
+          position: relative;
+          top: -2px;
           height: 45px !important;
           width: 200px;
           box-sizing: border-box;
@@ -539,8 +535,6 @@ button.send {
           font-size: 12px;
           font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
           text-align: left;
-          vertical-align: top;
-          display: table-cell;
           color: #3A4145;
           padding: 10px 15px;
           line-height: 1.6em;
@@ -569,6 +563,11 @@ button.send {
           color: #CF000F;
           cursor: pointer;
         }
+      }
+      &:after {
+        content: '';
+        display: block;
+        clear: both;
       }
     }
   }

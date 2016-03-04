@@ -36,7 +36,7 @@
             })
           });
           var table_container = $('<div>').addClass('snowshoe-table-container').append(table);
-          var lightbox_header = $('<div><h3 class="snowshoe-title">My Selections</h3><button class="minimize">Minimize</button></div>').addClass('snowshoe-lightbox-header');
+          var lightbox_header = $('<div><button class="minimize">Minimize</button><h3 class="snowshoe-title">My Selections</h3></div>').addClass('snowshoe-lightbox-header');
           var lightbox_footer = $('<div><div class="grouping"><input type="text" name="track_name" placeholder="Please name this track"><button class="export snowshoe">Export</button></div></div>').addClass('snowshoe-lightbox-footer');
           var lightbox_message_box = $('<div>').attr('id', 'snowshoe-message-box');
           $(lightbox_window).append(lightbox_header);
