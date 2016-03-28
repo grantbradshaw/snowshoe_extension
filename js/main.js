@@ -41,16 +41,16 @@
         }
       }
     if (request.message == "export_fail"){
-      // $('#snowshoe-message-box').text('You have no tracks, please add one to export!');
-      // $('#snowshoe-message-box').css('display', 'block');
-      // $(document).on('click', '.export', export_handler);
-      //   setTimeout(function(){
-      //     $('#snowshoe-message-box').css('display', 'none');
-      //   }, 2000);
+      changeState(3);
+      $('#snowshoe-message-box').text('You have no tracks, please add one to export!');
+      $('#snowshoe-message-box').css('display', 'block');
+      $(document).on('click', '.export', export_handler);
+        setTimeout(function(){
+          $('#snowshoe-message-box').css('display', 'none');
+        }, 2000);
     }
     if (request.message == "export_success"){
-      $(document).off('click', '.minimize', minimizeHandler);
-      $(document).off('click', '.delete', deleteHandler)
+      changeState(5);
       $('.grouping').css('display', 'none');
       displayMessage('');
       $('#snowshoe-message-box').append('<a class="end-session">Close</a>');

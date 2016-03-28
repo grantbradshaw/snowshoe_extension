@@ -72,6 +72,16 @@ function minimizeHandler(){
   changeState(1);
 }
 
+function check_handler(){
+  scrapeResults.selector.name = $('input[name="selection_name"]').val();
+  addLightboxRow(scrapeResults.selector);
+  $('.snowshoe-active').removeClass('snowshoe-active');
+  chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
+  scrapeResults.selector.name = '';
+  scrapeResults.selector.path = '';
+  hideSelectionBox();
+}
+
 function deleteHandler(){
   var tr = $(this).parents('tr');
   tr = tr.first();
@@ -95,12 +105,32 @@ function remove_handler(){
   hideSelectionBox();
 }
 
+function keySelectionSubmit(e){
+  if (e.keyCode == 13 && $('.check').length){
+    check_handler(e);
+  }
+}
+
 function removeToolbar(){
   $('.saved').removeClass('saved');
   $('.selection_name').remove();
   $('#snowshoe-show-button').remove();
   $('.snowshoe-lightbox').remove();
   changeState(6);
+}
+
+function export_handler(){
+  var trackName = $('input[name="track_name"]').val();
+  if (trackName){
+    chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
+  } else {
+    displayMessage('You must name this track')
+    setTimeout(function(){
+      if ($('#snowshoe-message-box').text() == 'You must name this track'){
+        $('#snowshoe-message-box').css('display', 'none');
+      }
+    }, 2000);
+  }
 }
 
 function addLightboxRow(target, url){
@@ -128,6 +158,8 @@ function changeState(state){
   $(document).off('click', '.delete', deleteHandler);
   $(document).off('click', '.check', check_handler);
   $(document).off('click', '.remove', remove_handler);
+  $(document).off('click', '.end-session', removeToolbar);
+  $(document).off('keypress', keySelectionSubmit);
 
   if (state == 1) {
     $(document).on('click', select_handler);
@@ -136,6 +168,7 @@ function changeState(state){
     $(document).on('click', selection_handler);
     $(document).on('click', '.check', check_handler);
     $(document).on('click', '.remove', remove_handler);
+    $(document).on('keypress', keySelectionSubmit)
   }
   if (state == 3){
     $(document).on('click', '.export', export_handler);
@@ -146,9 +179,8 @@ function changeState(state){
     $(document).on('click', '.minimize', minimizeHandler);
   }
   if (state == 5){
-    
+    $(document).on('click', '.end-session', removeToolbar);
   }
   if (state == 6){
-    // Nothing active, application closed
   }
 }
