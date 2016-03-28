@@ -81,7 +81,7 @@ function select_handler(event){
     var href = targeted.attr('href');
     if (href && href[0] != '#') return; 
 
-    if (targeted.hasClass('saved')) {
+    if (targeted.hasClass('saved') && event.altKey) {
       var pathToSelected = targeted.getPath();
       $(targeted).removeClass('saved');
       scrapeResults.selector.path = pathToSelected;
@@ -95,7 +95,7 @@ function select_handler(event){
       });
       scrapeResults.selector.name = '';
       scrapeResults.selector.path = '';
-    } else {
+    } else if (event.altKey) {
       var pathToSelected = targeted.getPath();
       $(targeted).addClass('saved').addClass('snowshoe-active');
       scrapeResults.selector.path = pathToSelected;
@@ -193,13 +193,13 @@ function export_handler(){
     $(document).off('click', '.export', export_handler);
     chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
   } else {
-    // $('#snowshoe-message-box').text('You must name this track');
-    // $('#snowshoe-message-box').css('display', 'block');
-    // setTimeout(function(){
-    //   if ($('#snowshoe-message-box').text() == 'You must name this track'){
-    //     $('#snowshoe-message-box').css('display', 'none');
-    //   }
-    // }, 2000);
+    $('#snowshoe-message-box').text('You must name this track');
+    $('#snowshoe-message-box').css('display', 'block');
+    setTimeout(function(){
+      if ($('#snowshoe-message-box').text() == 'You must name this track'){
+        $('#snowshoe-message-box').css('display', 'none');
+      }
+    }, 2000);
   }
 }
 
