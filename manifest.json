@@ -5,7 +5,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["public/jquery-2.2.0.min.js", "js/base_module.js", "js/helpers.js", "js/main.js"],
+      "js": ["public/jquery-2.2.0.min.js", "js/base_module.js", "js/handlers.js", "js/listeners.js"],
       "css": ["css/content.css"],
       "all-frames": true
     }

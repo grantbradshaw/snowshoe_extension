@@ -61,48 +61,9 @@ function displayMessage(message){
 }
 
 function hideSelectionBox(){
-  changeState(1);
   $('.selection_name').remove();
   scrapeResults.selector.name = '';
   scrapeResults.selector.path = '';
-}
-
-function minimizeHandler(){
-  $('.snowshoe-lightbox').css('display', 'none');
-  $('#snowshoe-show-button').css('display', 'block');
-  $('input[name="track_name"]').val('');
-  changeState(1);
-}
-
-function check_handler(){
-  scrapeResults.selector.name = $('input[name="selection_name"]').val();
-  addLightboxRow(scrapeResults.selector);
-  $('.snowshoe-active').removeClass('snowshoe-active');
-  chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
-  scrapeResults.selector.name = '';
-  scrapeResults.selector.path = '';
-  hideSelectionBox();
-}
-
-function deleteHandler(){
-  var tr = $(this).parents('tr');
-  tr = tr.first();
-  chrome.runtime.sendMessage({"message": "data_delete", "data": $(tr).data()});
-  if (window.location.href == $(tr).data().url){
-    var path_to_deleted = $(tr).data().selector.path;
-    $(path_to_deleted).removeClass('saved');
-  }
-  $(tr).remove();
-  if (!($('.display_table tbody tr').length)){
-    changeState(4);
-    $('.export').css('background-color', '#dddddd').css('cursor', 'not-allowed');
-    $('input[name="track_name"]').val('').prop('disabled', true).css('cursor', 'not-allowed');
-  }
-}
-
-function remove_handler(){
-  $('.snowshoe-active').removeClass('snowshoe-active').removeClass('saved');
-  hideSelectionBox();
 }
 
 function keySelectionSubmit(e){
@@ -119,37 +80,10 @@ function removeToolbar(){
   changeState(6);
 }
 
-function export_handler(){
-  var trackName = $('input[name="track_name"]').val();
-  if (trackName){
-    chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
-  } else {
-    displayMessage('You must name this track')
-    setTimeout(function(){
-      if ($('#snowshoe-message-box').text() == 'You must name this track'){
-        $('#snowshoe-message-box').css('display', 'none');
-      }
-    }, 2000);
-  }
-}
-
-function snowshoeHandler(){
-  $('#snowshoe-show-button').css('display', 'none');
-  $('.snowshoe-lightbox').css('display', 'block');
-  if (!($('.display_table tbody tr')).length){
-    var empty_table_message = $('<div>').addClass('empty-table-message-container');
-    var message = $('<h2>You have no selections!</h2>');
-    $('.snowshoe-title').css('display', 'none');
-    $('input[name="track_name"]').prop('disabled', true).css('cursor', 'not-allowed');
-    $(empty_table_message).append(message);
-    $('.snowshoe-table-container').append(empty_table_message);
-    changeState(4);
-  } else {
-    $('.empty-table-message-container').remove();
-    $('.snowshoe-title').css('display', 'block');
-    $('input[name="track_name"]').prop('disabled', false).css('cursor', '')
-    changeState(3);
-  }
+function invalidClick(target){
+  var targetTag = target.prop("tagName").toLowerCase();
+  var invalidTargets = ['body', 'ol', 'ul', 'html', 'img', 'input'];
+  return $.inArray(targetTag, invalidTargets) >= 0 || $(target).parents('.snowshoe').length || $(target).hasClass('snowshoe');
 }
 
 function addLightboxRow(target, url){
@@ -201,8 +135,6 @@ function changeState(state){
   $(document).off('mouseleave', 'a.delete', exitTrashImg);
   $(document).off('click', '#snowshoe-show-button', snowshoeHandler);
 
-  $('.export').css('background-color', '');
-
   if (state == 1) {
     $(document).on('click', select_handler);
     $(document).on('click', '#snowshoe-show-button', snowshoeHandler);
@@ -220,10 +152,15 @@ function changeState(state){
     $(document).on('click', '.delete', deleteHandler);
     $(document).on('mouseenter', 'a.delete', enterTrashImg);
     $(document).on('mouseleave', 'a.delete', exitTrashImg);
+    $('.export').css('background-color', '').css('cursor', '');
+    $('.snowshoe-title').css('display', 'block');
+    $('input[name="track_name"]').prop('disabled', false).css('cursor', '');
   }
   if (state == 4){
     $(document).on('click', '.minimize', minimizeHandler);
-    $('.export').css('background-color', '#dddddd');
+    $('.export').css('background-color', '#dddddd').css('cursor', 'not-allowed');
+    $('.snowshoe-title').css('display', 'none');
+    $('input[name="track_name"]').val('').prop('disabled', true).css('cursor', 'not-allowed');
   }
   if (state == 5){
     $(document).on('click', '.end-session', removeToolbar);
