@@ -80,6 +80,7 @@ function deleteHandler(){
   if (window.location.href == $(tr).data().url){
     var path_to_deleted = $(tr).data().selector.path;
     $(path_to_deleted).removeClass('saved');
+  }
   if (!($('.display_table tbody tr').length)){
     changeState(4);
     $('.export').css('background-color', '#dddddd').css('cursor', 'not-allowed');
@@ -102,13 +103,14 @@ function removeToolbar(){
   changeState(6);
 }
 
-function addLightboxRow(target){
-  var tr = $('<tr></tr>').data({url: scrapeResults.url, selector:{'name': '', 'path': scrapeResults.selector.path}});
+function addLightboxRow(target, url){
+  if (!url) {var url = scrapeResults.url}
+  var tr = $('<tr></tr>').data({url: url, selector:{'name': '', 'path': target.path}});
   var trash_img = chrome.extension.getURL('../config/trash.png');
   $('.display_table tbody').append(tr);
-  $(tr).append('<td>'+shorten(scrapeResults.selector.name, 30)+'</td>');
-  $(tr).append('<td>'+shorten(scrapeResults.selector.content, 20)+'</td>');
-  $(tr).append('<td><a href="'+scrapeResults.url+'">'+shorten(scrapeResults.url, 30)+'</a></td>');
+  $(tr).append('<td>'+shorten(target.name, 30)+'</td>');
+  $(tr).append('<td>'+shorten(target.content, 20)+'</td>');
+  $(tr).append('<td><a href="'+url+'">'+shorten(url, 30)+'</a></td>');
   $(tr).append('<td><a class="snowshoe delete"><img src="'+trash_img+'"/></a></td>');
 }
 
@@ -133,7 +135,7 @@ function changeState(state){
   if (state == 2){
     $(document).on('click', selection_handler);
     $(document).on('click', '.check', check_handler);
-    $(document).on('click', '.remove', remove_handler);x
+    $(document).on('click', '.remove', remove_handler);
   }
   if (state == 3){
     $(document).on('click', '.export', export_handler);
@@ -144,6 +146,9 @@ function changeState(state){
     $(document).on('click', '.minimize', minimizeHandler);
   }
   if (state == 5){
+    
+  }
+  if (state == 6){
     // Nothing active, application closed
   }
 }

@@ -16,7 +16,6 @@
           var show_button = $('<button>').attr('id', 'snowshoe-show-button').addClass('snowshoe');
           var arrow_img = chrome.extension.getURL('../config/rarrow.png')
           var show_img = $('<img src="'+arrow_img+'"/>');
-          var trash_img = chrome.extension.getURL('../config/trash.png');
           var lightbox = $('<div>').addClass('snowshoe-lightbox snowshoe');
           var lightbox_window = $('<div>').addClass('snowshoe-window showshoe');
           $(lightbox).append(lightbox_window);
@@ -25,17 +24,6 @@
           $(table).append('<thead><tr><th>Name</th><th>Content</th><th>Source</th><th>Delete</tr></thead>');
           var tbody = $('<tbody></tbody>');
           $(table).append(tbody);
-
-          $.each(request.tracks.pages, function(key, value){ 
-            $.each(value, function(index, value){
-              var tr = $('<tr></tr>').data({url: key, selector:{'name': '', 'path': value.path}});
-              $(tbody).append(tr);
-              $(tr).append('<td>'+shorten(value.name, 20)+'</td>');
-              $(tr).append('<td>'+shorten(value.content, 20)+'</td>');
-              $(tr).append('<td><a href="'+key+'">'+shorten(key, 30)+'</a></td>');
-              $(tr).append('<td><a class="snowshoe delete"><img src="'+trash_img+'"/></a></td>');
-            })
-          });
           var table_container = $('<div>').addClass('snowshoe-table-container').append(table);
           var lightbox_header = $('<div><button class="minimize">Minimize</button><h3 class="snowshoe-title">My Selections</h3></div>').addClass('snowshoe-lightbox-header');
           var lightbox_footer = $('<div><div id="snowshoe-message-box"></div><div class="grouping"><input type="text" name="track_name" placeholder="Please name this track"><button class="export snowshoe">Export</button></div></div>').addClass('snowshoe-lightbox-footer');
@@ -43,7 +31,13 @@
           $(lightbox_window).append(table_container);
           $(lightbox_window).append(lightbox_footer);
           $('body').append(show_button).append(lightbox);
-          $(document).on('click', select_handler); 
+
+          $.each(request.tracks.pages, function(key, value){ 
+            $.each(value, function(index, value){
+              addLightboxRow(value, key);
+            })
+          });
+          changeState(1);
         }
       }
     if (request.message == "export_fail"){
