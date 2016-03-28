@@ -5,48 +5,13 @@ function invalidClick(target){
   return $.inArray(targetTag, invalidTargets) >= 0;
 }
 
-function removeToolbar(){
-  $('.saved').removeClass('saved');
-  $(document).off('click', selection_handler);
-  $(document).off('click', select_handler);
-  $(document).off('click', '.export', export_handler);
-  $('.selection_name').remove();
-  $('#snowshoe-show-button').remove();
-  $('.snowshoe-lightbox').remove();
-}
-
 $(document).on('click', '.end-session', function(){
   removeToolbar();
 });
 
-function deleteHandler(){
-  var tr = $(this).parents('tr');
-  tr = tr.first();
-  chrome.runtime.sendMessage({"message": "data_delete", "data": $(tr).data()});
-  if (window.location.href == $(tr).data().url){
-    var path_to_deleted = $(tr).data().selector.path;
-    $(path_to_deleted).removeClass('saved');
-  }
-  $(tr).remove();
-  if (!($('.display_table tbody tr').length)){
-    $(document).off('click', '.export', export_handler);
-    $('.export').css('background-color', '#dddddd');
-    $('input[name="track_name"]').val('').prop('disabled', true).css('cursor', 'not-allowed');
-  }
-}
-
-function minimizeHandler(){
-  $('.snowshoe-lightbox').css('display', 'none');
-  $('#snowshoe-show-button').css('display', 'block');
-  $('input[name="track_name"]').val('');
-}
-
-
 $(document).on('click', '#snowshoe-show-button', function(){
   $('#snowshoe-show-button').css('display', 'none');
   $('.snowshoe-lightbox').css('display', 'block');
-  $(document).on('click', '.minimize', minimizeHandler);
-  $(document).on('click', '.delete', deleteHandler);
   if (!($('.display_table tbody tr')).length){
     var empty_table_message = $('<div>').addClass('empty-table-message-container');
     var message = $('<h2>You have no selections!</h2>');
@@ -54,14 +19,14 @@ $(document).on('click', '#snowshoe-show-button', function(){
     $('input[name="track_name"]').prop('disabled', true).css('cursor', 'not-allowed');
     $(empty_table_message).append(message);
     $('.snowshoe-table-container').append(empty_table_message);
-    $(document).off('click', '.export', export_handler);
+    changeState(4);
     $('.export').css('background-color', '#dddddd');
   } else {
     $('.empty-table-message-container').remove();
     $('.snowshoe-title').css('display', 'block');
     $('input[name="track_name"]').prop('disabled', false).css('cursor', '')
     $('.export').css('background-color', '');
-    $(document).on('click', '.export', export_handler);
+    changeState(3);
   }
 });
 
@@ -112,22 +77,10 @@ function select_handler(event){
       $(selection_name).append(selection_input).append(x_icon).append(save_image);
       $(targeted).after(selection_name);
       $('input[name="selection_name"]').focus();
-      $(document).off('click', select_handler);
-      $(document).on('click', selection_handler);
-      $(document).on('click', '.check', check_handler);
+      changeState(2);
     }
   } 
 }
-
-$(document).on('click', '.remove', function(){
-  scrapeResults.selector.name = '';
-  scrapeResults.selector.path = '';
-  $(document).off('click', selection_handler);
-  $(document).off('click', '.check', check_handler);
-  $(document).on('click', select_handler);
-  $('.snowshoe-active').removeClass('snowshoe-active').removeClass('saved')
-  $('.selection_name').remove();
-})
 
 $(document).on('keypress', function(e){
   if (e.keyCode == 13 && $('.check').length){
@@ -141,11 +94,8 @@ function selection_handler(){
     if (targeted.hasClass('snowshoe-active')){
       scrapeResults.selector.name = '';
       scrapeResults.selector.path = '';
-      $(document).off('click', selection_handler);
-      $(document).off('click', '.check', check_handler);
-      $(document).on('click', select_handler);
       targeted.removeClass('snowshoe-active').removeClass('saved')
-      $('.selection_name').remove();
+      hideSelectionBox();
     }
     else {
       if (invalidClick(targeted)) return false;
@@ -167,14 +117,11 @@ function check_handler(){
   $(tr).append('<td>'+shorten(scrapeResults.selector.content, 20)+'</td>');
   $(tr).append('<td><a href="'+scrapeResults.url+'">'+shorten(scrapeResults.url, 30)+'</a></td>');
   $(tr).append('<td><a class="snowshoe delete"><img src="'+trash_img+'"/></a></td>');
-  $('.selection_name').remove();
   $('.snowshoe-active').removeClass('snowshoe-active');
   chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
   scrapeResults.selector.name = '';
   scrapeResults.selector.path = '';
-  $(document).off('click', selection_handler);
-  $(document).off('click', '.check', check_handler);
-  $(document).on('click', select_handler);
+  hideSelectionBox();
 }
 
 $(document).on('mouseenter', 'a.delete', function(){
@@ -183,7 +130,7 @@ $(document).on('mouseenter', 'a.delete', function(){
 });
 
 $(document).on('mouseleave', 'a.delete', function(){
-  var trash_img = chrome.extension.getURL('../config/trash.png');
+  var trash_img = chrome.extension.getURL(' ../config/trash.png');
   $(this).find('img').attr('src', trash_img);
 });
 
@@ -193,8 +140,7 @@ function export_handler(){
     $(document).off('click', '.export', export_handler);
     chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
   } else {
-    $('#snowshoe-message-box').text('You must name this track');
-    $('#snowshoe-message-box').css('display', 'block');
+    displayMessage('You must name this track')
     setTimeout(function(){
       if ($('#snowshoe-message-box').text() == 'You must name this track'){
         $('#snowshoe-message-box').css('display', 'none');

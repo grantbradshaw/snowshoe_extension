@@ -58,10 +58,9 @@
       $(document).off('click', '.minimize', minimizeHandler);
       $(document).off('click', '.delete', deleteHandler)
       $('.grouping').css('display', 'none');
-      $('#snowshoe-message-box').text('');
+      displayMessage('');
       $('#snowshoe-message-box').append('<a class="end-session">Close</a>');
       $('#snowshoe-message-box').append('<a class="see-selections" href="'+request.trackURL+'">See your selections!</a>');
-      $('#snowshoe-message-box').css('display', 'block');
     }
   }
 );
