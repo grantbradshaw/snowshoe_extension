@@ -63,6 +63,8 @@ function displayMessage(message){
 function hideSelectionBox(){
   changeState(1);
   $('.selection_name').remove();
+  scrapeResults.selector.name = '';
+  scrapeResults.selector.path = '';
 }
 
 function minimizeHandler(){
@@ -85,12 +87,12 @@ function check_handler(){
 function deleteHandler(){
   var tr = $(this).parents('tr');
   tr = tr.first();
-  $(tr).remove();
   chrome.runtime.sendMessage({"message": "data_delete", "data": $(tr).data()});
   if (window.location.href == $(tr).data().url){
     var path_to_deleted = $(tr).data().selector.path;
     $(path_to_deleted).removeClass('saved');
   }
+  $(tr).remove();
   if (!($('.display_table tbody tr').length)){
     changeState(4);
     $('.export').css('background-color', '#dddddd').css('cursor', 'not-allowed');
@@ -99,8 +101,6 @@ function deleteHandler(){
 }
 
 function remove_handler(){
-  scrapeResults.selector.name = '';
-  scrapeResults.selector.path = '';
   $('.snowshoe-active').removeClass('snowshoe-active').removeClass('saved');
   hideSelectionBox();
 }
@@ -133,6 +133,25 @@ function export_handler(){
   }
 }
 
+function snowshoeHandler(){
+  $('#snowshoe-show-button').css('display', 'none');
+  $('.snowshoe-lightbox').css('display', 'block');
+  if (!($('.display_table tbody tr')).length){
+    var empty_table_message = $('<div>').addClass('empty-table-message-container');
+    var message = $('<h2>You have no selections!</h2>');
+    $('.snowshoe-title').css('display', 'none');
+    $('input[name="track_name"]').prop('disabled', true).css('cursor', 'not-allowed');
+    $(empty_table_message).append(message);
+    $('.snowshoe-table-container').append(empty_table_message);
+    changeState(4);
+  } else {
+    $('.empty-table-message-container').remove();
+    $('.snowshoe-title').css('display', 'block');
+    $('input[name="track_name"]').prop('disabled', false).css('cursor', '')
+    changeState(3);
+  }
+}
+
 function addLightboxRow(target, url){
   if (!url) {var url = scrapeResults.url}
   var tr = $('<tr></tr>').data({url: url, selector:{'name': '', 'path': target.path}});
@@ -144,6 +163,23 @@ function addLightboxRow(target, url){
   $(tr).append('<td><a class="snowshoe delete"><img src="'+trash_img+'"/></a></td>');
 }
 
+function enterTrashImg(){
+  var w_trash_img = chrome.extension.getURL('../config/wtrash.png');
+  $(this).find('img').attr('src', w_trash_img);
+}
+
+function exitTrashImg(){
+  var trash_img = chrome.extension.getURL('../config/trash.png');
+  $(this).find('img').attr('src', trash_img);
+}
+
+// function stopBodyScroll(event) {
+//   if (!($(event.target).hasClass('snowshoe-table-container'))) {
+//     event.preventDefault();
+//     event.stopPropagation();
+//   }
+// }
+
 function changeState(state){
   // 1 -> Initialization (no lightbox, no selection box)
   // 2 -> Selection Box 
@@ -151,6 +187,7 @@ function changeState(state){
   // 4 -> Lightbox, no items tracked
   // 5 -> Lightbox post export
   // 6 -> Close app
+
   $(document).off('click', selection_handler);
   $(document).off('click', select_handler);
   $(document).off('click', '.export', export_handler);
@@ -160,26 +197,38 @@ function changeState(state){
   $(document).off('click', '.remove', remove_handler);
   $(document).off('click', '.end-session', removeToolbar);
   $(document).off('keypress', keySelectionSubmit);
+  $(document).off('mouseenter', 'a.delete', enterTrashImg);
+  $(document).off('mouseleave', 'a.delete', exitTrashImg);
+  $(document).off('click', '#snowshoe-show-button', snowshoeHandler);
+
+  $('.export').css('background-color', '');
 
   if (state == 1) {
     $(document).on('click', select_handler);
+    $(document).on('click', '#snowshoe-show-button', snowshoeHandler);
   }
   if (state == 2){
     $(document).on('click', selection_handler);
     $(document).on('click', '.check', check_handler);
     $(document).on('click', '.remove', remove_handler);
-    $(document).on('keypress', keySelectionSubmit)
+    $(document).on('keypress', keySelectionSubmit);
+    $(document).on('click', '#snowshoe-show-button', snowshoeHandler);
   }
   if (state == 3){
     $(document).on('click', '.export', export_handler);
     $(document).on('click', '.minimize', minimizeHandler);
     $(document).on('click', '.delete', deleteHandler);
+    $(document).on('mouseenter', 'a.delete', enterTrashImg);
+    $(document).on('mouseleave', 'a.delete', exitTrashImg);
   }
   if (state == 4){
     $(document).on('click', '.minimize', minimizeHandler);
+    $('.export').css('background-color', '#dddddd');
   }
   if (state == 5){
     $(document).on('click', '.end-session', removeToolbar);
+    $(document).on('mouseenter', 'a.delete', enterTrashImg);
+    $(document).on('mouseleave', 'a.delete', exitTrashImg);
   }
   if (state == 6){
   }

@@ -42,17 +42,17 @@
       }
     if (request.message == "export_fail"){
       changeState(3);
-      $('#snowshoe-message-box').text('You have no tracks, please add one to export!');
-      $('#snowshoe-message-box').css('display', 'block');
-      $(document).on('click', '.export', export_handler);
-        setTimeout(function(){
+      displayMessage("We're sorry, something went wrong.");
+      setTimeout(function(){
+        if ($('#snowshoe-message-box').text() == "We're sorry, something went wrong."){
           $('#snowshoe-message-box').css('display', 'none');
-        }, 2000);
+        }
+      }, 2000);
     }
     if (request.message == "export_success"){
       changeState(5);
-      $('.grouping').css('display', 'none');
       displayMessage('');
+      $('.grouping').css('display', 'none');
       $('#snowshoe-message-box').append('<a class="end-session">Close</a>');
       $('#snowshoe-message-box').append('<a class="see-selections" href="'+request.trackURL+'">See your selections!</a>');
     }
