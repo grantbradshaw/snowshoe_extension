@@ -168,5 +168,6 @@ function changeState(state){
     $(document).on('mouseleave', 'a.delete', exitTrashImg);
   }
   if (state == 6){
+    // ending session
   }
 }
