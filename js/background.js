@@ -42,7 +42,7 @@ chrome.runtime.onMessage.addListener(
           tracks.pages = {};
           extension_active = false;
         } else {
-          sendMessage("export_fail");
+          // sendMessage("export_fail");
         }
       }
     }
