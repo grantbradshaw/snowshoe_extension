@@ -125,31 +125,31 @@ function changeState(state){
   $(document).off('click', selection_handler);
   $(document).off('click', select_handler);
   //$(document).off('click', '.export', export_handler);
-  $(document).off('click', '.minimize', minimizeHandler);
-  $(document).off('click', '.delete', deleteHandler);
+  // $(document).off('click', '.minimize', minimizeHandler);
+  // $(document).off('click', '.delete', deleteHandler);
   $(document).off('click', '.check', check_handler);
   $(document).off('click', '.remove', remove_handler);
-  $(document).off('click', '.end-session', removeToolbar);
+  // $(document).off('click', '.end-session', removeToolbar);
   $(document).off('keypress', keySelectionSubmit);
   $(document).off('mouseenter', 'a.delete', enterTrashImg);
   $(document).off('mouseleave', 'a.delete', exitTrashImg);
-  $(document).off('click', '#snowshoe-show-button', snowshoeHandler);
+  // $(document).off('click', '#snowshoe-show-button', snowshoeHandler);
 
   if (state == 1) {
     $(document).on('click', select_handler);
-    $(document).on('click', '#snowshoe-show-button', snowshoeHandler);
+    // $(document).on('click', '#snowshoe-show-button', snowshoeHandler);
   }
   if (state == 2){
     $(document).on('click', selection_handler);
     $(document).on('click', '.check', check_handler);
     $(document).on('click', '.remove', remove_handler);
     $(document).on('keypress', keySelectionSubmit);
-    $(document).on('click', '#snowshoe-show-button', snowshoeHandler);
+    // $(document).on('click', '#snowshoe-show-button', snowshoeHandler);
   }
   if (state == 3){
     //$(document).on('click', '.export', export_handler);
-    $(document).on('click', '.minimize', minimizeHandler);
-    $(document).on('click', '.delete', deleteHandler);
+    // $(document).on('click', '.minimize', minimizeHandler);
+    // $(document).on('click', '.delete', deleteHandler);
     $(document).on('mouseenter', 'a.delete', enterTrashImg);
     $(document).on('mouseleave', 'a.delete', exitTrashImg);
     $('.export').css('background-color', '').css('cursor', '');
@@ -157,8 +157,8 @@ function changeState(state){
     $('input[name="track_name"]').prop('disabled', false).css('cursor', '');
   }
   if (state == 4){
-    $(document).on('click', '.minimize', minimizeHandler);
-    $('.export').css('background-color', '#dddddd').css('cursor', 'not-allowed');
+    // $(document).on('click', '.minimize', minimizeHandler);
+    // $('.export').css('background-color', '#dddddd').css('cursor', 'not-allowed');
     $('.snowshoe-title').css('display', 'none');
     $('input[name="track_name"]').val('').prop('disabled', true).css('cursor', 'not-allowed');
   }

@@ -1,24 +1,24 @@
 // var tracks = {'trackName': '',
 //               'pages': {}}
 
-var extension_active = false;
+// var extension_active = false;
 
-chrome.browserAction.onClicked.addListener(function(tab){
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-    var activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});//, "tracks": tracks});
-    extension_active = !extension_active;
-  });
-});
+// chrome.browserAction.onClicked.addListener(function(tab){
+//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+//     var activeTab = tabs[0];
+//     chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});//, "tracks": tracks});
+//     extension_active = !extension_active;
+//   });
+// });
 
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab){
-   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-     if (extension_active){
-       var activeTab = tabs[0];
-       chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "force": true});//, "tracks": tracks, "force": true});
-     }
-   });
- });
+// chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab){
+//    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+//      if (extension_active){
+//        var activeTab = tabs[0];
+//        chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "force": true});//, "tracks": tracks, "force": true});
+//      }
+//    });
+//  });
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {

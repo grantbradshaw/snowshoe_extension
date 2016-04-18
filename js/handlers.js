@@ -1,20 +1,20 @@
 // main arrow button
-function snowshoeHandler(){
-  $('#snowshoe-show-button').css('display', 'none');
-  $('.snowshoe-lightbox').css('display', 'block');
-  hideSelectionBox();
-  $('.snowshoe-active').removeClass('snowshoe-active').removeClass('saved');
-  if (!($('.display_table tbody tr').length)){
-    var empty_table_message = $('<div>').addClass('empty-table-message-container');
-    var message = $('<h2>You have no selections!</h2>');
-    $(empty_table_message).append(message);
-    $('.snowshoe-table-container').append(empty_table_message);
-    changeState(4);
-  } else {
-    $('.empty-table-message-container').remove();
-    changeState(3);
-  }
-}
+// function snowshoeHandler(){
+//   $('#snowshoe-show-button').css('display', 'none');
+//   $('.snowshoe-lightbox').css('display', 'block');
+//   hideSelectionBox();
+//   $('.snowshoe-active').removeClass('snowshoe-active').removeClass('saved');
+//   if (!($('.display_table tbody tr').length)){
+//     var empty_table_message = $('<div>').addClass('empty-table-message-container');
+//     var message = $('<h2>You have no selections!</h2>');
+//     $(empty_table_message).append(message);
+//     $('.snowshoe-table-container').append(empty_table_message);
+//     changeState(4);
+//   } else {
+//     $('.empty-table-message-container').remove();
+//     changeState(3);
+//   }
+// }
 
 // general selection of prices
 function select_handler(event){
@@ -98,25 +98,25 @@ function remove_handler(){
   changeState(1);
 }
 
-function minimizeHandler(){
-  $('.snowshoe-lightbox').css('display', 'none');
-  $('#snowshoe-show-button').css('display', 'block');
-  $('input[name="track_name"]').val('');
-  changeState(1);
-}
+// function minimizeHandler(){
+//   $('.snowshoe-lightbox').css('display', 'none');
+//   $('#snowshoe-show-button').css('display', 'block');
+//   $('input[name="track_name"]').val('');
+//   changeState(1);
+// }
 
 // for deleting selections
-function deleteHandler(){
-  var tr = $(this).parents('tr');
-  tr = tr.first();
-  chrome.runtime.sendMessage({"message": "data_delete", "data": $(tr).data()});
-  if (window.location.href == $(tr).data().url){
-    var path_to_deleted = $(tr).data().selector.path;
-    $(path_to_deleted).removeClass('saved');
-  }
-  $(tr).remove();
-  if (!($('.display_table tbody tr').length)) { changeState(4) }
-}
+// function deleteHandler(){
+//   var tr = $(this).parents('tr');
+//   tr = tr.first();
+//   chrome.runtime.sendMessage({"message": "data_delete", "data": $(tr).data()});
+//   if (window.location.href == $(tr).data().url){
+//     var path_to_deleted = $(tr).data().selector.path;
+//     $(path_to_deleted).removeClass('saved');
+//   }
+//   $(tr).remove();
+//   if (!($('.display_table tbody tr').length)) { changeState(4) }
+// }
 
 // Won't use exporting 
 
