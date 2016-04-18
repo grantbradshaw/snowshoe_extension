@@ -7,12 +7,12 @@
           removeToolbar();
         } else {
           var current_url = window.location.href;
-          var tracks = request.tracks
-          if (tracks.pages[current_url]){
-            tracks.pages[current_url].forEach(function(scrape, index) {
-              $(scrape.path).addClass('saved');
-            });
-          }
+          // var tracks = request.tracks
+          // if (tracks.pages[current_url]){
+          //   tracks.pages[current_url].forEach(function(scrape, index) {
+          //     $(scrape.path).addClass('saved');
+          //   });
+          // }
           var show_button = $('<button>').attr('id', 'snowshoe-show-button').addClass('snowshoe');
           var arrow_img = chrome.extension.getURL('../config/rarrow.png')
           var show_img = $('<img src="'+arrow_img+'"/>');
@@ -32,11 +32,11 @@
           $(lightbox_window).append(lightbox_footer);
           $('body').append(show_button).append(lightbox);
 
-          $.each(request.tracks.pages, function(key, value){ 
-            $.each(value, function(index, value){
-              addLightboxRow(value, key);
-            })
-          });
+          // $.each(request.tracks.pages, function(key, value){ 
+          //   $.each(value, function(index, value){
+          //     addLightboxRow(value, key);
+          //   })
+          // });
           changeState(1);
         }
       }
@@ -50,11 +50,11 @@
       }, 2000);
     }
     if (request.message == "export_success"){
-      changeState(5);
-      displayMessage('');
-      $('.grouping').css('display', 'none');
-      $('#snowshoe-message-box').append('<a class="end-session">Close</a>');
-      $('#snowshoe-message-box').append('<a class="see-selections" href="'+request.trackURL+'">See your selections!</a>');
+      changeState(1);
+      // displayMessage('');
+      // $('.grouping').css('display', 'none');
+      // $('#snowshoe-message-box').append('<a class="end-session">Close</a>');
+      // $('#snowshoe-message-box').append('<a class="see-selections" href="'+request.trackURL+'">See your selections!</a>');
     }
   }
 );

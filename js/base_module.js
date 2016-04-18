@@ -124,7 +124,7 @@ function changeState(state){
 
   $(document).off('click', selection_handler);
   $(document).off('click', select_handler);
-  $(document).off('click', '.export', export_handler);
+  //$(document).off('click', '.export', export_handler);
   $(document).off('click', '.minimize', minimizeHandler);
   $(document).off('click', '.delete', deleteHandler);
   $(document).off('click', '.check', check_handler);
@@ -147,7 +147,7 @@ function changeState(state){
     $(document).on('click', '#snowshoe-show-button', snowshoeHandler);
   }
   if (state == 3){
-    $(document).on('click', '.export', export_handler);
+    //$(document).on('click', '.export', export_handler);
     $(document).on('click', '.minimize', minimizeHandler);
     $(document).on('click', '.delete', deleteHandler);
     $(document).on('mouseenter', 'a.delete', enterTrashImg);

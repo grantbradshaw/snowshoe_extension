@@ -1,12 +1,12 @@
-var tracks = {'trackName': '',
-              'pages': {}}
+// var tracks = {'trackName': '',
+//               'pages': {}}
 
 var extension_active = false;
 
 chrome.browserAction.onClicked.addListener(function(tab){
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
     var activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks});
+    chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});//, "tracks": tracks});
     extension_active = !extension_active;
   });
 });
@@ -15,7 +15,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab){
    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
      if (extension_active){
        var activeTab = tabs[0];
-       chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "tracks": tracks, "force": true});
+       chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action", "force": true});//, "tracks": tracks, "force": true});
      }
    });
  });
@@ -23,14 +23,15 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab){
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.message === "data_export" ) {
-      if (Object.keys(tracks.pages).length == 0){
-        sendMessage("export_fail");
-        return false
-      }
-      tracks.trackName = request.trackName;
+      // if (Object.keys(tracks.pages).length == 0){
+      //   sendMessage("export_fail");
+      //   return false
+      // }
+      // tracks.trackName = request.trackName;
+
       var xhr = createCORSRequest('POST', 'http://localhost:3000/tracks');
       xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.send(JSON.stringify(tracks));
+      xhr.send(JSON.stringify(request.data));
 
       xhr.onreadystatechange = function(){
         if (xhr.readyState == 4 && xhr.status == 200){
@@ -38,9 +39,9 @@ chrome.runtime.onMessage.addListener(
             var activeTab = tabs[0];
             chrome.tabs.sendMessage(activeTab.id, {"message": "export_success", trackURL: JSON.parse(xhr.responseText).trackURL});
           });
-          tracks.trackName = '';
-          tracks.pages = {};
-          extension_active = false;
+          // tracks.trackName = '';
+          // tracks.pages = {};
+          // extension_active = false;
         } else {
           // sendMessage("export_fail");
         }

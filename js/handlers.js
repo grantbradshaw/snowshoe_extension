@@ -84,7 +84,7 @@ function check_handler(){
   scrapeResults.selector.name = $('input[name="selection_name"]').val();
   addLightboxRow(scrapeResults.selector);
   $('.snowshoe-active').removeClass('snowshoe-active');
-  chrome.runtime.sendMessage({"message": "data_save", "data": scrapeResults});
+  chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults});
   scrapeResults.selector.name = '';
   scrapeResults.selector.path = '';
   hideSelectionBox();
@@ -118,16 +118,18 @@ function deleteHandler(){
   if (!($('.display_table tbody tr').length)) { changeState(4) }
 }
 
-function export_handler(){
-  var trackName = $('input[name="track_name"]').val();
-  if (trackName){
-    chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
-  } else {
-    displayMessage('You must name this track')
-    setTimeout(function(){
-      if ($('#snowshoe-message-box').text() == 'You must name this track'){
-        $('#snowshoe-message-box').css('display', 'none');
-      }
-    }, 2000);
-  }
-}
+// Won't use exporting 
+
+// function export_handler(){
+//   var trackName = $('input[name="track_name"]').val();
+//   if (trackName){
+//     chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
+//   } else {
+//     displayMessage('You must name this track')
+//     setTimeout(function(){
+//       if ($('#snowshoe-message-box').text() == 'You must name this track'){
+//         $('#snowshoe-message-box').css('display', 'none');
+//       }
+//     }, 2000);
+//   }
+// }
