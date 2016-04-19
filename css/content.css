@@ -1,8 +1,10 @@
 @keyframes rotate {
   from {
     transform: rotate(0deg); }
+
   to {
     transform: rotate(360deg); } }
+
 .saved {
   background-color: rgba(97, 179, 41, 0.5); }
 
@@ -1261,27 +1263,33 @@ button.send {
   height: 25px;
   z-index: 999999; }
 
-.selection_name {
-  height: 54px;
+.selection_form {
+  height: 200px;
   border: 1px solid #202f3d;
-  width: 284px;
+  width: 300px;
   position: absolute;
   background: #2C3E50;
   z-index: 999999;
   border-radius: 4px; }
-  .selection_name .check {
+  .selection_form .check {
     height: 30px;
     width: 30px;
-    left: 246px;
-    margin-top: 10px;
+    left: 266px;
+    margin-top: 5px;
     position: absolute; }
-  .selection_name .remove {
+  .selection_form .remove {
     height: 30px;
     width: 30px;
-    left: 210px;
-    margin-top: 10px;
+    left: 230px;
+    margin-top: 5px;
     position: absolute; }
-  .selection_name input[name="selection_name"] {
+  .selection_form label {
+    color: white; }
+  .selection_form p {
+    height: 66px !important;
+    width: 300px; }
+  .selection_form input[name="selection_name"],
+  .selection_form input[name="comparator"] {
     animation: none;
     animation-delay: 0;
     animation-direction: normal;
@@ -1430,12 +1438,11 @@ button.send {
     width: auto;
     word-spacing: normal;
     z-index: auto;
-    width: 200px;
+    width: 100%;
+    clear: both;
     height: 45px !important;
     box-sizing: border-box;
-    left: 4px;
     margin-top: 4px;
-    position: absolute;
     font-size: 14px;
     font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-align: left;
@@ -1623,7 +1630,7 @@ button.send {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: #2C3E50;
+    background: #2c3e50;
     z-index: -1; }
   #snowshoe-show-button:before {
     z-index: -2;

@@ -61,7 +61,7 @@ function displayMessage(message){
 }
 
 function hideSelectionBox(){
-  $('.selection_name').remove();
+  $('.selection_form').remove();
   scrapeResults.selector.name = '';
   scrapeResults.selector.path = '';
 }
@@ -128,6 +128,7 @@ function changeState(state){
   // $(document).off('click', '.minimize', minimizeHandler);
   // $(document).off('click', '.delete', deleteHandler);
   $(document).off('click', '.check', check_handler);
+  $(document).off('submit', '.selection_name', check_handler);
   $(document).off('click', '.remove', remove_handler);
   // $(document).off('click', '.end-session', removeToolbar);
   $(document).off('keypress', keySelectionSubmit);
@@ -142,6 +143,7 @@ function changeState(state){
   if (state == 2){
     $(document).on('click', selection_handler);
     $(document).on('click', '.check', check_handler);
+    $(document).on('submit', '.selection_name', check_handler);
     $(document).on('click', '.remove', remove_handler);
     $(document).on('keypress', keySelectionSubmit);
     // $(document).on('click', '#snowshoe-show-button', snowshoeHandler);

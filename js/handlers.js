@@ -45,16 +45,28 @@ function select_handler(event){
     scrapeResults.selector.path = pathToSelected;
     scrapeResults.selector.content = $(targeted).text()
 
-    var selection_name = $('<div>').addClass('snowshoe').addClass('selection_name');
+    var selection_form = $('<form>').addClass('snowshoe').addClass('selection_form'); 
 
-    var check_icon = chrome.extension.getURL('../config/check.png');
-    var save_image = $('<img src="'+check_icon+'"/>').addClass('check');
-    var x_icon = chrome.extension.getURL('../config/x.png');
-    var x_icon = $('<img src="'+x_icon+'"/>').addClass('remove');
-    
+    var selection_field = $('<p>');
+    var selection_label = $('<label>').text('Name');
     var selection_input = $('<input type="text" name="selection_name">');
-    $(selection_name).append(selection_input).append(x_icon).append(save_image);
-    $(targeted).after(selection_name);
+    $(selection_field).append(selection_label).append(selection_input);
+
+    var comparator_field = $('<p>');
+    var comparator_label = $('<label>').text('Target $');
+    var comparator_input = $('<input type="text" name="comparator">');
+    $(comparator_field).append(comparator_label).append(comparator_input);
+
+    var image_container = $('<p>');
+    var x_icon = chrome.extension.getURL('../config/x.png');
+    var x_image = $('<img src="'+x_icon+'"/>').addClass('remove');
+    var check_icon = chrome.extension.getURL('../config/check.png');
+    var check_image = $('<input type="image" src="'+check_icon+'" alt="Submit"/>').addClass('check');
+    $(image_container).append(x_image).append(check_image);
+    
+    // var comparator_input = $('<input type="text" name="comparator">');
+    $(selection_form).append(selection_field).append(comparator_field).append(image_container);
+    $(targeted).after(selection_form);
     $('input[name="selection_name"]').focus();
     changeState(2);
   }
@@ -80,7 +92,8 @@ function selection_handler(){
 } 
 
 // for accepting selection
-function check_handler(){
+function check_handler(e){
+  e.preventDefault();
   scrapeResults.selector.name = $('input[name="selection_name"]').val();
   addLightboxRow(scrapeResults.selector);
   $('.snowshoe-active').removeClass('snowshoe-active');
