@@ -3,7 +3,8 @@ var scrapeResults = {
   'url': window.location.href,
   'selector': {'name': '',
                'path': '',
-               'content': ''}
+               'content': '',
+               'comparator': 0}
 }
 
 function shorten(str, limit){
@@ -105,6 +106,10 @@ function enterTrashImg(){
 function exitTrashImg(){
   var trash_img = chrome.extension.getURL('../config/trash.png');
   $(this).find('img').attr('src', trash_img);
+}
+
+function getPrice(string) {
+  return Number(string.replace(/[^0-9.]/g, ''));
 }
 
 // function stopBodyScroll(event) {

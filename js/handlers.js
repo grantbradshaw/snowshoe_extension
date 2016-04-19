@@ -1,21 +1,3 @@
-// main arrow button
-// function snowshoeHandler(){
-//   $('#snowshoe-show-button').css('display', 'none');
-//   $('.snowshoe-lightbox').css('display', 'block');
-//   hideSelectionBox();
-//   $('.snowshoe-active').removeClass('snowshoe-active').removeClass('saved');
-//   if (!($('.display_table tbody tr').length)){
-//     var empty_table_message = $('<div>').addClass('empty-table-message-container');
-//     var message = $('<h2>You have no selections!</h2>');
-//     $(empty_table_message).append(message);
-//     $('.snowshoe-table-container').append(empty_table_message);
-//     changeState(4);
-//   } else {
-//     $('.empty-table-message-container').remove();
-//     changeState(3);
-//   }
-// }
-
 // general selection of prices
 function select_handler(event){
   var targeted = $(event.target);
@@ -40,6 +22,7 @@ function select_handler(event){
     scrapeResults.selector.name = '';
     scrapeResults.selector.path = '';
   } else if (event.altKey) {
+    // inhibit selection of non-price containing element
     var pathToSelected = targeted.getPath();
     $(targeted).addClass('saved').addClass('snowshoe-active');
     scrapeResults.selector.path = pathToSelected;
@@ -54,7 +37,7 @@ function select_handler(event){
 
     var comparator_field = $('<p>');
     var comparator_label = $('<label>').text('Target $');
-    var comparator_input = $('<input type="text" name="comparator">');
+    var comparator_input = $('<input type="number" name="comparator">');
     $(comparator_field).append(comparator_label).append(comparator_input);
 
     var image_container = $('<p>');
@@ -94,7 +77,12 @@ function selection_handler(){
 // for accepting selection
 function check_handler(e){
   e.preventDefault();
+  var comparison_price = $('input[name="comparator"]').val();
+  if (comparison_price >= getPrice(scrapeResults.selector.content)) {
+    return false
+  }
   scrapeResults.selector.name = $('input[name="selection_name"]').val();
+  scrapeResults.selector.comparator = comparison_price;
   addLightboxRow(scrapeResults.selector);
   $('.snowshoe-active').removeClass('snowshoe-active');
   chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults});
@@ -110,39 +98,3 @@ function remove_handler(){
   hideSelectionBox();
   changeState(1);
 }
-
-// function minimizeHandler(){
-//   $('.snowshoe-lightbox').css('display', 'none');
-//   $('#snowshoe-show-button').css('display', 'block');
-//   $('input[name="track_name"]').val('');
-//   changeState(1);
-// }
-
-// for deleting selections
-// function deleteHandler(){
-//   var tr = $(this).parents('tr');
-//   tr = tr.first();
-//   chrome.runtime.sendMessage({"message": "data_delete", "data": $(tr).data()});
-//   if (window.location.href == $(tr).data().url){
-//     var path_to_deleted = $(tr).data().selector.path;
-//     $(path_to_deleted).removeClass('saved');
-//   }
-//   $(tr).remove();
-//   if (!($('.display_table tbody tr').length)) { changeState(4) }
-// }
-
-// Won't use exporting 
-
-// function export_handler(){
-//   var trackName = $('input[name="track_name"]').val();
-//   if (trackName){
-//     chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults, "trackName": trackName });
-//   } else {
-//     displayMessage('You must name this track')
-//     setTimeout(function(){
-//       if ($('#snowshoe-message-box').text() == 'You must name this track'){
-//         $('#snowshoe-message-box').css('display', 'none');
-//       }
-//     }, 2000);
-//   }
-// }
