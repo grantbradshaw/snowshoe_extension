@@ -3,17 +3,25 @@ chrome.runtime.onMessage.addListener(
     if (request.message === "data_export" ) {
 
       var xhr = createCORSRequest('POST', 'http://localhost:3000/tracks');
+      // var xhr = createCORSRequest('POST', 'https://rocky-castle-99294.herokuapp.com/tracks');
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify(request.data));
 
       xhr.onreadystatechange = function(){
+        console.log(xhr.status);
         if (xhr.readyState == 4 && xhr.status == 200){
           chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
             var activeTab = tabs[0];
-            chrome.tabs.sendMessage(activeTab.id, {"message": "export_success", trackURL: JSON.parse(xhr.responseText).trackURL});
+            chrome.tabs.sendMessage(activeTab.id, {"message": "export_success"});
           });
-        } else {
-          // handle failure to export
+        } else if (xhr.status == 404) {
+          chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+            var activeTab = tabs[0];
+            chrome.tabs.sendMessage(activeTab.id, {"message": "export_fail"});
+          });
+        }
+        else {
+          // handle edge cases
         }
       }
     }

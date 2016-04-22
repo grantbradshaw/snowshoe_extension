@@ -86,10 +86,6 @@ function check_handler(e){
   addLightboxRow(scrapeResults.selector);
   $('.snowshoe-active').removeClass('snowshoe-active');
   chrome.runtime.sendMessage({"message": "data_export", "data": scrapeResults});
-  scrapeResults.selector.name = '';
-  scrapeResults.selector.path = '';
-  hideSelectionBox();
-  changeState(1);
 }
 
 // for cancelling selection
