@@ -47,7 +47,6 @@ function select_handler(event){
     var check_image = $('<input type="image" src="'+check_icon+'" alt="Submit"/>').addClass('check');
     $(image_container).append(x_image).append(check_image);
     
-    // var comparator_input = $('<input type="text" name="comparator">');
     $(selection_form).append(selection_field).append(comparator_field).append(image_container);
     $(targeted).after(selection_form);
     $('input[name="selection_name"]').focus();
