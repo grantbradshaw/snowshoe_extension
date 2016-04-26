@@ -32,7 +32,7 @@ function select_handler(event){
 
     var selection_field = $('<p>');
     var selection_label = $('<label>').text('Name');
-    var selection_input = $('<input type="text" name="selection_name">');
+    var selection_input = $('<input type="text" name="selection_name" placeholder="Click the name of this item">');
     $(selection_field).append(selection_label).append(selection_input);
 
     var comparator_field = $('<p>');
@@ -77,8 +77,28 @@ function selection_handler(){
 function check_handler(e){
   e.preventDefault();
   var comparison_price = $('input[name="comparator"]').val();
+  $('input[name="comparator"]').css('border', '2px solid #2C3E50');
+  $('input[name="selection_name"]').css('border', '2px solid #2C3E50');
+  var error = false;
+
+  if (!comparison_price) {
+    $('input[name="comparator"]').css('border', '2px solid red').attr('placeholder', 'Field is required');
+    error = true;
+  }
+
+  if (!($('input[name="selection_name"]').val())) {
+    $('input[name="selection_name"]').css('border', '2px solid red').attr('placeholder', 'Field is required');
+    error = true;
+  }
+
   if (comparison_price >= getPrice(scrapeResults.selector.content)) {
-    return false
+    $('input[name="comparator"]').val('');
+    $('input[name="comparator"]').css('border', '2px solid red').attr('placeholder', 'Must be less than item price');
+    error = true
+  }
+
+  if (error) {
+    return false;
   }
   scrapeResults.selector.name = $('input[name="selection_name"]').val();
   scrapeResults.selector.comparator = comparison_price;

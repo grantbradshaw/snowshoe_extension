@@ -2,8 +2,8 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.message === "data_export" ) {
 
-      var xhr = createCORSRequest('POST', 'http://localhost:3000/tracks');
-      // var xhr = createCORSRequest('POST', 'https://rocky-castle-99294.herokuapp.com/tracks');
+      var xhr = createCORSRequest('POST', 'http://localhost:3000/scrapes');
+      // var xhr = createCORSRequest('POST', 'https://rocky-castle-99294.herokuapp.com/scrapes');
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify(request.data));
 
