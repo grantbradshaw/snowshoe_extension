@@ -7,10 +7,10 @@
         $('input[name="selection_name"]').val("We're sorry, could not send this.");
       }
       if (request.message == "export_success"){
-        scrapeResults.selector.name = '';
-        scrapeResults.selector.path = '';
-        hideSelectionBox();
-        changeState(1);
+        // scrapeResults.selector.name = '';
+        // scrapeResults.selector.path = '';
+        // hideSelectionBox();
+        // changeState(1);
       }
   }
 );

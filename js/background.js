@@ -1,16 +1,20 @@
+var cached_exports = []
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.message === "data_export" ) {
+      cached_exports.push(request.data);
 
       var xhr = createCORSRequest('POST', 'http://localhost:3000/scrapes');
       // var xhr = createCORSRequest('POST', 'https://rocky-castle-99294.herokuapp.com/scrapes');
       xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.send(JSON.stringify(request.data));
+      xhr.send(JSON.stringify(cached_exports));
 
       xhr.onreadystatechange = function(){
         console.log(xhr.status);
         if (xhr.readyState == 4 && xhr.status == 200){
           chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+            cached_exports = [];
             var activeTab = tabs[0];
             chrome.tabs.sendMessage(activeTab.id, {"message": "export_success"});
           });
