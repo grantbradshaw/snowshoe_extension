@@ -97,6 +97,12 @@ function check_handler(e){
     error = true
   }
 
+  if (comparison_price <= 0) {
+    $('input[name="comparator"]').val('');
+    $('input[name="comparator"]').css('border', '2px solid red').attr('placeholder', 'Must be greater than 0');
+    error = true
+  }
+
   if (error) {
     return false;
   }
