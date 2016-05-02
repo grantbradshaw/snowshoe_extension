@@ -30,17 +30,17 @@ function select_handler(event){
 
     var selection_form = $('<form>').addClass('snowshoe').addClass('selection_form'); 
 
-    var selection_field = $('<p>');
-    var selection_label = $('<label>').text('Name');
+    var selection_field = $('<p>').addClass('snowshoe-p-tag');
+    var selection_label = $('<label>').text('Name').addClass('snowshoe-label');
     var selection_input = $('<input type="text" name="selection_name" placeholder="Click the name of this item">');
     $(selection_field).append(selection_label).append(selection_input);
 
-    var comparator_field = $('<p>');
-    var comparator_label = $('<label>').text('Target $');
+    var comparator_field = $('<p>').addClass('snowshoe-p-tag');
+    var comparator_label = $('<label>').text('Target $').addClass('snowshoe-label');
     var comparator_input = $('<input type="number" name="comparator">');
     $(comparator_field).append(comparator_label).append(comparator_input);
 
-    var image_container = $('<p>');
+    var image_container = $('<p>').addClass('snowshoe-p-tag');
     var x_icon = chrome.extension.getURL('../config/x.png');
     var x_image = $('<img src="'+x_icon+'"/>').addClass('remove');
     var check_icon = chrome.extension.getURL('../config/check.png');
@@ -57,6 +57,7 @@ function select_handler(event){
 // for naming or deselecting price
 function selection_handler(){
   var targeted = $(event.target);
+  console.log(targeted);
   if (targeted.hasClass('snowshoe-active')){
     targeted.removeClass('snowshoe-active').removeClass('saved');
     hideSelectionBox();
@@ -69,7 +70,7 @@ function selection_handler(){
     
     var targeted_text = $(targeted).text();
     if (targeted_text.match(/ {5,}/)) targeted_text = '';
-    $('input[name="selection_name"]').val(targeted_text);
+    if (targeted_text) $('input[name="selection_name"]').val(targeted_text);
   }
 } 
 

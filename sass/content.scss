@@ -238,6 +238,7 @@ button.send {
 }
 
 .selection_form {
+  @include reset;
   height: 200px;
   border: 1px solid #202f3d;
   width: 300px;
@@ -246,6 +247,7 @@ button.send {
   z-index: 999999;
   border-radius: 4px;
   .check {
+    @include reset;
     height: 30px;
     width: 30px;
     left: 266px;
@@ -253,18 +255,22 @@ button.send {
     position: absolute;
   }
   .remove {
+    @include reset;
     height: 30px;
     width: 30px;
     left: 230px;
     margin-top: 5px;
     position: absolute;
   }
-  label {
+  label.snowshoe-label {
+    @include reset;
     color: white;
   }
-  p {
+  p.snowshoe-p-tag {
     height: 66px !important;
     width: 300px;
+    display: block !important;
+    margin: 0px 0px 10.5px !important;
   }
   input[name="selection_name"],
   input[name="comparator"]{
