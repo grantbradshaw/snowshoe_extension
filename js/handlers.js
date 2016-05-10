@@ -37,7 +37,7 @@ function select_handler(event){
 
     var comparator_field = $('<p>').addClass('snowshoe-p-tag');
     var comparator_label = $('<label>').text('Target $').addClass('snowshoe-label');
-    var comparator_input = $('<input type="number" name="comparator">');
+    var comparator_input = $('<input type="number" name="comparator" min="0">');
     $(comparator_field).append(comparator_label).append(comparator_input);
 
     var image_container = $('<p>').addClass('snowshoe-p-tag');
@@ -48,7 +48,8 @@ function select_handler(event){
     $(image_container).append(x_image).append(check_image);
     
     $(selection_form).append(selection_field).append(comparator_field).append(image_container);
-    $(targeted).after(selection_form);
+    // $(targeted).after(selection_form);
+    $('body').append(selection_form);
     $('input[name="selection_name"]').focus();
     changeState(2);
   }
