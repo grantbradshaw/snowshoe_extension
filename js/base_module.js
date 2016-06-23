@@ -84,7 +84,7 @@ function removeToolbar(){
 function invalidClick(target){
   var targetTag = target.prop("tagName").toLowerCase();
   var invalidTargets = ['body', 'ol', 'ul', 'html', 'img', 'input'];
-  return $.inArray(targetTag, invalidTargets) >= 0 || $(target).parents('.snowshoe').length || $(target).hasClass('snowshoe');
+  return $.inArray(targetTag, invalidTargets) >= 0 || $(target).parents('.snowshoe').length || $(target).hasClass('snowshoe') // || !$(target).text().match(/[0-9]/);
 }
 
 function addLightboxRow(target, url){

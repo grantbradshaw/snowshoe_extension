@@ -58,7 +58,7 @@ function select_handler(event){
 // for naming or deselecting price
 function selection_handler(){
   var targeted = $(event.target);
-  console.log(targeted);
+  // console.log(targeted);
   if (targeted.hasClass('snowshoe-active')){
     targeted.removeClass('snowshoe-active').removeClass('saved');
     hideSelectionBox();
@@ -70,7 +70,8 @@ function selection_handler(){
     if (href && href[0] != '#') event.preventDefault();
     
     var targeted_text = $(targeted).text();
-    if (targeted_text.match(/ {5,}/)) targeted_text = '';
+    // if (targeted_text.match(/ {5,}/)) targeted_text = ''; 
+    targeted_text = targeted_text.replace(/^\s+|\s+$/g, '');
     if (targeted_text) $('input[name="selection_name"]').val(targeted_text);
   }
 } 
