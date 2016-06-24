@@ -1,7 +1,14 @@
 {
   "manifest_version": 2,
-  "name": "snowshoe",
-  "version": "0.1.7",
+  "name": "Snowshoe Price Tracker",
+  "short_name": "Snowshoe",
+  "version": "0.1.8.3",
+  "icons": {
+    "16": "snowshoes16.png",
+    "48": "snowshoes48.png",
+    "128": "snowshoes96pad.png"
+  },
+  "description": "Price tracking selector that works across many websites",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
