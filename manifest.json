@@ -4,9 +4,9 @@
   "short_name": "Snowshoe",
   "version": "0.1.8.3",
   "icons": {
-    "16": "snowshoes16.png",
-    "48": "snowshoes48.png",
-    "128": "snowshoes96pad.png"
+    "16": "config/snowshoes16.png",
+    "48": "config/snowshoes48.png",
+    "128": "config/snowshoes96pad.png"
   },
   "description": "Price tracking selector that works across many websites",
   "content_scripts": [
