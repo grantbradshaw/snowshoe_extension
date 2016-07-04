@@ -25,7 +25,8 @@
     "scripts": ["js/background.js"]
   }, 
   "permissions": [
-    "http://localhost/*"
+    "http://localhost/*",
+    "storage"
   ],
   "web_accessible_resources": [
     "config/*"

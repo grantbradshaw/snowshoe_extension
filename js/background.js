@@ -6,9 +6,11 @@ chrome.runtime.onMessage.addListener(
       cached_exports.push(request.data);
 
       var xhr = createCORSRequest('POST', 'http://localhost:3000/scrapes');
-      // var xhr = createCORSRequest('POST', 'https://rocky-castle-99294.herokuapp.com/scrapes');
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.send(JSON.stringify(cached_exports));
+      chrome.storage.sync.get('jwt', function(res){
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "Bearer " + res.jwt);
+        xhr.send(JSON.stringify(cached_exports));
+      });
 
       xhr.onreadystatechange = function(){
         console.log(xhr.status);
@@ -28,6 +30,24 @@ chrome.runtime.onMessage.addListener(
           // handle edge cases
         }
       }
+    }
+    if (request.message === 'check_jwt') {
+      // chrome.storage.sync.set({jwt: ''}); // for manually resetting the jwt
+      chrome.storage.sync.get('jwt', function(res){
+        if (!res.jwt) {
+        var xhr = createCORSRequest('GET', 'http://localhost:3000/qurewweofsadfasf');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send();
+
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            var jwt_token = JSON.parse(xhr.responseText).jwt;
+            chrome.storage.sync.set({jwt: jwt_token});
+          }
+        }
+      }
+      });
+      
     }
     if (request.message === "data_save") {
       var selector = request.data.selector;
