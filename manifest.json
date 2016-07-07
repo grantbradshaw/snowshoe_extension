@@ -22,10 +22,11 @@
     "default_title": "alt-click a price to get started!"
   },
   "background": {
-    "scripts": ["public/jsrsasign-latest-all-min.js", "js/background.js"]
+    "scripts": ["js/background.js"]
   }, 
   "permissions": [
-    "http://localhost/*"
+    "http://localhost/*",
+    "storage"
   ],
   "web_accessible_resources": [
     "config/*"

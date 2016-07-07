@@ -5,16 +5,12 @@ chrome.runtime.onMessage.addListener(
     if (request.message === "data_export" ) {
       cached_exports.push(request.data);
 
-      var oHeader = {alg: 'HS256', typ: 'JWT'}
-      var oPayload = cached_exports;
-      var sHeader = JSON.stringify(oHeader);
-      var sPayload = JSON.stringify(oPayload);
-      var sJWT = KJUR.jws.JWS.sign('HS256', sHeader, sPayload, 'test');
-
       var xhr = createCORSRequest('POST', 'http://localhost:3000/scrapes');
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.setRequestHeader("Authorization", "Bearer " + sJWT);
-      xhr.send();
+      chrome.storage.sync.get('jwt', function(res){
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "Bearer " + res.jwt);
+        xhr.send(JSON.stringify(cached_exports));
+      });
 
       xhr.onreadystatechange = function(){
         console.log(xhr.status);
@@ -36,7 +32,7 @@ chrome.runtime.onMessage.addListener(
       }
     }
     if (request.message === 'check_jwt') {
-      chrome.storage.sync.set({jwt: ''}); // for manually resetting the jwt
+      // chrome.storage.sync.set({jwt: ''}); // for manually resetting the jwt
       chrome.storage.sync.get('jwt', function(res){
         if (!res.jwt) {
         var xhr = createCORSRequest('GET', 'http://localhost:3000/qurewweofsadfasf');
