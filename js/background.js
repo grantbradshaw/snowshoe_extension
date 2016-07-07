@@ -47,11 +47,10 @@ chrome.runtime.onMessage.addListener(
           if (xhr.readyState == 4 && xhr.status == 200) {
             var jwt_token = JSON.parse(xhr.responseText).jwt;
             chrome.storage.sync.set({jwt: jwt_token});
+            }
           }
         }
-      }
-      });
-      
+        }); 
     }
     if (request.message === "data_save") {
       var selector = request.data.selector;
