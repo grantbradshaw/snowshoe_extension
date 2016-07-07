@@ -1,0 +1,20 @@
+{
+  "name": "extension",
+  "homepage": "https://github.com/grantbradshaw/snowshoe_extension",
+  "authors": [
+    "Grant <grant.bradshaw@outlook.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "kjur-jsrsasign": "jsrsasign#^5.0.12"
+  }
+}
