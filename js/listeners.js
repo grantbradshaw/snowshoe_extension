@@ -1,7 +1,7 @@
 'use strict';
 
 (function(){
-  changeState(1);
+  helpers.changeState(1);
   chrome.runtime.sendMessage({"message": "check_jwt"});
   chrome.runtime.onMessage.addListener(
     function(request) {
