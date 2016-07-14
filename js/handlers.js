@@ -1,3 +1,5 @@
+'use strict';
+
 // general selection of prices
 function select_handler(event){
   var targeted = $(event.target);
@@ -11,7 +13,7 @@ function select_handler(event){
     var pathToSelected = targeted.getPath();
     $(targeted).removeClass('saved');
     scrapeResults.selector.path = pathToSelected;
-    chrome.runtime.sendMessage({"message": "data_delete", "data": scrapeResults});
+    // chrome.runtime.sendMessage({"message": "data_delete", "data": scrapeResults});
 
     var trs = $('.display_table tbody tr');
     $.each(trs, function(index, tr){

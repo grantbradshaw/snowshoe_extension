@@ -1,11 +1,13 @@
+'use strict';
+
 var cached_exports = [];
 
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
+  function(request) {
     if (request.message === "data_export" ) {
       cached_exports.push(request.data);
 
-      var xhr = createCORSRequest('POST', 'http://localhost:3000/scrapes');
+      var xhr = createXHRRequest('POST', 'http://localhost:3000/scrapes');
       chrome.storage.sync.get('jwt', function(res){
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("Authorization", "Bearer " + res.jwt);
@@ -29,13 +31,13 @@ chrome.runtime.onMessage.addListener(
         else {
           // handle edge cases
         }
-      }
+      };
     }
     if (request.message === 'check_jwt') {
       // chrome.storage.sync.set({jwt: ''}); // for manually resetting the jwt
       chrome.storage.sync.get('jwt', function(res){
         if (!res.jwt) {
-        var xhr = createCORSRequest('GET', 'http://localhost:3000/qurewweofsadfasf');
+        var xhr = createXHRRequest('GET', 'http://localhost:3000/token'); // but this will be publicly exposed as the token route :/
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send();
 
@@ -44,46 +46,46 @@ chrome.runtime.onMessage.addListener(
             var jwt_token = JSON.parse(xhr.responseText).jwt;
             chrome.storage.sync.set({jwt: jwt_token});
             }
-          }
+          };
         }
         }); 
     }
-    if (request.message === "data_save") {
-      var selector = request.data.selector;
-      if (Object.keys(tracks.pages).includes(request.data.url)){
-        tracks.pages[request.data.url].push(selector)
-      } else {
-        tracks.pages[request.data.url] = [selector]
-      }
-    }
-    if (request.message === "data_delete"){
-      tracks.pages[request.data.url].forEach(function(scrape, index){
-        if (scrape.path === request.data.selector.path) {
-          tracks.pages[request.data.url].splice(index, 1);
-        }
-        if (!tracks.pages[request.data.url].length){
-          delete tracks.pages[request.data.url]
-        }
-      });
-    }
+    // if (request.message === "data_save") {
+    //   var selector = request.data.selector;
+    //   if (Object.keys(tracks.pages).includes(request.data.url)){
+    //     tracks.pages[request.data.url].push(selector)
+    //   } else {
+    //     tracks.pages[request.data.url] = [selector]
+    //   }
+    // }
+    // if (request.message === "data_delete"){
+    //   tracks.pages[request.data.url].forEach(function(scrape, index){
+    //     if (scrape.path === request.data.selector.path) {
+    //       tracks.pages[request.data.url].splice(index, 1);
+    //     }
+    //     if (!tracks.pages[request.data.url].length){
+    //       delete tracks.pages[request.data.url]
+    //     }
+    //   });
+    // }
   }
 );
 
 // Returns whether extension is on http or https site (or other?)
-function getProtocol(){
-  var tab_path = window.location.href;
-  return tab_path.split(':')[0]
-}
+// function getProtocol(){
+//   var tab_path = window.location.href;
+//   return tab_path.split(':')[0];
+// }
 
-function createCORSRequest(method, url){
+function createXHRRequest(method, url){
   var xhr = new XMLHttpRequest();
   xhr.open(method, url, true);
   return xhr;
 }
 
-function sendMessage(message){
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
-    var activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, {"message": message});
-  });
-}
+// function sendMessage(message){
+//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+//     var activeTab = tabs[0];
+//     chrome.tabs.sendMessage(activeTab.id, {"message": message});
+//   });
+// }
