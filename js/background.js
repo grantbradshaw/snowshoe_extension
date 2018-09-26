@@ -7,23 +7,25 @@ chrome.runtime.onMessage.addListener(
     if (request.message === "data_export" ) {
       cached_exports.push(request.data);
 
-      var xhr = createXHRRequest('POST', 'http://localhost:3000/scrapes');
-      chrome.storage.sync.get('jwt', function(res){
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer " + res.jwt);
-        xhr.send(JSON.stringify(cached_exports));
-      });
+      var xhr = createXHRRequest('POST', 'http://localhost:8080/scrapes');
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(JSON.stringify(cached_exports));
+      // chrome.storage.sync.get('jwt', function(res){
+      //   xhr.setRequestHeader("Content-Type", "application/json");
+      //   xhr.setRequestHeader("Authorization", "Bearer " + res.jwt);
+      //   xhr.send(JSON.stringify(cached_exports));
+      // });
 
       xhr.onreadystatechange = function(){
         console.log(xhr.status);
         if (xhr.readyState == 4 && xhr.status == 200){
-          chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+          chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
             cached_exports = [];
             var activeTab = tabs[0];
             chrome.tabs.sendMessage(activeTab.id, {"message": "export_success"});
           });
         } else if (xhr.status == 404) {
-          chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+          chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
             var activeTab = tabs[0];
             chrome.tabs.sendMessage(activeTab.id, {"message": "export_fail"});
           });
@@ -33,23 +35,23 @@ chrome.runtime.onMessage.addListener(
         }
       };
     }
-    if (request.message === 'check_jwt') {
-      // chrome.storage.sync.set({jwt: ''}); // for manually resetting the jwt
-      chrome.storage.sync.get('jwt', function(res){
-        if (!res.jwt) {
-        var xhr = createXHRRequest('GET', 'http://localhost:3000/token'); // but this will be publicly exposed as the token route :/
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send();
+    // if (request.message === 'check_jwt') {
+    //   chrome.storage.sync.set({jwt: ''}); // for manually resetting the jwt
+    //   chrome.storage.sync.get('jwt', function(res){
+    //     if (!res.jwt) {
+    //     var xhr = createXHRRequest('GET', 'http://localhost:8080/token'); // but this will be publicly exposed as the token route :/
+    //     xhr.setRequestHeader('Content-Type', 'application/json');
+    //     xhr.send();
 
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-            var jwt_token = JSON.parse(xhr.responseText).jwt;
-            chrome.storage.sync.set({jwt: jwt_token});
-            }
-          };
-        }
-        }); 
-    }
+    //     xhr.onreadystatechange = function() {
+    //       if (xhr.readyState == 4 && xhr.status == 200) {
+    //         var jwt_token = JSON.parse(xhr.responseText).jwt;
+    //         chrome.storage.sync.set({jwt: jwt_token});
+    //         }
+    //       };
+    //     }
+    //     });
+    // }
     // if (request.message === "data_save") {
     //   var selector = request.data.selector;
     //   if (Object.keys(tracks.pages).includes(request.data.url)){
@@ -84,7 +86,7 @@ function createXHRRequest(method, url){
 }
 
 // function sendMessage(message){
-//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
 //     var activeTab = tabs[0];
 //     chrome.tabs.sendMessage(activeTab.id, {"message": message});
 //   });
